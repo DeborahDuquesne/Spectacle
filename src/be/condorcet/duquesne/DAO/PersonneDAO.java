@@ -451,7 +451,7 @@ public class PersonneDAO implements DAO<Personne>
 	            state.setString(9, "null");
 	            state.setInt(10, 0);
 	            state.setString(11, "null");
-	            state.setString(12, obj.getTufaisquoi());
+	            state.setString(12, "null");
 	            state.setString(13, "null");
 	            
 	            state.execute();
