@@ -42,7 +42,7 @@ public class StartActivity extends JFrame {
 			{
 				Image img = Toolkit.getDefaultToolkit()
 						.getImage(MainActivity.class
-								.getResource("/IMG/s.jpg")
+								.getResource("/be/condorcet/duquesne/IMG/s.jpg")
 								);
 				g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 			}

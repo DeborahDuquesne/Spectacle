@@ -3,6 +3,7 @@ package be.condorcet.duquesne.WBUILDER;
 
 import java.awt.EventQueue;
 
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -32,7 +33,7 @@ import javax.swing.border.EmptyBorder;
 
 
 
-import POJO.Personne;
+import be.condorcet.duquesne.POJO.*;
 import javax.swing.JScrollPane;
 
 public class MenuActivity extends JFrame {
@@ -61,7 +62,7 @@ public class MenuActivity extends JFrame {
 			public void paintComponent(Graphics g) {
 				Image img = Toolkit.getDefaultToolkit()
 						.getImage(MainActivity
-						.class.getResource("/IMG/s2.jpg"));
+						.class.getResource("/be/condorcet/duquesne/IMG/s2.jpg"));
 						g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 			}
 		};
@@ -149,9 +150,9 @@ public class MenuActivity extends JFrame {
 		btnSpectacle .addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e) 
-			{
-				ListRepresentation page = new ListRepresentation(personne);
-				page.setVisible(true);
+			{//
+				//ListingRepresentation page = new ListingRepresentation(personne);
+				//page.setVisible(true);
 				activity.dispose();
 			}
 		});
@@ -177,8 +178,8 @@ public class MenuActivity extends JFrame {
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				ReservationSalleSpectacle page = new ReservationSalleSpectacle(personne);
-				page.setVisible(true);
+				//ReservationSalleSpectacle page = new ReservationSalleSpectacle(personne);
+			//	page.setVisible(true);
 				activity.dispose();
 			}
 		});

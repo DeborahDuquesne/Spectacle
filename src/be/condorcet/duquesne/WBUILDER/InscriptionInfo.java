@@ -2,6 +2,9 @@ package be.condorcet.duquesne.WBUILDER;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -25,6 +28,18 @@ public class InscriptionInfo extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		
+		JPanel panel_1 = new JPanel() 
+		{
+			public void paintComponent(Graphics g) 
+			{
+				Image img = Toolkit.getDefaultToolkit()
+						.getImage(MainActivity.class
+								.getResource("/be/condorcet/duquesne/IMG/t.jpg")
+								);
+				g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
+			}
+		};
 		
 		JTextArea textArea = new JTextArea( "Si vous ne savez pas qui vous etes  " +
 			    "vous devez essayer de savoir ce que vous faites ici  sur l application de reservation de spectacle  " +

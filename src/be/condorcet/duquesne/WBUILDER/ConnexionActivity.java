@@ -1,4 +1,5 @@
 package be.condorcet.duquesne.WBUILDER;
+import be.condorcet.duquesne.POJO.*;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -82,7 +83,7 @@ public class ConnexionActivity extends JFrame {
 		btnClient.setBackground(Color.DARK_GRAY);
 		btnClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				LoginByStatus page = new LoginByStatus(POJO.Client.statut);
+				LoginByStatus page = new LoginByStatus(Client.statut);
 				page.setVisible(true);
 				activity.dispose();
 			}
@@ -156,7 +157,7 @@ public class ConnexionActivity extends JFrame {
 		btnsaitPas.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e) {
-				InscriptionInfos page = new InscriptionInfos();
+				InscriptionInfo page = new InscriptionInfo();
 				page.setVisible(true);
 				activity.dispose();
 			}

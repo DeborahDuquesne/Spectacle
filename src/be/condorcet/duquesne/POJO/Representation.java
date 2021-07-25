@@ -109,8 +109,9 @@ public class Representation {
 	}
 
 	@Override
-	public String toString() {
-		return " NO " + id + " date "+  dateRepresentation + "  id psect " ;
+	public String toString() 
+	{
+		return " NO " + id + " date "+  dateRepresentation + "  id psect " +  spectacle.getId() ;
 	}
 
 	
@@ -119,7 +120,7 @@ public class Representation {
 	{
 		return (List<Representation>) rDAO.findAll(this);
 	}
-	//ca liste la totalité des repr
+	//ca liste la totalité des repr sans inner 
 	public List<Representation>getAll ()
 	{
 		return (List<Representation>) rDAO.getAll(this);

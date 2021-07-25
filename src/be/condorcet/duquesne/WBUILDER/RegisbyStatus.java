@@ -71,7 +71,7 @@ public class RegisByStatus extends JFrame
 			{
 				Image img = Toolkit.getDefaultToolkit()
 						.getImage(MainActivity.class
-								.getResource("/IMG/R.jpg")
+								.getResource("/be/condorcet/duquesne/IMG/R.jpg")
 								);
 				g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 			}

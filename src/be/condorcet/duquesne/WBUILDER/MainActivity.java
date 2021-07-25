@@ -68,21 +68,6 @@ public class MainActivity extends JFrame {
 
 	private JComboBox<Spectacle> sp_cm;
 	
-	
-	
-
-
-	public Spectacle getItemsSpectacle() 
-	{
-		return createCombobox();
-	}
-
-
-
-
-	
-
-
 
 
 	public MainActivity() 
@@ -104,7 +89,7 @@ public class MainActivity extends JFrame {
 			{
 				Image img = Toolkit.getDefaultToolkit()
 						.getImage(MainActivity.class
-								.getResource("/IMG/t.jpg")
+								.getResource("/be/condorcet/duquesne/IMG/t.jpg")
 								);
 				g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 			}
@@ -136,20 +121,30 @@ public class MainActivity extends JFrame {
 		lblNewLabel_2.setBounds(20, 219, 352, 27);
 		panel_1.add(lblNewLabel_2);
 		
-		JButton btnNewButton = new JButton("ACCES AU MENU");
-		btnNewButton.setFont(new Font("Yu Gothic", Font.BOLD | Font.ITALIC, 13));
-		btnNewButton.setBounds(52, 257, 296, 42);
-		panel_1.add(btnNewButton);
+		JButton menu = new JButton("ACCES AU MENU");
+		menu.setFont(new Font("Yu Gothic", Font.BOLD | Font.ITALIC, 13));
+		menu.setBounds(52, 257, 296, 42);
+		panel_1.add(menu);
 		
-		JButton aa = new JButton("aa");
-		aa.setBounds(291, 25, 89, 23);
-		panel_1.add(aa);
-		
-		aa.addActionListener(new ActionListener()
+		JButton aaa = new JButton("testt");
+		aaa.setBounds(130, 11, 89, 23);
+		panel_1.add(aaa);
+		aaa.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				
+				test start = new test(createCombobox());
+				start.setVisible(true);
+				activity.dispose();
+				}
+		});
+		
+		menu.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				StartActivity start = new StartActivity();
+				start.setVisible(true);
 				activity.dispose();
 				}
 		});
@@ -158,8 +153,9 @@ public class MainActivity extends JFrame {
 			
 
 		createCombobox();
-		JOptionPane.showMessageDialog(null, "cbbox ds main  ."+ createCombobox());	
+		//JOptionPane.showMessageDialog(null, "cbbox ds main  ."+ createCombobox());	
 	}
+	
 	public Spectacle  createCombobox() 
 	{
 		//JOptionPane.showMessageDialog(null, "taille radio ."+ size.toString());
@@ -175,8 +171,7 @@ public class MainActivity extends JFrame {
 	}
 	
 	
-	public void createBtnRetour() {
-	}
+	
 	
 	public void init() 
 	{

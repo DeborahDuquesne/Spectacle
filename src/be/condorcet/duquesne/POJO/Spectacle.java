@@ -127,7 +127,13 @@ public class Spectacle {
 		this.nombrePlaceParClient = nombrePlaceParClient;
 	}
 
-	public String getGenre() {
+	public String getGenre() 
+	{
+		if(this.genre==null || this.genre==" ")
+		{
+			return "non indiqué";
+		}
+		else
 		return genre;
 	}
 
@@ -148,9 +154,11 @@ public class Spectacle {
 	}
 
 	@Override
-	public String toString() {
-	
-		return "NO: " + id + "  " + libel + "  " + genre ;
+	public String toString() 
+	{
+		rep= new Representation();// j ai du fre des test 
+		return libel + "   " + this.getGenre(); // j utilise le getter car jai des genre nuls ainsi ça affiche un msg
+		//  + "  " + rep.getId(); test 
 	}
 	
 
@@ -172,38 +180,35 @@ public class Spectacle {
 	
 	
 	
-	
+	public List<Representation> getRepresentationList(){
+		return reList;
+	}
 	
 
-	
-	
-	public List<Representation> getRepresentationList()
+	public void display()
 	{
-		rep= new Representation();
-		//JOptionPane.showMessageDialog( null,"List<Representation> getRepresentationList() "+rep.getAll().size());
-		// ca donne ttes les repreen
-		return rep.getAll();
-	};
-	
-	
+		 List<Representation> list = rep.findAll();
+		 for(Representation res : list) 
+		 {
+			 System.out.println(res);
+			// JOptionPane.showMessageDialog(null," "+res);
+		 }
+	}
 	public void getListRepresentationBySpectacle()
 	{
 		rep = new Representation();
 		// ca renvoie ttes les repre
         List<Representation> list = rep.findAll();
-        List<Spectacle> liste = new ArrayList<Spectacle>();
-        liste= this.findAll();
-        // ca donne rien 
+      
       //  JOptionPane.showMessageDialog( null,"taille liste repre ds spect .fd all"  +rep.findAll().size());
       
-        
-        for(Spectacle res : liste) 
+        for(Representation res : list) 
         {
-        	if(rep.getSpectacle().id==this.id)
-        		this.re.add(res);
+        	if(res.getSpectacle().getId()==this.id)
+        		this.reList.add(res);
         	}
         		
-        	
+        	//JOptionPane.showMessageDialog(null,"relist de getlistby  "+reList);
         	//JOptionPane.showMessageDialog( null,"res.getspect.getid "+res.getSpectacle().getId());
         	//JOptionPane.showMessageDialog( null,"res.getSpectacle().getId() == this.id "+(res.getSpectacle().getId() == this.id));
         	

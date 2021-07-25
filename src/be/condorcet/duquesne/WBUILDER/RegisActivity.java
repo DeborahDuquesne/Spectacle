@@ -56,7 +56,7 @@ public class RegisActivity extends JFrame
 			{
 				Image img = Toolkit.getDefaultToolkit()
 						.getImage(MainActivity.class
-								.getResource("/IMG/R.jpg")
+								.getResource("/be/condorcet/duquesne/IMG/R.jpg")
 								);
 				g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 			}
@@ -162,7 +162,7 @@ public class RegisActivity extends JFrame
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				InscriptionInfos page = new InscriptionInfos();
+				InscriptionInfo page = new InscriptionInfo();
 				page.setVisible(true);
 				activity.dispose();
 			}
