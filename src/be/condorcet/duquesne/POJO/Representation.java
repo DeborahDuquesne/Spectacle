@@ -46,15 +46,20 @@ public class Representation {
 
 	
 	
-	public Representation(float heureDebut, float heureFin, 
+	public Representation(int id,float heureDebut, float heureFin, 
 			String dateRepresentation, String commentaire) {
-		
+		this.id=id;
 		this.heureDebut = heureDebut;
 		this.heureFin = heureFin;
 	
 		this.dateRepresentation = dateRepresentation;
 		this.commentaire = commentaire;
 	}
+	/* **************************************************************************************
+	 * 
+	 * 		DOUBLE LIEN MEME STRUCTURE DS SPECTCALE
+	 * 			UML DONNE COMME CA 
+	 * ****************************************************************************************/
 	public Representation(int id,float heureDebut, float heureFin,
 			String dateRepresentation, Spectacle s) {
 	
@@ -67,7 +72,16 @@ public class Representation {
 	}
 	
 	
+	public Representation(int id,float heureDebut, float heureFin,
+			String dateRepresentation) {
 	
+		this.id=id;
+		this.heureDebut = heureDebut;
+		this.heureFin = heureFin;
+	
+		this.dateRepresentation = dateRepresentation;
+		
+	}
 	public Spectacle getSpectacle() {
 		return spectacle;
 	}
@@ -111,7 +125,11 @@ public class Representation {
 	@Override
 	public String toString() 
 	{
-		return " NO " + id + " date "+  dateRepresentation + "  id psect " +  spectacle.getId() ;
+		return " [ " + id +" ]"
+	+    "   "+ spectacle.getLibel()
+	+  " date "+  dateRepresentation ;
+	//+ "  id psect " 
+	//+  spectacle.getId() ;
 	}
 
 	

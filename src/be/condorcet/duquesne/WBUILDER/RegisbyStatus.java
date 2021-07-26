@@ -288,7 +288,7 @@ public class RegisByStatus extends JFrame
 
 					Personne isAlreadyCreatedUser = personne.find();
 					
-					JOptionPane.showMessageDialog(null, "personne trouv ??"+isAlreadyCreatedUser);
+					JOptionPane.showMessageDialog(null, "personne trouv ??"+isAlreadyCreatedUser);// ca renvoie true ou false a titre de test
 					
 					if(isAlreadyCreatedUser == null) 
 					{

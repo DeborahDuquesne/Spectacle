@@ -1,6 +1,7 @@
 package be.condorcet.duquesne.WBUILDER;
 
 import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -26,8 +27,10 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import be.condorcet.duquesne.POJO.Personne;
 import be.condorcet.duquesne.POJO.Representation;
 import be.condorcet.duquesne.POJO.Spectacle;
+import javax.swing.JTextField;
 
 public class ListingRepresentation extends JFrame 
 {
@@ -39,6 +42,7 @@ public class ListingRepresentation extends JFrame
 	private Spectacle leSpectacle;
 	private Spectacle spectacle = new Spectacle();
 	private Representation r = new Representation();
+	private Personne personne;
 	
 	private Spectacle s = new Spectacle();
 	private JComboBox  <Representation> Combobox ;
@@ -51,17 +55,24 @@ public class ListingRepresentation extends JFrame
 	private JList<String> jListArt;
 	private JList<Representation> jListRepresentation;
 	private JButton btnClose;
+	private JTextField heureD;
+	private JTextField heureF;
+	private JTextField date;
+	private JTextField nb;
+	private JTextField config;
+	private JButton btnPlace;
 	
 	
-			public ListingRepresentation(Spectacle s) 
+			public ListingRepresentation(Spectacle s,Personne p) 
 			{
+				this.personne=personne;
 				setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				setBounds(100, 100, 680, 601);
 				contentPane = new JPanel();
 				contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 				setContentPane(contentPane);
 				contentPane.setLayout(null);
-				JPanel panel = new JPanel() 
+				JPanel nbre = new JPanel() 
 				{
 					public void paintComponent(Graphics g) 
 					{
@@ -73,15 +84,55 @@ public class ListingRepresentation extends JFrame
 					}
 				};
 				
-				panel.setBounds(10, 11, 654, 374);
-				contentPane.add(panel);
-				panel.setLayout(null);
+				nbre.setBounds(10, 11, 654, 540);
+				contentPane.add(nbre);
+				nbre.setLayout(null);
 				 
 				
 			    Combobox = new JComboBox();
-			    Combobox.setBounds(78, 28, 413, 22);
-			    panel.add(Combobox);
+			    Combobox.setBounds(10, 28, 634, 22);
+			    nbre.add(Combobox);
+			    
+			    heureD = new JTextField();
+			    heureD.setBounds(10, 85, 264, 32);
+			    nbre.add(heureD);
+			    heureD.setColumns(10);
+			    
+			    heureF = new JTextField();
+			    heureF.setBounds(10, 128, 264, 28);
+			    nbre.add(heureF);
+			    heureF.setColumns(10);
+			    
+			    date = new JTextField();
+			    date.setBounds(10, 167, 264, 29);
+			    nbre.add(date);
+			    date.setColumns(10);
+			    
+			    nb = new JTextField();
+			    nb.setBounds(10, 207, 264, 32);
+			    nbre.add(nb);
+			    nb.setColumns(10);
+			    
+			    config = new JTextField();
+			    config.setBounds(10, 250, 264, 33);
+			    nbre.add(config);
+			    config.setColumns(10);
+			    
+			    btnPlace = new JButton("CHOIX DES PLACES");
+			    btnPlace.setBounds(162, 464, 355, 23);
+			    btnPlace.addActionListener(new ActionListener()
+				{
+					public void actionPerformed(ActionEvent e)
+					{
+						PlaceActivity page = new PlaceActivity(displayCombo( s) ,p);// a examiner
+						page.setVisible(true);
+						activity.dispose();
+					}
+				});
+			    nbre.add(btnPlace);
 				activity=this;
+				
+				
 			
 				
 			/* selon les besoins du visu on peut choisur une jlist */ 
@@ -109,14 +160,20 @@ public class ListingRepresentation extends JFrame
 /**********************************************************************************************************
  * 
  * 									GENERATION D UN COMBO A L AIDE DU SPECTACLE RECU 
- * 
+ * 									PlaceActivity recevra cet objet afin de lier representation et place sur les frames
  * 
  ************************************************************************************************************/
-			private void displayCombo(Spectacle s) 
+			private Representation  displayCombo(Spectacle s) 
 			{
 				
 				s.getListRepresentationBySpectacle();
-				
+				Combobox.addActionListener(new ActionListener() 
+				{
+					public void actionPerformed(ActionEvent arg0) 
+					{
+						activity.setId();
+					}
+				});
 				
 				if(!s.getRepresentationList().isEmpty()) {
 					for(Representation rep : s.getRepresentationList())
@@ -134,6 +191,8 @@ public class ListingRepresentation extends JFrame
 					rep.setBounds(30, 360, 610, 45);
 					contentPane.add(rep);
 				}
+				
+				return r= (Representation) Combobox.getSelectedItem();
 			}
 			
 /*********************************************************************************************************
@@ -170,5 +229,38 @@ public class ListingRepresentation extends JFrame
 					contentPane.add(lblNewLabel_7);
 				}
 			}
+			
+			
+/********************************************************************************************************************************************
+ * 
+ * 
+ * 		FONCTION QUI PERMET D AFFICHER LES DIFFERENTES DONNEES DES REPRESENTATIONS DS DES LABELS
+ * 
+ * 
+ * **********************************************************************************************************************************************
+ */
+			public void setId()
+			{
+				r= (Representation) Combobox.getSelectedItem();
+				r.findAll();
+				
+				
+				//dateDebutLabel.setText(currentSpectacle.getPlanning().getdateDebutReservation().toString() + " - 12:00");
+				//dateFinLabel.setText(currentSpectacle.getPlanning().getDateFinReservation().toString() + " - 12:00");
+				//deux.setText("no de psectacle :  "+Integer.toString(s.getId()));
+				
+					
+				//.getPlanning().getSpectacle().getConfiguration().getDescription());
+				
+				heureD.setText("Heure de commencement : "+r.getHeureDebut());
+				heureF.setText("Heure de fin : "+ r.getHeureFin());
+				date.setText("date : "+r.getDateRepresentation());
+				nb.setText("nbre de place  : "+r.getSpectacle().getNombrePlaceParClient());
+				//config. a faire 
+				
+				
+				
+				
+			}	
 }
 

@@ -129,11 +129,29 @@ public class MainActivity extends JFrame {
 		JButton aaa = new JButton("testt");
 		aaa.setBounds(130, 11, 89, 23);
 		panel_1.add(aaa);
+		
+		JButton list = new JButton("list");
+		list.setBounds(282, 11, 89, 23);
+		panel_1.add(list);
+
+		list.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				Configuration c= new Configuration();
+				Categorie cat = new Categorie();
+				cat.display();
+				JOptionPane.showMessageDialog( null,"taille listeconfig"  + cat.findAll().size());
+				activity.dispose();
+				}
+		});
+		
+		
 		aaa.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				test start = new test(createCombobox());
+				test start = new test();//createCombobox());
 				start.setVisible(true);
 				activity.dispose();
 				}

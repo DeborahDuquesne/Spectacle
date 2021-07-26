@@ -28,9 +28,11 @@ public DAO<Reservation> getReservationDAO()
 	return new ReservationDAO(conn);
 }
 @Override
-public DAO<Categorie> getCategorieDAO() {
-	// TODO Auto-generated method stub
-	return null;
+public DAO<Categorie> getCategorieDAO()
+{
+	
+	return new CategorieDAO (conn);
+	
 }
 @Override
 public DAO<PlanningSalle> getPlanningSalleDAO() {
@@ -49,9 +51,9 @@ public DAO<Spectacle> getSpectacleDAO()
 	return new SpectacleDAO(conn);
 }
 @Override
-public DAO<Configuration> getConfigurationDAO() {
-	// TODO Auto-generated method stub
-	return null;
+public DAO<Configuration> getConfigurationDAO() 
+{
+	return new ConfigurationDAO(conn);
 }
 @Override
 public DAO<Commande> getCommandeDAO() {

@@ -151,8 +151,8 @@ public class MenuActivity extends JFrame {
 		{
 			public void actionPerformed(ActionEvent e) 
 			{//
-				//ListingRepresentation page = new ListingRepresentation(personne);
-				//page.setVisible(true);
+				ListingSpectacle page = new ListingSpectacle (personne);
+				page.setVisible(true);
 				activity.dispose();
 			}
 		});

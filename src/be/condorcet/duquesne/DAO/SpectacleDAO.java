@@ -16,6 +16,8 @@ import java.util.Collection;
 import java.util.List;
 
 import be.condorcet.duquesne.POJO.*;
+import be.condorcet.duquesne.POJO.Categorie.TypesCat;
+import be.condorcet.duquesne.POJO.Configuration.Ticket;
 
 
 
@@ -112,7 +114,7 @@ public class SpectacleDAO implements DAO<Spectacle>
  * 
  * UN SPECTACLE PROPOSE DES REPRESENTATION ON A DONC UNE JOINTURE 
  * DES REPRESENTATION ONT DES CONFIG ON A UNE AUTRE JOINTURE
- * ET LES CONFIG ON DES CATEGORIES
+ * ET LES CONFIG ONt DES CATEGORIES
  * ON DOIT TOUT LIER ENSEMBLE 
  * 
  * 
@@ -129,6 +131,7 @@ public class SpectacleDAO implements DAO<Spectacle>
 		
 		
 		List<Representation> reservList= new ArrayList<Representation>();
+		// liste a titre de test 
 		
 		
 			Statement stm = null;
@@ -138,24 +141,26 @@ public class SpectacleDAO implements DAO<Spectacle>
 			try
 			{
 				String sql = "Select * From spectacle_ inner join representation_"
-						+ " on spectacle_.\"id\"=representation_.\"fk_spect\"";
+						+ " on spectacle_.\"id\"=representation_.\"fk_spect\" inner join  config_ on spectacle_.\"id\" \r\n"
+						+ "= config_.\"fk_spect\""
+						+ "INNER JOIN Categorie_ ON Config_.\"id\" =  categorie_.\"fk_config\"";
+						
 			
 				rs=this.connect.createStatement().executeQuery(sql);
 				while(rs.next())
 				{
 				
-							/*
-	
-					liste.add(new Spectacle(
-							rs.getInt(1),
-							rs.getString(2),
-							rs.getString(3),
-							rs.getString(4),
-							rs.getString(5),
-							rs.getInt(6)
-							)
-							);		
-					*/
+				
+					
+/************************************************************************************************************************************************                 
+ * 								 DATA SPECTACLE                                                                                                         
+ * 		
+ *   				ATTRIBUTS DE LA TABLE SPECTACLE 
+ *   
+ *   
+ *   
+ *  ********************************************************************************************************************************************/
+ 
 					
 					int ids=Integer.parseInt(rs.getString(1));
 					String libel=rs.getString(2);
@@ -165,22 +170,96 @@ public class SpectacleDAO implements DAO<Spectacle>
 					int nbreP =rs.getInt(6);	
 					
 					
-					Spectacle sp =new Spectacle(libel,genre,urlImg,desc,nbreP);
 					
+					 
 					
-					
-					String comm = rs.getString(7);
+/* ******************************************************************************************************************************************************
+ * 
+ * 
+ *           
+ *          		  DATA REPRESENTATION 
+ *          LE SPECTABLE AURA UNE OU PLS REPRESENTATION
+ *          EX LARA FABIAN AURA UN SPECTACLE LUNDI JEUDI ET SAMEDI IL FAUT DONC ALLER LES CHERCHER 
+ *          LIAISON DE SPECTACLE AVEC REPRESENTION 
+ *          
+ *           
+ *           
+ **************************************************************************************************************************************************/
+  
+ 
+					int idR = Integer.parseInt(rs.getString(7));
+					String comm = rs.getString(11);
 					String  date =rs.getString(8);
 				
-					int idR = Integer.parseInt(rs.getString(7));
+					
 					float heureD =  Float.parseFloat(rs.getString(9));
 					float heureF =Float.parseFloat(rs.getString(10));
 
-					Representation rep =new Representation (idR,heureD,heureF,date,comm,sp);
+					Representation rep =new Representation (idR,heureD,heureF,date,comm);
+					// pr test
+					List<Categorie> categories = new ArrayList<Categorie>();
+					
+/**************************************************************************************************************************************************
+ * 
+ *            
+ *            
+ *            		         
+ *   						 CATEGORIE 
+ *   						LE SPECTACLE DISPOSE DE CONFIGURTION QUI ELLES MEMES CONTIENNENT DES CATEGORIES 
+ *   						EX SI ON CHOISIT ASSIS CIRQUE ON AURA DES CAT OR ARGENT ETC 
+ *            
+ *            
+ ***************************************************************************************************************************************************/
+					
+					int idCat = Integer.parseInt(rs.getString(18));
+					String commt= rs.getString(19);
+					int prix = (int) Float.parseFloat(rs.getString(21));
+					int nbrPlaceLibre = (int) Float.parseFloat(rs.getString(22));
+					int nbrePlaceMax = (int) Float.parseFloat(rs.getString(23));
+					//typ px cong place
+					
+		/*          CRETAION DE LA CATEGORI QU ON VA ALLER AFFECTER A LA CONFIG DU   SPECTACLE             */			
+					
+					Categorie categorie = new Categorie();
+					categorie.setNbrePlaceLibre(nbrePlaceMax);
+					categorie.setNbrPlaceMaximum(nbrePlaceMax);
+					categorie.setCommentaire(commt);
+					categorie.setId(idCat);
+					categories.add(categorie);
+					
+					
+/*****************************************************************************************************************************************************************
+ * 
+ * 
+ * 
+ * 							 DATA CATEGORIE DE LA CONFIG
+ * 							LE SPECTACLE DISPOSE DE DIFFERENTES CONFIGIRATIONS IL FAUT DONC LIER LES TABLES AFIN DE LES CHERCHER 
+ * 
+ * 
+ * 
+ * 
+ *****************************************************************************************************************************************************/
+					
+					/*     DATA   CONFIGURATION                                 */
+					int idC = Integer.parseInt(rs.getString(13));
+					Ticket type= Ticket.valueOf(rs.getString(14));
+					String description = rs.getString(16);
+					String comment= rs.getString(15);
+					//id,decr,type, spectacle
+					Configuration config = new Configuration(idC, description, type,comment);
+					// attribution de la cat a la conf 
+					config.setCategories(categories);
+					
+					Spectacle sp= new Spectacle(ids,libel,genre,urlImg,desc,nbreP,rep,config);
+					sp.setRep(rep);
+					sp.setConfiguration(config);
+					sp.setId(ids);
+					
+					
 					
 					liste.add(sp);
 					
-					reservList.add(rep);
+					
 					
 				}
 			}
@@ -192,6 +271,7 @@ public class SpectacleDAO implements DAO<Spectacle>
 			
 			return liste;
 		}
+	/*simple requete dans la  table spectacle pr des besoins de test */
 	@Override
 	public List getAll(Spectacle s) 
 	{

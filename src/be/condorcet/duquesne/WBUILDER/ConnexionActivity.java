@@ -52,22 +52,20 @@ public class ConnexionActivity extends JFrame {
 		contentPane.setLayout(null);
 		
 		// creation d un panel pour taper une photo en background 
-				JPanel panel_1 = new JPanel() 
-				{
-					public void paintComponent(Graphics g) 
-					{
-						Image img = Toolkit.getDefaultToolkit()
-								.getImage(MainActivity.class
-										.getResource("/IMG/t.jpg")
-										);
-						g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
-					}
-				};
-				panel_1.setForeground(new Color(230, 230, 250));
-				panel_1.setBounds(10, 11, 434, 331);
-				contentPane.add(panel_1);
-				panel_1.setLayout(null);
-			
+		JPanel panel_1 = new JPanel() 
+		{
+			public void paintComponent(Graphics g) 
+			{
+				Image img = Toolkit.getDefaultToolkit()
+						.getImage(MainActivity.class
+								.getResource("/be/condorcet/duquesne/IMG/t.jpg")
+								);
+				g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
+			}
+		};
+		panel_1.setBounds(0, 2, 434, 331);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
 		
 		
 		
@@ -137,12 +135,14 @@ public class ConnexionActivity extends JFrame {
 			}
 		});
 		panel_1.add(btnRetour);
+		
 		panel_1.setBounds(10, 11, 694, 390);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Enregistrement en tant que :");
-		lblNewLabel.setForeground(UIManager.getColor("CheckBox.light"));
+		lblNewLabel.setBackground(UIManager.getColor("Button.light"));
+		lblNewLabel.setForeground(UIManager.getColor("Button.highlight"));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Yu Gothic Medium", Font.BOLD | Font.ITALIC, 22));
 		lblNewLabel.setBounds(31, 17, 598, 72);

@@ -1,5 +1,8 @@
 package be.condorcet.duquesne.POJO;
 import java.sql.Date;
+import java.util.List;
+
+import javax.swing.JOptionPane;
 
 import be.condorcet.duquesne.POJO.*;
 import be.condorcet.duquesne.DAO.*;
@@ -11,6 +14,14 @@ public class Categorie
 {
 	private final AbstractFactoryDAO dao = AbstractFactoryDAO.getFactory(AbstractFactoryDAO.DAO_FACTORY);
 	private final DAO<Categorie> cDAO = dao.getCategorieDAO();
+	private String commentaire;
+	private TypesCat type;
+	private int prix = 0;
+	private int id = 0;
+	
+	private int nbrePlaceLibre;
+	// je capte pas son utilité
+	private int nbrPlaceMaximum;
 
 	public enum TypesCat 
 	{
@@ -19,33 +30,26 @@ public class Categorie
 		DIAMANT,
 		BRONZE
 	};
-	private String commentaire;
-	private TypesCat type;
-	private int prix = 0;
-	private int id = 0;
-	private Configuration configuration;
-	private int nbrePlaceLibre;
-	// je capte pas son utilité
-	private int nbrPlaceMaximum;
+	
 	
 	
 	// ct par defaut 
 	public Categorie() {}
 	
 	// ctr avec ts les attributs
-	public Categorie(String commentaire, TypesCat type, int prix, int id, Configuration configuration,
+	public Categorie(String commentaire, TypesCat type, int prix, int id,
 			int nbrePlaceLibre, int nbrPlaceMaximum) {
 		super();
 		this.commentaire = commentaire;
 		this.type = type;
 		this.prix = prix;
 		this.id = id;
-		this.configuration = configuration;
+		
 		this.nbrePlaceLibre = nbrePlaceLibre;
 		this.nbrPlaceMaximum = nbrPlaceMaximum;
 	}
 	// a l appel de ce ctr le nbre de place serz calculer
-	public Categorie(TypesCat type, int prix, Configuration configuration,
+	public Categorie(TypesCat type, int prix, 
 			Ticket place) 
 	{
 		
@@ -53,10 +57,35 @@ public class Categorie
 		this.type = type;
 		this.prix = prix;
 		
-		this.configuration = configuration;
+		
 		this.calculPlace(type, place);
 	}
 	
+	//(idCat,com,typeC,prix,nbre,nbre2
+	
+	
+	public Categorie(int id,String comm,TypesCat type, int prix,int n1,
+			int n2) 
+	{
+		
+		this.id=id;
+		this.type = type;
+		this.prix = prix;
+		this.commentaire=comm;
+		this.nbrePlaceLibre=n1;
+		this.nbrPlaceMaximum=n2;
+	
+	}
+	
+	public Categorie(int id, int prix)
+		
+	{
+		
+		
+		this.prix = prix;
+		
+		this.id=id;
+	}
 
 // getter setter
 	
@@ -66,7 +95,7 @@ public class Categorie
 
 
 	public String getCommentaire() {
-		return commentaire;
+		return this.commentaire;
 	}
 
 
@@ -105,14 +134,7 @@ public class Categorie
 	}
 
 
-	public Configuration getConfiguration() {
-		return configuration;
-	}
-
-
-	public void setConfiguration(Configuration configuration) {
-		this.configuration = configuration;
-	}
+	
 
 
 	public int getNbrePlaceLibre() {
@@ -139,8 +161,8 @@ public class Categorie
 	
 	@Override
 	public String toString() {
-		return "Categorie [type=" + type + ", prix=" + prix + ", id=" + id + ", configuration=" + configuration
-				+ ", nbrePlaceLibre=" + nbrePlaceLibre + ", nbrPlaceMaximum=" + nbrPlaceMaximum + "]";
+		return " CAT:   " +   type + "   " + prix + "euros " ;
+				//+ ", nbrePlaceLibre=" + nbrePlaceLibre + ", nbrPlaceMaximum=" + nbrPlaceMaximum + "]";
 	}
 
 
@@ -220,6 +242,20 @@ public class Categorie
 		return majNbrePlce;
 	}
 	
+	public List<Categorie> findAll()
+	{
+		return (List<Categorie>) cDAO.findAll(this);
+				
+	}
 	
+	public void display()
+	{
+		List<Categorie> list = this.findAll();
+		 for(Categorie res : list) 
+		 {
+			 System.out.println(res);
+			JOptionPane.showMessageDialog(null," "+res);
+		 }
+	}
 
 }

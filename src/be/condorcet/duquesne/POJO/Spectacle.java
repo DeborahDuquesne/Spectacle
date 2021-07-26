@@ -22,6 +22,7 @@ public class Spectacle {
 	private Representation rep;
 	// prendre les representations corr au spectacle
 	List<Representation> reList = new LinkedList<>();
+	
 	List<Spectacle> re = new LinkedList<>();
 	
 	
@@ -64,7 +65,27 @@ public class Spectacle {
 		this.description=description ;
 		
 	}
-	
+	/***************************************************************************************************************************************
+	 * 
+	 * SCHEMa UML DONNE DONNE DOUBLE LIEN ENTRE SPECTACLE ET REPRESENTATION DONC ON PEUT FAIRE SOIT ICI SOIT DE L AUTRE COTE 
+	 * J AI TEST DES DEUX MANIERES SOIT ON CHOPE LES SPECTACLES ET ON SUITE LE CHEMIN SOIT ON CHOPE LA REPREENTATION QUI POSSEDE
+	 * UN SPECTACLE ET ON SUIT LE CHEMIN DES TABLES 
+	 * 
+	 * 
+	 * 
+	 * ***************************************************************************************************************************************/
+	public Spectacle(int id,String libel,String genre,String urlImg,String description,int nombrePlaceParClient,Representation rep,Configuration config) 
+	{
+		this.id=id;
+		this.libel = libel;
+		this.nombrePlaceParClient = nombrePlaceParClient;
+		this.genre=genre;
+		this.urlImg=urlImg;
+		this.description=description ;
+		this.rep=rep;
+		this.configuration=config;
+		
+	}
 
 	public Spectacle(int id, String libel)
 	{
@@ -85,10 +106,15 @@ public class Spectacle {
 	}
 
 	public String getDescription() {
-		return description;
+		if(this.description==null || this.genre==" ")
+		{
+			return "aucune description pour ce spectacle ";
+		}
+		else
+			return this.description;
 	}
 	
-
+	
 	public List<Representation> getReList() {
 		return reList;
 	}
@@ -157,7 +183,7 @@ public class Spectacle {
 	public String toString() 
 	{
 		rep= new Representation();// j ai du fre des test 
-		return libel + "   " + this.getGenre(); // j utilise le getter car jai des genre nuls ainsi ça affiche un msg
+		return libel + "   " ;
 		//  + "  " + rep.getId(); test 
 	}
 	
@@ -166,17 +192,33 @@ public class Spectacle {
 		return this.spectacleDAO.create(this);
 
 	}
-// ca liste tous les spectacles 
+// ca liste tous les spectacles  a titre d essai pr la page sans connexion 
 	public List<Spectacle> findAll_ ()
 	{
 		return (List<Spectacle>) spectacleDAO.getAll(this);
 				//.findAll(this);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	/* cette liste contient les spectacles vec ttes les jointures */
 	public List<Spectacle> findAll()
 	{
+		
+		
 		return (List<Spectacle>) spectacleDAO.findAll(this);
 				//.findAll(this);
 	}
+	
+	
+	
+	
+	
 	
 	
 	

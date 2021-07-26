@@ -1,7 +1,28 @@
 package be.condorcet.duquesne.WBUILDER;
-import java.awt.BorderLayout;
+import be.condorcet.duquesne.POJO.*;
 
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.TextArea;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -10,198 +31,254 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-
-import be.condorcet.duquesne.POJO.*;
-
-import javax.swing.AbstractButton;
-import javax.swing.JButton;
-import java.awt.Color;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.Font;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
 import javax.swing.JTextArea;
-import javax.swing.JSpinner;
-import javax.swing.JSlider;
-import javax.swing.JScrollBar;
-import java.awt.TextArea;
 
-public class ListingSpectacle extends JFrame 
-{
+public class ListingSpectacle extends JFrame {
 
 	private JPanel contentPane;
+
+
+	private DefaultListModel<String> listModelArt = new DefaultListModel<>();
+	private DefaultListModel<Representation> listModelRep = new DefaultListModel<>();
+	private JScrollPane scrollPane;
+	private JList<String> jListArt;
+	private JList<Representation> jListRepresentation;
+	private JButton btnClose;
+	private JLabel genre;
+	private ListingSpectacle activity;
+	
+	
+	
+	private Spectacle s = new Spectacle();
 	private Personne personne;
 	
+	private Representation r = new Representation();
+	private JComboBox<Spectacle> Spp;
+	private JComboBox <Representation>rere;
 	
-	private Spectacle leSpectacle = new Spectacle();
-	private Representation repr=new Representation ();
-	private Reservation reserv =new Reservation ();
+	private   JLabel libel,test;
+	private TextArea txydescr;
 	
-	private JButton btnRetour;
-	private ListingSpectacle activity;
-	private JComboBox<Reservation> reservationsCombobox;
-	private JComboBox<Spectacle> SpectacleCombox;
-	JLabel titreLabel;
-	private JTextArea config;
-	private JTextArea textADescription ;
-	
-	private JLabel lblNewLabel;
-	private JButton btnSelectSpectacle;
-	private List<Spectacle> allSpectacles = new ArrayList<Spectacle>();
-	private JLabel noSpectacle;
-	private JLabel representation= new JLabel();
-	private JLabel rep;
-	private TextArea textAreaDescription;
-	
-	private JLabel lblGenre;
-
-	public ListingSpectacle(Personne personne) 
+	public ListingSpectacle(Personne p)
 	{
-		this.personne = personne;
-		// on va chercher les spectacles
-		find();
-		activity = this;
+		this.personne=personne;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 460, 383);
+		setBounds(100, 100, 680, 601);
 		contentPane = new JPanel();
-		contentPane.setBackground(Color.DARK_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
-
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.LIGHT_GRAY);
-		panel.setBounds(20, 109, 431, 235);
-		contentPane.add(panel);
-		panel.setLayout(null);
-		
-		config = new JTextArea();
-		config.setEditable(false);
-		config.setLineWrap(true);
-		config.setToolTipText("");
-		config.setWrapStyleWord(true);
-		config.setText("Lorem ipsum");
-		config.setBackground(Color.LIGHT_GRAY);
-		config.setBounds(21, 60, 212, 29);
-		panel.add(config);
-		//pr afficher le titre choisi sur la page
-		titreLabel = new JLabel("SPECTACLE:");
-		titreLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		titreLabel.setFont(new Font("Tahoma", Font.BOLD, 24));
-		titreLabel.setBounds(32, 15, 356, 29);
-		panel.add(titreLabel);
-		//pour afficher le no de spectacle donc l id
-		noSpectacle = new JLabel("   ");
-		noSpectacle.setToolTipText("no du spectacle");
-		noSpectacle.setHorizontalAlignment(SwingConstants.RIGHT);
-		noSpectacle.setFont(new Font("Tahoma", Font.BOLD, 23));
-		noSpectacle.setBounds(311, 0, 110, 44);
-		panel.add(noSpectacle);
-		
-		lblNewLabel = new JLabel("-");
-		lblNewLabel.setFont(new Font("Dialog", Font.PLAIN, 22));
-		lblNewLabel.setBounds(208, 169, 43, 34);
-		panel.add(lblNewLabel);
-		
-		btnSelectSpectacle = new JButton("POURSUIVRE");
-		btnSelectSpectacle.setBackground(Color.DARK_GRAY);
-		btnSelectSpectacle.setForeground(Color.WHITE);
-		btnSelectSpectacle.setBounds(154, 204, 119, 21);
-		btnSelectSpectacle.addActionListener(new ActionListener() 
+		JPanel panel_1 = new JPanel() 
 		{
-			public void actionPerformed(ActionEvent e) 
+			public void paintComponent(Graphics g) 
 			{
-				//ListRepresentation page = new ListRepresentation(leSpectacle,personne);
-				//page.setVisible(true);
-				activity.dispose();
+				Image img = Toolkit.getDefaultToolkit()
+						.getImage(MainActivity.class
+								.getResource("/be/condorcet/duquesne/IMG/s.jpg")
+								);
+				g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 			}
-		});
-		panel.add(btnSelectSpectacle);
-		
-		rep = new JLabel("cc");
-		rep.setBounds(10, 100, 165, 24);
-		panel.add(rep);
-		
-		lblGenre = new JLabel("Genre: ");
-		lblGenre.setBounds(10, 145, 136, 29);
-		panel.add(lblGenre);
-		
-		
-		
-		textAreaDescription = new TextArea();
-		textAreaDescription.setBounds(243, 113, 145, 50);
-		panel.add(textAreaDescription);
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(UIManager.getColor("ToolBar.dockingForeground"));
-		panel_1.setBounds(0, 0, 451, 26);
+		};
+		panel_1.setBounds(0, 0, 664, 562);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
-		btnRetour = new JButton("Retour");
-		btnRetour.setForeground(Color.WHITE);
-		btnRetour.setBackground(Color.DARK_GRAY);
-		btnRetour.setBounds(353, 60, 88, 26);
-		btnRetour.addActionListener(new ActionListener() 
+		
+       
+		Spp = new JComboBox<Spectacle>();
+		Spp.setBackground(Color.LIGHT_GRAY);
+		Spp.setBounds(10, 32, 644, 45);
+		panel_1.add(Spp);
+		
+		JButton repB = new JButton("AFFICHER LES REPRESENTATIONS");
+		repB.setBounds(205, 398, 401, 23);
+		panel_1.add(repB);
+		repB.addActionListener(new ActionListener()
 		{
-			public void actionPerformed(ActionEvent e) 
+			public void actionPerformed(ActionEvent e)
 			{
+				ListingRepresentation page = new ListingRepresentation (createCombobox(),p );
+				page.setVisible(true);
 				activity.dispose();
 			}
 		});
-		contentPane.add(btnRetour);
-		createList();
+		
+		 
+       test = new JLabel("\" \" ");
+       test.setForeground(new Color(245, 255, 250));
+       test.setFont(new Font("Yu Gothic", Font.BOLD | Font.ITALIC, 12));
+       test.setBackground(UIManager.getColor("Button.highlight"));
+       test.setBounds(10, 211, 221, 30);
+       panel_1.add(test);
+       
+        genre = new JLabel("\" \"");
+        genre.setForeground(new Color(240, 255, 255));
+        genre.setFont(new Font("Yu Gothic", Font.BOLD | Font.ITALIC, 12));
+        genre.setBackground(UIManager.getColor("Button.highlight"));
+        genre.setBounds(10, 186, 251, 14);
+        panel_1.add(genre);
+        
+         
+         libel = new JLabel("\" \"");
+         libel.setForeground(new Color(240, 255, 255));
+         libel.setFont(new Font("Yu Gothic UI", Font.BOLD | Font.ITALIC, 12));
+         libel.setBackground(UIManager.getColor("Button.highlight"));
+         libel.setBounds(10, 150, 427, 25);
+         panel_1.add(libel);
+         
+         txydescr = new TextArea();
+         txydescr.setBounds(20, 247, 387, 78);
+         panel_1.add(txydescr);
+         
+         JButton btnRetour = new JButton("RETOUR MENU PRINCIPAL");
+ 		btnRetour.setFont(new Font("Tw Cen MT", Font.BOLD, 15));
+ 		btnRetour.setBounds(310, 504, 320, 36);
+ 		btnRetour.setBackground(Color.RED);
+ 		btnRetour.setForeground(UIManager.getColor("CheckBox.darkShadow"));
+ 		btnRetour.addActionListener(new ActionListener() {
+ 			public void actionPerformed(ActionEvent e) {
+ 				StartActivity page = new StartActivity();
+ 				page.setVisible(true);
+ 				activity.dispose();
+ 			}
+ 		});
+ 		panel_1.add(btnRetour);
+		this.personne = personne;
+		activity = this;
+		
+		init();
+		
+		//ssdisplayRepresentationFrame(s);
+		createCombobox() ;
+		
+	
 	}
-	public void createList() 
+	
+	
+	
+	private void displayRepresentationFrame(Spectacle s) {
+		
+		s.getListRepresentationBySpectacle();
+		jListRepresentation = new JList<>();
+		
+		if(!s.getRepresentationList().isEmpty()) {
+			for(Representation rep : s.getRepresentationList())
+				listModelRep.addElement(rep);
+		
+			jListRepresentation.setVisibleRowCount(3);
+			jListRepresentation.setModel(listModelRep);
+			jListRepresentation.setBounds(50, 300, 150, 100);
+        /*
+         * A AJOUTER SI PREFERENCE DE LA JLIST CAR AU  PLUS LA LISTE EST GDE AU PLUS IL FAUT DE LA PLACE 
+         * 
+			scrollPane = new JScrollPane(jListRepresentation, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
+					ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+			scrollPane.setBounds(50, 310, 500, 130);
+			contentPane.add(scrollPane);*/   
+		}
+
+		else {
+			JLabel lblNewLabel_7 = new JLabel("Aucune représentations présentes !");
+	        lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
+	        lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 20));
+			lblNewLabel_7.setBounds(30, 360, 610, 45);
+			contentPane.add(lblNewLabel_7);
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	public Spectacle  createCombobox() 
 	{
-		SpectacleCombox = new JComboBox<Spectacle>();
-		SpectacleCombox.setBounds(10, 37, 321, 21);
-		SpectacleCombox.addActionListener(new ActionListener() {
+		Spp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) 
 			{
 				activity.setId();
 			}
 		});
+		
+		
+		//JOptionPane.showMessageDialog(null, "taille radio ."+ size.toString());
+		for (Spectacle  sp: allSpectacles) 
+		{
+			Spp.addItem(sp);
+			
+		}		
+		// JOptionPane.showMessageDialog( null,"item id ."+currentSpectacle); // test
+		
+		;
+	
+		return s =(Spectacle) Spp.getSelectedItem();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*
+	
+	public Spectacle  createList() 
+	{
+		SpectacleCombox = new JComboBox<Spectacle>();
+		SpectacleCombox.setBounds(10, 37, 321, 21);
+		
+		SpectacleCombox.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				activity.setId();
+				String id= s.toString();
+			//JOptionPane.showMessageDialog(null, "select combo  ."+id);
+				//+ s.toString());// ici je recup id 
+			}
+		});
 		contentPane.add(SpectacleCombox);
-		for (Spectacle sp : allSpectacles) 
+		
+		
+		for (Spectacle sp : s.findAll_()) 
 		{
 			SpectacleCombox.addItem(sp);
 		}		
-		leSpectacle = (Spectacle) SpectacleCombox.getSelectedItem();
+	return 	s = (Spectacle) SpectacleCombox.getSelectedItem();
+	//	JOptionPane.showMessageDialog(null, "select combo  ."+ s.toString());	
 	}
+	*/
 	
 	public void setId()
 	{
 	//selection de l item
-		leSpectacle= (Spectacle) SpectacleCombox.getSelectedItem();
-		titreLabel.setText(leSpectacle.getLibel());
+		s= (Spectacle) Spp.getSelectedItem();
+		
+		Representation r= new Representation();
+		r.findAll();
 		
 		
-		//dateDebutLabel.setText(currentSpectacle.getPlanning().getdateDebutReservation().toString() + " - 12:00");
-		//dateFinLabel.setText(currentSpectacle.getPlanning().getDateFinReservation().toString() + " - 12:00");
-		noSpectacle.setText("Ref :  "+Integer.toString(leSpectacle.getId()));
+		libel.setText("nom  :  "+s.getLibel());
 		
-		config.setText("configuration: " +leSpectacle
-			.getConfiguration().getDescription());
 			
-		//.getPlanning().getSpectacle().getConfiguration().getDescription());
-		rep.setText(" date "+repr.getDateRepresentation());
-		lblGenre.setText("GENRE: "+leSpectacle.getGenre());
-		textAreaDescription.setText("DESCRIPTION: "+ leSpectacle.getDescription());
+		
+		
+		test.setText("NO : "+Integer.toString(s.getId()));
+		
+		genre.setText("genre : "+s.getGenre());
+		 
+		txydescr.setText("description  : "+s.getDescription());
 		
 		
 	}
-	
-	
-	
-	public void find() 
+	private List<Spectacle> allSpectacles = new ArrayList<Spectacle>();
+	private List<Representation> allRe = new ArrayList<Representation> ();
+	public void init() 
 	{
-		Spectacle s = new Spectacle();
-		allSpectacles =s.findAll_();
+		Spectacle spectacle = new Spectacle();
+		allSpectacles = spectacle.findAll_();
 	}
 }

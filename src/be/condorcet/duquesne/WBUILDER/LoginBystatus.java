@@ -44,12 +44,12 @@ public class LoginByStatus extends JFrame
 			{
 				Image img = Toolkit.getDefaultToolkit()
 						.getImage(MainActivity.class
-								.getResource("/IMG/c.jpg")
+								.getResource("/be/condorcet/duquesne/IMG/c.jpg")
 								);
 				g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 			}
 		};
-		panel.setBounds(0, 2, 682, 366);
+		panel.setBounds(0, 2, 682, 390);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
