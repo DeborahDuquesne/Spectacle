@@ -42,16 +42,23 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
 
-public class MainActivity extends JFrame {
+public class MainActivity extends JFrame 
+{
 	
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {	
+	public static void main(String[] args) 
+	{
+		EventQueue.invokeLater(new Runnable() 
+		{
+			public void run() 
+			{
+				try 
+				{	
 					MainActivity frame = new MainActivity();
 					frame.setVisible(true);
-				} catch (Exception e) {
+				}
+				catch (Exception e)
+				{
 					e.printStackTrace();
 				}
 			}
@@ -61,6 +68,7 @@ public class MainActivity extends JFrame {
 	private JPanel contentPane;
 
 	
+
 	private List<Spectacle> allSpectacles = new ArrayList<Spectacle>();
 	
 	private Spectacle leSpectacle;
@@ -73,7 +81,7 @@ public class MainActivity extends JFrame {
 	public MainActivity() 
 	{
 
-		init();
+		List();
 		MainActivity activity = this;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 460, 383);
@@ -126,32 +134,16 @@ public class MainActivity extends JFrame {
 		menu.setBounds(52, 257, 296, 42);
 		panel_1.add(menu);
 		
-		JButton aaa = new JButton("testt");
-		aaa.setBounds(130, 11, 89, 23);
-		panel_1.add(aaa);
+		JButton abcd = new JButton("New button");
+		abcd.setBounds(309, 39, 89, 23);
+		panel_1.add(abcd);
 		
-		JButton list = new JButton("list");
-		list.setBounds(282, 11, 89, 23);
-		panel_1.add(list);
-
-		list.addActionListener(new ActionListener()
+		abcd.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				Configuration c= new Configuration();
-				Categorie cat = new Categorie();
-				cat.display();
-				JOptionPane.showMessageDialog( null,"taille listeconfig"  + cat.findAll().size());
-				activity.dispose();
-				}
-		});
-		
-		
-		aaa.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent arg0) 
-			{
-				test start = new test();//createCombobox());
+				Personne p = new Personne();
+				ListingCommande start = new ListingCommande(p);
 				start.setVisible(true);
 				activity.dispose();
 				}
@@ -177,7 +169,9 @@ public class MainActivity extends JFrame {
 	public Spectacle  createCombobox() 
 	{
 		//JOptionPane.showMessageDialog(null, "taille radio ."+ size.toString());
-		for (Spectacle  sp: allSpectacles) 
+		Spectacle sss = new Spectacle();
+		for (Spectacle  sp:
+			allSpectacles) 
 		{
 			sp_cm.addItem(sp);
 		}		
@@ -191,7 +185,9 @@ public class MainActivity extends JFrame {
 	
 	
 	
-	public void init() 
+	
+	
+	public void List() 
 	{
 		Spectacle spectacle = new Spectacle();
 		allSpectacles = spectacle.findAll_();

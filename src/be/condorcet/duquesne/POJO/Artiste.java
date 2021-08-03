@@ -16,7 +16,7 @@ public class Artiste extends Personne
 	private Personne artiste;
 	public Artiste() 
 	{
-		super();
+		
 		
 	}
 	
@@ -24,10 +24,11 @@ public class Artiste extends Personne
 	
 
 
-	public Artiste(Integer id, String statut, String mdp, String speudo, String adresse, String prenom, String nom,
-			String telephone, String email, int age) {
+	public Artiste(int id, String statut, String mdp, String speudo, String adresse, 
+			String prenom, String nom,
+			String telephone, String email, int age,String nomArtiste) {
 		super(id, statut, mdp, speudo, adresse, prenom, nom, telephone, email, age);
-		// TODO Auto-generated constructor stub
+		this.nomArtistique=nomArtiste;
 	}
 
 
@@ -68,7 +69,7 @@ public class Artiste extends Personne
 	@Override
 	public String toString() 
 	{
-		return "Artiste [nomArtistique=" + nomArtistique + "]";
+		return "    "  + nomArtistique + " ";
 	}
 	
 	
@@ -82,11 +83,15 @@ public class Artiste extends Personne
 
 
 
-	public static List<Artiste> getAll() {
+	public static List<Artiste> getAll()
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	public boolean create() {
+		return true;
+				//this.pDAO.createArtisteSpectacle(this);
+	}
 	
 
 	

@@ -15,45 +15,50 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import be.condorcet.duquesne.POJO.*;
 import be.condorcet.duquesne.POJO.Categorie.TypesCat;
 import be.condorcet.duquesne.POJO.Configuration.Ticket;
-
-
-
-
 
 public class SpectacleDAO implements DAO<Spectacle> 
 {
 
 	protected Connection connect = null;
 	private Statement stmt=null;
-	
 	public SpectacleDAO(Connection conn) 
 	{
 		connect = conn;
 	}
-
+/*INSERT INTO "STUDENT03_27"."SPECTACLE_" ("libel", 
+ * "genre", "description", 
+ * "nbrePlaceParClient") VALUES ('marc lavoine', 'acoustique varié', 'a decouvrir', '5000')
+*/
 	@Override
 	public boolean create(Spectacle spectacle)
 	{
 		try {
-			String insertSQL = "INSERT INTO Spectacle_ VALUES(null,'" + spectacle.getLibel()+ "','"
-					+ spectacle.getNombrePlaceParClient() + "')";
+			String insertSQL = "INSERT INTO Spectacle_ VALUES("
+		+ spectacle.getLibel()+ "','" + spectacle.getGenre()+ "','"
+		+ spectacle.getNombrePlaceParClient() + "')";
 
-			PreparedStatement statement = connect.prepareStatement(insertSQL, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement statement = connect.prepareStatement
+					(insertSQL, Statement.RETURN_GENERATED_KEYS);
 
-			int affectedRows = statement.executeUpdate();
+			int oki = statement.executeUpdate();
 
-			if (affectedRows == 0) {
-				throw new SQLException("Creating user failed, no rows affected.");
+			if (oki == 0) 
+			{
+				throw new SQLException("prob d insert ");
 			}
 
-			try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
-				if (generatedKeys.next()) {
+			try (ResultSet generatedKeys = statement.getGeneratedKeys()) 
+			{
+				if (generatedKeys.next()) 
+				{
 					spectacle.setId((int) generatedKeys.getLong(1));
 				} else {
-					throw new SQLException("Creating user failed, no ID obtained.");
+					throw new SQLException("prob pas d id");
 				}
 			}
 
@@ -121,29 +126,25 @@ public class SpectacleDAO implements DAO<Spectacle>
  * **************************************************************************************************************/
 	
 
-
-	
 	@Override
-	public List findAll(Spectacle s) 
+	public List<Spectacle> findAll(Spectacle s) 
 	{
-	
 		List<Spectacle> liste = new ArrayList<Spectacle>();
-		
-		
+		List<Categorie> categories = new ArrayList<Categorie>();
 		List<Representation> reservList= new ArrayList<Representation>();
+		
 		// liste a titre de test 
 		
 		
 			Statement stm = null;
 			ResultSet rs = null;
 			
-			
 			try
 			{
 				String sql = "Select * From spectacle_ inner join representation_"
-						+ " on spectacle_.\"id\"=representation_.\"fk_spect\" inner join  config_ on spectacle_.\"id\" \r\n"
-						+ "= config_.\"fk_spect\""
-						+ "INNER JOIN Categorie_ ON Config_.\"id\" =  categorie_.\"fk_config\"";
+				+ " on spectacle_.\"id\"=representation_.\"fk_spect\" inner join  config_ on spectacle_.\"id\" \r\n"
+				+ "= config_.\"fk_spect\""
+				+ "INNER JOIN Categorie_ ON Config_.\"id\" =  categorie_.\"fk_config\"";
 						
 			
 				rs=this.connect.createStatement().executeQuery(sql);
@@ -151,24 +152,7 @@ public class SpectacleDAO implements DAO<Spectacle>
 				{
 				
 				
-					
-/************************************************************************************************************************************************                 
- * 								 DATA SPECTACLE                                                                                                         
- * 		
- *   				ATTRIBUTS DE LA TABLE SPECTACLE 
- *   
- *   
- *   
- *  ********************************************************************************************************************************************/
- 
-					
-					int ids=Integer.parseInt(rs.getString(1));
-					String libel=rs.getString(2);
-					String genre=rs.getString(3);
-					String urlImg=rs.getString(4);
-					String desc=rs.getString(5);
-					int nbreP =rs.getInt(6);	
-					
+
 					
 					
 					 
@@ -197,7 +181,7 @@ public class SpectacleDAO implements DAO<Spectacle>
 
 					Representation rep =new Representation (idR,heureD,heureF,date,comm);
 					// pr test
-					List<Categorie> categories = new ArrayList<Categorie>();
+					
 					
 /**************************************************************************************************************************************************
  * 
@@ -250,12 +234,31 @@ public class SpectacleDAO implements DAO<Spectacle>
 					// attribution de la cat a la conf 
 					config.setCategories(categories);
 					
+					
+/************************************************************************************************************************************************                 
+ * 								 DATA SPECTACLE                                                                                                         
+ * 		
+ *   				ATTRIBUTS DE LA TABLE SPECTACLE 
+ *   
+ *   
+ *   
+ *  ********************************************************************************************************************************************/
+ 
+					
+					int ids=Integer.parseInt(rs.getString(1));
+					String libel=rs.getString(2);
+					String genre=rs.getString(3);
+					String urlImg=rs.getString(4);
+					String desc=rs.getString(5);
+					int nbreP =rs.getInt(6);	
+					
+					
 					Spectacle sp= new Spectacle(ids,libel,genre,urlImg,desc,nbreP,rep,config);
 					sp.setRep(rep);
 					sp.setConfiguration(config);
 					sp.setId(ids);
 					
-					
+			
 					
 					liste.add(sp);
 					
@@ -267,11 +270,17 @@ public class SpectacleDAO implements DAO<Spectacle>
 			{
 				e.printStackTrace();
 			}
-			
+			for(Spectacle res : liste) 
+			 {
+				// System.out.println(res);
+				// JOptionPane.showMessageDialog(null," specDAO"+res);
+			 }
 			
 			return liste;
 		}
 	/*simple requete dans la  table spectacle pr des besoins de test */
+	
+	
 	@Override
 	public List getAll(Spectacle s) 
 	{
@@ -304,7 +313,12 @@ public class SpectacleDAO implements DAO<Spectacle>
 			{
 				e.printStackTrace();
 			}
-			
+			for(Spectacle cf : liste) 
+	        {
+	        	
+	        	//JOptionPane.showMessageDialog(null,"list    " +cf);
+	        		
+	        }
 			return liste;
 		}
 	
@@ -330,6 +344,8 @@ public class SpectacleDAO implements DAO<Spectacle>
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	
+
 	
 }

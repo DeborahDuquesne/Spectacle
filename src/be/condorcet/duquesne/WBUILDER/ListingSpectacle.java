@@ -143,7 +143,7 @@ public class ListingSpectacle extends JFrame {
  			}
  		});
  		panel_1.add(btnRetour);
-		this.personne = personne;
+		
 		activity = this;
 		
 		init();
@@ -156,42 +156,22 @@ public class ListingSpectacle extends JFrame {
 	
 	
 	
-	private void displayRepresentationFrame(Spectacle s) {
-		
-		s.getListRepresentationBySpectacle();
-		jListRepresentation = new JList<>();
-		
-		if(!s.getRepresentationList().isEmpty()) {
-			for(Representation rep : s.getRepresentationList())
-				listModelRep.addElement(rep);
-		
-			jListRepresentation.setVisibleRowCount(3);
-			jListRepresentation.setModel(listModelRep);
-			jListRepresentation.setBounds(50, 300, 150, 100);
-        /*
-         * A AJOUTER SI PREFERENCE DE LA JLIST CAR AU  PLUS LA LISTE EST GDE AU PLUS IL FAUT DE LA PLACE 
-         * 
-			scrollPane = new JScrollPane(jListRepresentation, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, 
-					ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-			scrollPane.setBounds(50, 310, 500, 130);
-			contentPane.add(scrollPane);*/   
-		}
-
-		else {
-			JLabel lblNewLabel_7 = new JLabel("Aucune représentations présentes !");
-	        lblNewLabel_7.setHorizontalAlignment(SwingConstants.CENTER);
-	        lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 20));
-			lblNewLabel_7.setBounds(30, 360, 610, 45);
-			contentPane.add(lblNewLabel_7);
-		}
+	
+	
+	
+	
+	
+	
+	// test pr recup de l autre coté 
+	
+	public Spectacle getSpectacleChoisit() {
+		return createCombobox() ;
 	}
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
 	public Spectacle  createCombobox() 
 	{
 		Spp.addActionListener(new ActionListener() {

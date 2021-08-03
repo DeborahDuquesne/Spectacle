@@ -25,9 +25,29 @@ public class RepresentationDAO implements DAO<Representation>
 	}
 
 	@Override
-	public boolean create(Representation obj) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean create(Representation representation) 
+	{
+		try {
+			this.connect
+			.createStatement()
+			.executeUpdate("INSERT INTO Representation_ VALUES("
+					
+					+ representation.getDateRepresentation()
+					+ "','"
+					+ representation.getHeureDebut()
+					+ "','"
+					+ representation.getHeureFin()
+					+ "','"
+					+ representation.getSpectacle().getId()
+					+ "')"
+				);
+			return true;
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override

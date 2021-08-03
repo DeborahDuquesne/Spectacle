@@ -17,29 +17,14 @@ public class PlaceDAO implements DAO<Place> {
 	public PlaceDAO(Connection conn) {
 		connect = conn;
 	}
-
+/*INSERT INTO "STUDENT03_27"."PLACE_"
+ *  ("prix", "fk_commande", "fk_representation", "type_place") VALUES ('500', '181', '101', 'OR')
+*/
 
 	@Override
-	public boolean create(Place Place) {
-		try {
-			this.connect
-			.createStatement()
-			.executeUpdate("INSERT INTO Place VALUES("
-					+ "null,'" 
-					+ Place.getPrix()
-					+ "','"
-					+ Place.getCommande().getId()
-					+ "','"
-					+ Place.getRepresentation().getId()
-					+ "','"
-					+ Place.getType_categorie()
-					+ "')"
-				);
-			return true;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
+	public boolean create(Place Place) 
+	{
+		return false;
 	}
 
 	@Override

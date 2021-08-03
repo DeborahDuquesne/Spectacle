@@ -9,15 +9,19 @@ import javax.swing.JOptionPane;
 import be.condorcet.duquesne.DAO.*;
 import be.condorcet.duquesne.POJO.*;
 
-public class Representation {
-	private final AbstractFactoryDAO dao =AbstractFactoryDAO.getFactory(AbstractFactoryDAO.DAO_FACTORY);
+public class Representation
+{
+	private final AbstractFactoryDAO dao =AbstractFactoryDAO
+			.getFactory(AbstractFactoryDAO
+			.DAO_FACTORY);
 	private final DAO<Representation> rDAO = dao.getRepresentationDAO();
 	private float heureDebut;
 	private float heureFin;
 	private int id;
 	private String dateRepresentation;
+	private Date d;
 	private String commentaire;
-	private Spectacle spectacle= new  Spectacle();
+	private Spectacle spectacle;
 
 	public Representation(int id,String  dateRepresentation, float heureDebut2, float heureFin2) {
 		this.id = id;
@@ -27,19 +31,20 @@ public class Representation {
 		
 	}
 	
-	public Representation() {}
+	public Representation(){}
+			
 	
 
 	
 
 	public Representation(int id, float heureDebut, float heureFin, 
-			String  dateRepresentation, String commentaire,Spectacle s) {
+			Date d, String commentaire,Spectacle s) {
 		
 		this.id=id;
 		this.heureDebut = heureDebut;
 		this.heureFin = heureFin;
 	
-		this.dateRepresentation = dateRepresentation;
+		this.d=d;
 		this.commentaire = commentaire;
 		this.spectacle=s;
 	}
@@ -71,7 +76,16 @@ public class Representation {
 		this.spectacle=s;
 	}
 	
+	public Representation(String dateRepresentation,float heureDebut, float heureFin
+			, Spectacle s) {
 	
+		
+		this.heureDebut = heureDebut;
+		this.heureFin = heureFin;
+	
+		this.dateRepresentation = dateRepresentation;
+		this.spectacle=s;
+	}
 	public Representation(int id,float heureDebut, float heureFin,
 			String dateRepresentation) {
 	
@@ -82,6 +96,18 @@ public class Representation {
 		this.dateRepresentation = dateRepresentation;
 		
 	}
+	
+
+	public Representation(Date date, float heureDebut2, float heureFin2, Spectacle s) {
+		
+		this.heureDebut = heureDebut2;
+		this.heureFin = heureFin2;
+	
+		this.d=date;
+	
+		this.spectacle=s;
+	}
+
 	public Spectacle getSpectacle() {
 		return spectacle;
 	}
@@ -125,11 +151,14 @@ public class Representation {
 	@Override
 	public String toString() 
 	{
-		return " [ " + id +" ]"
-	+    "   "+ spectacle.getLibel()
-	+  " date "+  dateRepresentation ;
-	//+ "  id psect " 
-	//+  spectacle.getId() ;
+		return " " //" [ " + id +" ]"
+	
+	+  " date "+  dateRepresentation  + "  " ;
+	//+ "   debit : "
+		//	+ "  " +  heureDebut + "   fin :  "
+		//+heureFin;
+	
+		
 	}
 
 	
@@ -142,5 +171,10 @@ public class Representation {
 	public List<Representation>getAll ()
 	{
 		return (List<Representation>) rDAO.getAll(this);
+	}
+	
+	
+	public boolean create() {
+		return rDAO.create(this);
 	}
 }

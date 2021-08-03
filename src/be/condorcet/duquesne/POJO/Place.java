@@ -12,17 +12,18 @@ public class Place {
 	private int id;
 	private float prix;
 	private Representation representation;
-	private Commande commande;
+	
 	private TypesCat type_cat;//type de place 
 	public int getId() {
 		return id;
 	}
 	public Place(float prix, Representation representation, Commande commande,
-			TypesCat type_categorie) {
-		super();
+			TypesCat type_categorie) 
+	{
+		
 		this.prix = prix;
 		this.representation = representation;
-		this.commande = commande;
+		commande= new Commande();
 		this.type_cat = type_categorie;
 	}
 	public void setId(int id) {
@@ -40,12 +41,7 @@ public class Place {
 	public void setRepresentation(Representation representation) {
 		this.representation = representation;
 	}
-	public Commande getCommande() {
-		return commande;
-	}
-	public void setCommande(Commande commande) {
-		this.commande = commande;
-	}
+	
 	public TypesCat getType_categorie() {
 		return type_cat;
 	}

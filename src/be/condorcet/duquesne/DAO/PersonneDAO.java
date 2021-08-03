@@ -3,8 +3,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JOptionPane;
 
 import be.condorcet.duquesne.POJO.*;
 
@@ -38,17 +41,89 @@ public class PersonneDAO implements DAO<Personne>
 		// TODO Auto-generated method stub
 		return null;
 	}
-	// 
+	// tes au debut 
 	public List<Artiste> artistesFindAll()
 	{
 		List<Artiste> listeDesartistes = new ArrayList<Artiste>();
 		
+		try 
+		{
+			ResultSet result = this.con_
+					.createStatement()
+					.executeQuery("SELECT * FROM Personne_ "
+							+ "WHERE \"statut\"= '" 
+							+ Artiste.statut +"'" );
+			/*14 ...11*/
+			while(result.next()) {
+				listeDesartistes.add(
+					new Artiste(
+						
+						result.getInt(1),
+            			result.getString(2),
+            			result.getString(3), 
+            			result.getString(4),
+            			result.getString(5), 
+            			result.getString(6),
+            			result.getString(7), 
+            			result.getString(8),
+            			result.getString(9),
+            			
+            			result.getInt("age"),
+            			result.getString(10)
+            			
+            			
+					)	
+				);
+				
+				 
+				}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		JOptionPane.showMessageDialog( null,"taille list artiste  "+listeDesartistes.size());
 		return listeDesartistes;
 	}
-
+// besoin pr la commande 
 	@Override
-	public Personne findById(int id) throws SQLException {
-		// TODO Auto-generated method stub
+	public Personne findById(int id) throws SQLException 
+	{
+		
+		try {
+			
+
+			ResultSet result = this.con_
+					.createStatement()
+					.executeQuery("SELECT * FROM Personne_ WHERE \"id\" = "
+							+ "'" + id +"'" );
+							
+			
+			if(result.next()) 
+			{
+				return new Personne(result.getInt(1),
+            			result.getString(2),
+            			result.getString(3), 
+            			result.getString(4),
+            			result.getString(5), 
+            			result.getString(6),
+            			result.getString(7), 
+            			result.getString(8),
+            			result.getString(9),
+            			result.getInt("age")
+            			
+            			
+            			
+            			
+            			
+            			
+            			);  
+				}
+			
+		} catch (SQLException e) 
+		{
+			e.printStackTrace();
+			return null;
+		}
 		return null;
 	}
 	
@@ -102,7 +177,7 @@ public class PersonneDAO implements DAO<Personne>
             			result.getString(7), 
             			result.getString(8),
             			result.getString(9),
-            			result.getInt(10)
+            			result.getInt("age")
             			
             			
             			
@@ -119,7 +194,7 @@ public class PersonneDAO implements DAO<Personne>
 		}
 		return null;
 	}
-	
+	// uniquement a titre de test
 	public Boolean find(String pseudo, String pswd,String statut) 
 	{
     	Personne p = new Personne();
@@ -159,66 +234,45 @@ public class PersonneDAO implements DAO<Personne>
 	
 	
 	
-	
+	// autre technique des get pr la comande de l autre coté 
 	public Personne find_(Personne personne)
 	{
-		try {
-
-			ResultSet result = this.con_
-					.createStatement()
-					.executeQuery("SELECT * FROM PERSONNE WHERE speudo = '" + personne.getSpeudo() +"'" );
-			
-			if(result.next()) 
+	
+			try 
 			{
+				ResultSet result = this.con_.createStatement()
+						.executeQuery("SELECT * FROM PERSONNE_ WHERE \"id\" = '" 
+						+ personne.getId()
 						
-				
-				return new Personne(
-						Integer.parseInt(
-						result.getString("id")),
-						result.getString("statut"),
-						result.getString("mdp"),
-						result.getString("speudo"),
-						result.getString("adresse"),
-						result.getString("prenom"),
-						result.getString("nom"),
-						result.getString("email"),
-						result.getString("telephone"),
-						result.getInt("age")
-						
-						
+						+ "'"
 					);
+				if (result.next()) 
+				{
+					return new Personne(result.getInt(1),
+	            			result.getString(2),
+	            			result.getString(3), 
+	            			result.getString(4),
+	            			result.getString(5), 
+	            			result.getString(6),
+	            			result.getString(7), 
+	            			result.getString(8),
+	            			result.getString(9),
+	            			result.getInt("age"));
 				}
-			
-		} catch (SQLException e) 
-		{
-			e.printStackTrace();
+
+			}
+			catch (SQLException e) 
+			{
+				e.printStackTrace();
+				return null;
+			}
 			return null;
-		}
-		return null;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	public List<Artiste> findAllArtistes() 
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public List<Personne> getAll() 
 	{
 		List<Personne> people=new ArrayList<Personne>();
-		sql="SELECT * FROM PERSONNE";
+		sql="SELECT * FROM PERSONNE_";
 		try {
 			ResultSet result = this.con_.createStatement(
 			        ResultSet.TYPE_SCROLL_INSENSITIVE, 
@@ -227,7 +281,7 @@ public class PersonneDAO implements DAO<Personne>
 			while(result.next()) 
 			{
 				
-				//people.add(find(result.getInt("id")));
+				//...................
 			}
 		}
 		catch(SQLException e) {
@@ -382,7 +436,7 @@ public class PersonneDAO implements DAO<Personne>
 	            state.setString(1, obj.getMdp());
 	            state.setString(2, obj.getSpeudo());
 	           
-	            state.setString(3,"ORGANISTAEUR");
+	            state.setString(3,"ORGANISATEUR");
 	          
 	            state.setString(4, obj.getAdresse());
 	      
@@ -465,8 +519,7 @@ public class PersonneDAO implements DAO<Personne>
 	        
 	        return false;
 	    }
-
-
+	 
 	@Override
 	public boolean create(Personne obj) {
 		// TODO Auto-generated method stub
@@ -479,4 +532,6 @@ public class PersonneDAO implements DAO<Personne>
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+
 }

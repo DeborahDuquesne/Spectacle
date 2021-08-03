@@ -15,7 +15,7 @@ public class Categorie
 	private final AbstractFactoryDAO dao = AbstractFactoryDAO.getFactory(AbstractFactoryDAO.DAO_FACTORY);
 	private final DAO<Categorie> cDAO = dao.getCategorieDAO();
 	private String commentaire;
-	private TypesCat type;
+	private TypesCat type ;
 	private int prix = 0;
 	private int id = 0;
 	
@@ -53,7 +53,7 @@ public class Categorie
 			Ticket place) 
 	{
 		
-		this.commentaire = commentaire;
+		
 		this.type = type;
 		this.prix = prix;
 		
@@ -94,6 +94,16 @@ public class Categorie
 	
 
 
+
+	public Categorie(TypesCat type,int prix , Ticket place , Configuration conf)
+	{
+		Configuration cf= new Configuration();
+		this.prix = prix;
+		this.type = type;
+	    cf=conf;
+		this.calculPlace(type, place);
+	}
+
 	public String getCommentaire() {
 		return this.commentaire;
 	}
@@ -104,12 +114,18 @@ public class Categorie
 	}
 
 // pr recup l enum avec value of je dois taper en string
-	public String getType() {
-		return type.toString();
+	public String getType() 
+	{
+		if(this.type.toString()==" ")
+		{
+			return " prob";
+		}
+		return this.type.toString();
 	}
 
 
-	public void setType(TypesCat type) {
+	public void setType(TypesCat type) 
+	{
 		this.type = type;
 	}
 
@@ -124,9 +140,7 @@ public class Categorie
 	}
 
 
-	public int getId() {
-		return id;
-	}
+	
 
 
 	public void setId(int id) {
@@ -236,7 +250,7 @@ public class Categorie
 		return cat;
 	}
 	// av les reservation le nbre de place va diminuer 
-	public boolean update()
+	public boolean catDown()
 	{
 		boolean majNbrePlce = cDAO.update(this);
 		return majNbrePlce;
@@ -254,7 +268,7 @@ public class Categorie
 		 for(Categorie res : list) 
 		 {
 			 System.out.println(res);
-			JOptionPane.showMessageDialog(null," "+res);
+			//JOptionPane.showMessageDialog(null," "+res);
 		 }
 	}
 

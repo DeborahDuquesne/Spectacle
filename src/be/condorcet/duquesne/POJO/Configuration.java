@@ -1,15 +1,11 @@
 package be.condorcet.duquesne.POJO;
 import be.condorcet.duquesne.DAO.*;
 
-
-
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
-
-
-
-
 
 public class Configuration 
 {
@@ -17,12 +13,13 @@ public class Configuration
 	 * https://crunchify.com/why-and-for-what-should-i-use-enum-java-enum-examples/*/
 	public enum Ticket 
 	{
+		/*j attribue un nbre a la variable de l anum */
 		DEBOUT(8000),
 		CONCERT_ASSIS(5000),
 		CIRQUE_ASSIS(6000);
 		
 		private int nbre;
-		// ctr enum
+		// ctr enum pr a l appel recup e nbre 
 		private Ticket(final int nbre) 
 		{
 			this.nbre = nbre;
@@ -30,7 +27,7 @@ public class Configuration
 		 public int getNbre() 
 		 {
 		        return nbre;
-		    }
+		 }
 	}
 	
 	private final AbstractFactoryDAO dao = AbstractFactoryDAO.getFactory(AbstractFactoryDAO.DAO_FACTORY);
@@ -46,10 +43,13 @@ public class Configuration
 	
 	public Configuration() {}
 	
-	
-	public Configuration( int id,String description, String commentaire, List<Categorie> categoriesList, Ticket type,
-			Spectacle spectacle) {
-		super();
+	//pr test les req 
+	public Configuration( int id,String description, 
+			String commentaire, 
+			List<Categorie> categoriesList, Ticket type)
+			//Spectacle spectacle) 
+{
+		
 		this.description = description;
 		this.commentaire = commentaire;
 		this.categoriesList = categoriesList;
@@ -58,11 +58,33 @@ public class Configuration
 		//this.spectacle = spectacle;
 	}
 
-
+	public Configuration( String description, Ticket type, Spectacle spectacle) 
+			{
+			super();
+			this.description = description;
+			
+			
+			this.type = type;
+		
+			//this.spectacle = spectacle;
+			}
 	public List<Categorie> getCategories()
 	{
+		
 		return this.categoriesList;
 	}
+	public Categorie getCat() 
+	{
+		return this.cat;
+	}
+
+
+	public void setCat(Categorie cat) 
+	{
+		this.cat = cat;
+	}
+
+
 	public void setCategories(List<Categorie> categoriesList)
 	{
 		this.categoriesList= categoriesList;
@@ -94,16 +116,20 @@ public class Configuration
 	}
 
 	@Override
-	public String toString() {
-		return "Configuration [description=" + description + ", commentaire=" + commentaire + ", categoriesList="
-				+ categoriesList + ", type=" + type + ", id=" + id + ", spectacle=";/// + spectacle + "]";
-	}
-
-
-	public int getTicket() 
+	public String toString()
+	
 	{
-		return 150;
+		
+		
+		return " Cat list " 
+				+ categoriesList + ", type=" + type + " " ;//+
+				//", id cfg " + id + " "+
+				//"id cat " + "  "+cat.getId() +  " " 
+				//;
 	}
+
+
+	
 
 	public void setId(int id) {
 		this.id = id;
@@ -115,8 +141,9 @@ public class Configuration
 
 	public boolean create() 
 	{
-		boolean isConfigurationCreated = cgDAO.create(this);
-		return isConfigurationCreated;
+		 boolean oki= cgDAO.create(this);
+		 return oki;
+		
 	}
 
 
@@ -135,7 +162,7 @@ public class Configuration
 		
 		.type = type;
 	}
-	
+	// config spect cat 
 	public List<Configuration> findAll()
 	{
 		return (List<Configuration>) cgDAO.findAll(this);
@@ -144,13 +171,18 @@ public class Configuration
 	
 	public void display()
 	{
+		Spectacle s = new Spectacle();
 		 List<Configuration> list = this.findAll();
 		 for(Configuration res : list) 
 		 {
 			 System.out.println(res);
-			JOptionPane.showMessageDialog(null," "+res);
+			//JOptionPane.showMessageDialog(null," "+res);
 		 }
+		// JOptionPane.showMessageDialog(null,"id config  "+s.getConfiguration().getId());
 	}
+	
+	
+	
 	
 	
 }

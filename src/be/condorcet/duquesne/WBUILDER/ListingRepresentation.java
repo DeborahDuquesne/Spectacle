@@ -59,8 +59,9 @@ public class ListingRepresentation extends JFrame
 	private JTextField heureF;
 	private JTextField date;
 	private JTextField nb;
-	private JTextField config;
+	private JTextField sp;
 	private JButton btnPlace;
+	private JTextField spp;
 	
 	
 			public ListingRepresentation(Spectacle s,Personne p) 
@@ -113,23 +114,29 @@ public class ListingRepresentation extends JFrame
 			    nbre.add(nb);
 			    nb.setColumns(10);
 			    
-			    config = new JTextField();
-			    config.setBounds(10, 250, 264, 33);
-			    nbre.add(config);
-			    config.setColumns(10);
+			    sp = new JTextField();
+			    sp.setBounds(10, 250, 264, 33);
+			    nbre.add(sp);
+			    sp.setColumns(10);
 			    
 			    btnPlace = new JButton("CHOIX DES PLACES");
-			    btnPlace.setBounds(162, 464, 355, 23);
+			    btnPlace.setBounds(37, 467, 546, 39);
 			    btnPlace.addActionListener(new ActionListener()
 				{
 					public void actionPerformed(ActionEvent e)
 					{
-						PlaceActivity page = new PlaceActivity(displayCombo( s) ,p);// a examiner
+						PlaceActivity page = new PlaceActivity
+							(displayCombo( s) ,p);// a examiner
 						page.setVisible(true);
 						activity.dispose();
 					}
 				});
 			    nbre.add(btnPlace);
+			    
+			    spp = new JTextField();
+			    spp.setBounds(10, 305, 264, 33);
+			    nbre.add(spp);
+			    spp.setColumns(10);
 				activity=this;
 				
 				
@@ -174,7 +181,7 @@ public class ListingRepresentation extends JFrame
 						activity.setId();
 					}
 				});
-				
+				// modif 27 07 en llist 2
 				if(!s.getRepresentationList().isEmpty()) {
 					for(Representation rep : s.getRepresentationList())
 						Combobox.addItem(rep);
@@ -195,6 +202,11 @@ public class ListingRepresentation extends JFrame
 				return r= (Representation) Combobox.getSelectedItem();
 			}
 			
+
+
+
+
+
 /*********************************************************************************************************
  * 
  * 									GENERATION D UNE JLIST A L AIDE DU SPECTACLE RECU 
@@ -242,7 +254,7 @@ public class ListingRepresentation extends JFrame
 			public void setId()
 			{
 				r= (Representation) Combobox.getSelectedItem();
-				r.findAll();
+				//r.findAll();
 				
 				
 				//dateDebutLabel.setText(currentSpectacle.getPlanning().getdateDebutReservation().toString() + " - 12:00");
@@ -256,6 +268,9 @@ public class ListingRepresentation extends JFrame
 				heureF.setText("Heure de fin : "+ r.getHeureFin());
 				date.setText("date : "+r.getDateRepresentation());
 				nb.setText("nbre de place  : "+r.getSpectacle().getNombrePlaceParClient());
+				sp.setText("Spectacle de : " + r.getSpectacle().getLibel());
+				spp.setText("Genre : "+r.getSpectacle().getGenre());
+				
 				//config. a faire 
 				
 				

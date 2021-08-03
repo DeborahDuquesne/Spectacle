@@ -7,6 +7,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import be.condorcet.duquesne.POJO.Categorie;
 import be.condorcet.duquesne.POJO.Configuration;
 import be.condorcet.duquesne.POJO.Reservation;
@@ -108,8 +110,18 @@ public class ConfigurationDAO implements DAO<Configuration>
 					// attribution de la cat a la conf 
 					config.setCategories(categories);
 					
+					for(Categorie cf : categories) 
+			        {
+			        	
+			        	//JOptionPane.showMessageDialog(null,"list cate   " +cf);
+			        		
+			        }
+					
+					
 					//11 champs 
 					liste.add(config);
+					
+					//JOptionPane.showMessageDialog(null,"categorie     " +categorie);
 					
 					
 				}
@@ -118,6 +130,20 @@ public class ConfigurationDAO implements DAO<Configuration>
 			{
 				e.printStackTrace();
 			}
+			
+			
+			for(Configuration cf : liste) 
+	        {
+	        	
+	        	//JOptionPane.showMessageDialog(null,"list    " +cf);
+	        		
+	        }
+			
+			for(Configuration  res : liste) 
+			 {
+				// System.out.println(res);
+				 //JOptionPane.showMessageDialog(null,"  liste ConfigAO"+res);
+			 }
 			
 			return liste;
 	}

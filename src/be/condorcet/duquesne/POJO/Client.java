@@ -1,5 +1,7 @@
 package be.condorcet.duquesne.POJO;
 
+import java.util.List;
+
 import be.condorcet.duquesne.DAO.AbstractFactoryDAO;
 import be.condorcet.duquesne.DAO.PersonneDAO;
 import be.condorcet.duquesne.POJO.*;
@@ -14,6 +16,23 @@ public class Client extends Personne
 	protected final PersonneDAO pDAO = dao.getPersonneDAO();
 	
 	public final static String statut = "CLIENT";
+	private Commande cde;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Commande getCde() {
+		return cde;
+	}
+
+	public void setCde(Commande cde) {
+		this.cde = cde;
+	}
 
 	public Client() {
 		super();
@@ -25,7 +44,8 @@ public class Client extends Personne
 		// TODO Auto-generated constructor stub
 	}
 
-	public Client(Integer id, String statut, String mdp, String speudo, String adresse, String prenom, String nom,
+	public Client(Integer id, String statut, String mdp, String speudo, String adresse, 
+			String prenom, String nom,
 			String telephone, String email) {
 		super(id, statut, mdp, speudo, adresse, prenom, nom, telephone, email);
 		// TODO Auto-generated constructor stub
@@ -39,7 +59,7 @@ public class Client extends Personne
 	public Client(Integer id, String statut, String mdp, String speudo, String adresse, String prenom, String nom,
 			String telephone, String email, int age) {
 		super(id, statut, mdp, speudo, adresse, prenom, nom, telephone, email, age);
-		// TODO Auto-generated constructor stub
+	
 	}
 
 	public Client(String pseudo, String mdp, String nom, String prenom, String adresse, int age) {
@@ -63,5 +83,20 @@ public class Client extends Personne
 		return "Client [id=" + id + ", dao=" + dao + ", pDAO=" + pDAO + ", getSpeudo()=" + getSpeudo() + ", getPrenom()="
 				+ getPrenom() + ", getNom()=" + getNom() + "]";
 	}
-
+	
+	
+	
+/*LE DIAGRAMME UML OBLIGE CETTE PROCEDURE LE PLUS FACILE SERA DE TAPER DES LIENS PARTOUT POUR CHOPPER LE INFOS MAIS SI ON FAIT
+ * CA , CA VA GUEULERT A L ORAL DOC ON CHERCHE DES SOLUTIONS */	
+	
+	public void getListCommandeByClient()
+	{
+		
+	}
+	
+	
+	
+	
+	
+	
 }

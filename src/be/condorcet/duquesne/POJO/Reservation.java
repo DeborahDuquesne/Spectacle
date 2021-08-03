@@ -24,7 +24,8 @@ public class Reservation {
 	
 	
 	
-	public Reservation(float acompte ,float solde , float prix,String statut, PlanningSalle planningSalle , Personne organisateur) {
+	public Reservation(float acompte ,float solde , 
+			float prix,String statut, PlanningSalle planningSalle , Personne organisateur) {
 		this.acompte = acompte;
 		this.solde = solde;
 		this.prix = prix;
@@ -32,9 +33,31 @@ public class Reservation {
 		this.organisateur = organisateur;
 		this.planningSalle = planningSalle;
 	}
+	public float getAcompte() {
+		return acompte;
+	}
+	public void setAcompte(float acompte) {
+		this.acompte = acompte;
+	}
+	public String getCommentaire() {
+		return commentaire;
+	}
+	public void setCommentaire(String commentaire) {
+		this.commentaire = commentaire;
+	}
 	public Reservation() {
 	}
 	
+	public Reservation(float i, float j, float k,
+			PlanningSalle planningSalle, Personne personne) 
+	{
+		this.acompte = i;
+		this.solde = j;
+		this.prix = k;
+		
+		this.organisateur=personne;
+		this.planningSalle = planningSalle;
+	}
 	public int getId() {
 		return id;
 	}
@@ -50,10 +73,24 @@ public class Reservation {
 	public float getPrix() {
 		return prix;
 	}
-	public void setPrix(float prix) {
-		this.prix = prix;
+	public void setPrixByday(Date jourReserv) 
+	{
+		/*4.500 € si J est vendredi ou samedi 
+ 			3.000 pour les autres jours.*/
+		int j=jourReserv.getDay();
+		/*5 e j c est vendredi et 6 e samedi */ 
+		if(j== 5 || j== 6) 
+		{ 
+			this.prix = 4500;
+		}
+		/* les autres jours */
+		else
+		{
+			this.prix = 3000;
+		}
 	}
-	public String getStatut() {
+	public String getStatut() 
+	{
 		return statut;
 	}
 	public void setStatut(String statut) {
@@ -82,5 +119,9 @@ public class Reservation {
 				+ ", commentaire=" + commentaire + "]";
 	}
 	
+	
+	public boolean create() {		
+		return reservationDAO.create(this);
+	}
 	
 }

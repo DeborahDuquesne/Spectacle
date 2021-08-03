@@ -8,7 +8,7 @@ private final AbstractFactoryDAO dao = AbstractFactoryDAO.getFactory(AbstractFac
 	
 	protected final PersonneDAO pDAO = dao.getPersonneDAO();
 	
-	public final static String statut = "ORGANISTEUR";
+	public final static String statut = "ORGANISATEUR";
 	private String nominationEntreprise;
 	private String numEntreprise;
 	public String getNominationEntreprise() {
@@ -31,8 +31,7 @@ private final AbstractFactoryDAO dao = AbstractFactoryDAO.getFactory(AbstractFac
 	}
 	private Spectacle spect;
 	public Organisateur() {
-		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 	public Organisateur(int id, String s, String mdp, String statut) {
 		super(id, s, mdp, statut);
@@ -60,7 +59,7 @@ private final AbstractFactoryDAO dao = AbstractFactoryDAO.getFactory(AbstractFac
 		super(s, mdp, t, a, e, n, p);
 		this.numEntreprise=no;
 		this.nominationEntreprise=nomm;
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	@Override

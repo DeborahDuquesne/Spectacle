@@ -26,6 +26,11 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import com.toedter.components.JLocaleChooser;
+import com.toedter.calendar.JYearChooser;
+import com.toedter.calendar.JMonthChooser;
+import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JDayChooser;
 
 public class test extends JFrame {
 
@@ -63,16 +68,16 @@ public class test extends JFrame {
 		//initFrame(1);
         
         mm = new JLabel("Configuration :");
-        mm.setBounds(44, 411, 329, 20);
+        mm.setBounds(142, 143, 329, 20);
         contentPane.add(mm);
        
         
         deux = new JLabel("deu");
-        deux.setBounds(44, 452, 427, 25);
+        deux.setBounds(22, 174, 427, 25);
         contentPane.add(deux);
         
        trois = new JLabel("trois");
-        trois.setBounds(375, 322, 221, 30);
+        trois.setBounds(433, 102, 221, 30);
         contentPane.add(trois);
         
        
@@ -81,16 +86,39 @@ public class test extends JFrame {
 		contentPane.add(Spp);
 		
 		JButton repB = new JButton("REPRESENTATION");
-		repB.setBounds(454, 180, 178, 23);
+		repB.setBounds(455, 71, 178, 23);
 		contentPane.add(repB);
 		
 		 zz = new JLabel("ffffffffffffffffffffffffffffffffffffffffffffff");
-		zz.setBounds(32, 330, 269, 14);
+		zz.setBounds(10, 75, 269, 14);
 		contentPane.add(zz);
 		
 		 ww = new JLabel("New label");
-		ww.setBounds(32, 355, 251, 14);
+		ww.setBounds(10, 100, 251, 14);
 		contentPane.add(ww);
+		
+		JLocaleChooser localeChooser = new JLocaleChooser();
+		localeChooser.setBounds(70, 221, 446, 20);
+		contentPane.add(localeChooser);
+		
+		JYearChooser yearChooser = new JYearChooser();
+		yearChooser.getSpinner().setBackground(Color.LIGHT_GRAY);
+		yearChooser.setBounds(80, 252, 127, 43);
+		contentPane.add(yearChooser);
+		
+		JMonthChooser monthChooser = new JMonthChooser();
+		monthChooser.getComboBox().setBackground(Color.LIGHT_GRAY);
+		monthChooser.setBounds(285, 252, 231, 43);
+		contentPane.add(monthChooser);
+		
+		JDateChooser dateChooser = new JDateChooser();
+		dateChooser.setBounds(70, 201, 445, 20);
+		contentPane.add(dateChooser);
+		
+		JDayChooser dayChooser = new JDayChooser();
+		dayChooser.getDayPanel().setBackground(Color.PINK);
+		dayChooser.setBounds(70, 295, 446, 241);
+		contentPane.add(dayChooser);
 		repB.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)

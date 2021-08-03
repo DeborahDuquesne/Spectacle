@@ -2,6 +2,7 @@ package be.condorcet.duquesne.POJO;
 
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 import be.condorcet.duquesne.DAO.AbstractFactoryDAO;
@@ -92,7 +93,7 @@ public class Personne
 		this.email=e;
 		this.nom=n;
 		this.prenom=p;
-		this.age=age;
+		
 	}
 	
 	
@@ -212,7 +213,8 @@ public String getEmail() {
 	public String toString() 
 	{
 		return " id=" + id + ", mdp=" + mdp + ", speudo=" + speudo + ", adresse=" + adresse
-				+ ", prenom=" + prenom + ", statut=" + statut + ", nom=" + nom + ", telephone=" + telephone ;
+				+ ", prenom=" + prenom + ", statut=" + statut + ", nom=" + nom +
+				", telephone=" + telephone ;
 	}
 	// methode pour l inscription qui sera redefenie ds artiste, etc 
 	public boolean register() 
@@ -269,9 +271,12 @@ public String getEmail() {
 	{
 		return this.pDAO.login(this);
 	}
+	/*liste des personnes par statut 	artiste*/
+	
+	
 	public List<Artiste> findAllArtiste()
 	{
-		return null;
+		return this.pDAO. artistesFindAll();
 	}
 	
 	 public Personne Log(String p,String m)
@@ -298,11 +303,13 @@ public String getEmail() {
   // methode de connexion
 	
 	
-	public Personne find()  
-	{
-		return this.pDAO.find(this);
+		public Personne find()  
+		{
+			return this.pDAO.find(this);
+		}
+		
+		public Personne findById() throws SQLException
+		{
+			return this.pDAO.findById(this.id);
+		}
 	}
-	
-	
-	
-}
