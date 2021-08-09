@@ -286,17 +286,17 @@ public class RegisByStatus extends JFrame
 					
 				
 
-					Personne isAlreadyCreatedUser = personne.find();
+					Personne oki = personne.find();
 					
-					JOptionPane.showMessageDialog(null, "personne trouv ??"+isAlreadyCreatedUser);// ca renvoie true ou false a titre de test
+					JOptionPane.showMessageDialog(null, "personne trouv ??"+oki);// ca renvoie true ou false a titre de test
 					
-					if(isAlreadyCreatedUser == null) 
+					if(oki == null) 
 					{
-						Boolean isNewUserCreated = personne.register();
+						Boolean oki2= personne.register();
 						
-						JOptionPane.showMessageDialog(null, "register  ??"+isNewUserCreated);
+						JOptionPane.showMessageDialog(null, "register  ??"+oki2);
 						
-						if(isNewUserCreated) 
+						if(oki2) 
 						{
 							JOptionPane.showMessageDialog(null, "Compte crée avec succes !");
 

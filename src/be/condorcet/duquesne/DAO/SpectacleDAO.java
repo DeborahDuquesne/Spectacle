@@ -30,39 +30,33 @@ public class SpectacleDAO implements DAO<Spectacle>
 	{
 		connect = conn;
 	}
+	
+	
 /*INSERT INTO "STUDENT03_27"."SPECTACLE_" ("libel", 
  * "genre", "description", 
  * "nbrePlaceParClient") VALUES ('marc lavoine', 'acoustique varié', 'a decouvrir', '5000')
 */
 	@Override
-	public boolean create(Spectacle spectacle)
+	public boolean create(Spectacle s)
 	{
-		try {
-			String insertSQL = "INSERT INTO Spectacle_ VALUES("
-		+ spectacle.getLibel()+ "','" + spectacle.getGenre()+ "','"
-		+ spectacle.getNombrePlaceParClient() + "')";
+		try 
+		{
+			PreparedStatement state = connect.prepareStatement
+        			("INSERT INTO Spectacle_(\"libel\",\"genre\",\"description\",\"nbrePlaceParClient\")"
+        					
 
-			PreparedStatement statement = connect.prepareStatement
-					(insertSQL, Statement.RETURN_GENERATED_KEYS);
+        					+ "VALUES (?,?,?,?)");
+        		state.setString(1, s.getLibel());
+	            state.setString(2, s.getGenre());
+	            state.setString(3,s.getDescription());
+	            state.setInt(4, s.getNombrePlaceParClient());
+	            state.execute();
 
-			int oki = statement.executeUpdate();
+			
+		}
 
-			if (oki == 0) 
-			{
-				throw new SQLException("prob d insert ");
-			}
-
-			try (ResultSet generatedKeys = statement.getGeneratedKeys()) 
-			{
-				if (generatedKeys.next()) 
-				{
-					spectacle.setId((int) generatedKeys.getLong(1));
-				} else {
-					throw new SQLException("prob pas d id");
-				}
-			}
-
-		} catch (SQLException e) {
+		catch (SQLException e)
+		{
 			e.printStackTrace();
 			return false;
 		}
@@ -70,49 +64,7 @@ public class SpectacleDAO implements DAO<Spectacle>
 		return true;
 
 	}
-	
-/************************************************************************************************************
- * PREMIER FINDALL SANS JOINTURE A TITRE DE TEST 
- * 
- * public List findAll(Spectacle s) 
-	{
-		
-		List<Spectacle> liste = new ArrayList<Spectacle>();
-			Statement stm = null;
-			ResultSet rs = null;
-			try
-			{
-				String sql = "Select * From spectacle_ ";
-				//rs = stm.executeQuery(sql);
-				rs=this.connect.createStatement().executeQuery(sql);
-				while(rs.next())
-				{
-				// on peut bosser avec le nom des champs aussi c est au choix
-					liste.add(new Spectacle(
-							rs.getInt(1),
-							rs.getString(2),
-							rs.getString(3),
-							rs.getString(4),
-							rs.getString(5),
-							rs.getInt(6)
-							)
-							);		
-					
-				}
-			}
-			catch (Exception e)
-			{
-				e.printStackTrace();
-			}
-			
-			return liste;
-		}
- * 
- * 
- * 
- * 
- * 
- * */	
+
 	
 /***************************************************************************************************************
  * 
@@ -152,11 +104,7 @@ public class SpectacleDAO implements DAO<Spectacle>
 				{
 				
 				
-
-					
-					
-					 
-					
+				
 /* ******************************************************************************************************************************************************
  * 
  * 
@@ -313,6 +261,7 @@ public class SpectacleDAO implements DAO<Spectacle>
 			{
 				e.printStackTrace();
 			}
+			// test debbug
 			for(Spectacle cf : liste) 
 	        {
 	        	
@@ -323,29 +272,95 @@ public class SpectacleDAO implements DAO<Spectacle>
 		}
 	
 	@Override
-	public boolean delete(Spectacle obj) {
+	public boolean delete(Spectacle obj) 
+	{
 		return false;
 	}
 
 	@Override
-	public boolean update(Spectacle obj) {
+	public boolean update(Spectacle obj) 
+	{
 		return false;
 	}
-
+// pr ajout d un spectacle ds la reservation de salle de l org 
 	@Override
-	public Spectacle find(Spectacle obj) {
+	public Spectacle find(Spectacle s) 
+	{
+		try 
+		{
+			ResultSet result = this.connect.createStatement()
+					.executeQuery("SELECT * FROM SPECTACLE_ WHERE \"libel\" = '" 
+					+ s.getLibel()
+					
+					+ "'"
+				);
+			if (result.next()) 
+			{
+				s.getId();
+			}
+
+		}
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
 		return null;
 	}
 
 
 	
 	@Override
-	public Spectacle findById(int id) throws SQLException {
+	public Spectacle findById(int id) throws SQLException 
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	
-
 	
 }
+
+
+
+/************************************************************************************************************
+* PREMIER FINDALL SANS JOINTURE A TITRE DE TEST  
+* 
+* public List findAll(Spectacle s) 
+{
+	
+	List<Spectacle> liste = new ArrayList<Spectacle>();
+		Statement stm = null;
+		ResultSet rs = null;
+		try
+		{
+			String sql = "Select * From spectacle_ ";
+			//rs = stm.executeQuery(sql);
+			rs=this.connect.createStatement().executeQuery(sql);
+			while(rs.next())
+			{
+			// on peut bosser avec le nom des champs aussi c est au choix
+				liste.add(new Spectacle(
+						rs.getInt(1),
+						rs.getString(2),
+						rs.getString(3),
+						rs.getString(4),
+						rs.getString(5),
+						rs.getInt(6)
+						)
+						);		
+				
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return liste;
+	}
+* 
+* 
+* 
+* 
+* 
+* */	

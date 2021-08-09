@@ -24,21 +24,24 @@ public class PersonneDAO implements DAO<Personne>
 
 
 	@Override
-	public boolean delete(Personne obj) {
+	public boolean delete(Personne obj) 
+	{
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean update(Personne obj) {
+	public boolean update(Personne obj) 
+	{
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	
 	@Override
-	public List<?> findAll(Personne obj) {
-		// TODO Auto-generated method stub
+	public List<?> findAll(Personne obj) 
+	{
+		
 		return null;
 	}
 	// tes au debut 
@@ -54,7 +57,8 @@ public class PersonneDAO implements DAO<Personne>
 							+ "WHERE \"statut\"= '" 
 							+ Artiste.statut +"'" );
 			/*14 ...11*/
-			while(result.next()) {
+			while(result.next()) 
+			{
 				listeDesartistes.add(
 					new Artiste(
 						
@@ -81,7 +85,8 @@ public class PersonneDAO implements DAO<Personne>
 			e.printStackTrace();
 			return null;
 		}
-		JOptionPane.showMessageDialog( null,"taille list artiste  "+listeDesartistes.size());
+		//test debbug
+		//JOptionPane.showMessageDialog( null,"taille list artiste  "+listeDesartistes.size());
 		return listeDesartistes;
 	}
 // besoin pr la commande 
@@ -129,6 +134,7 @@ public class PersonneDAO implements DAO<Personne>
 	
 	
 	// j ai des \"\" car j ai configuré ma base de données d une façon spécifique 
+	
 	public boolean login(Personne personne) 
 	{
 		try 
@@ -157,12 +163,13 @@ public class PersonneDAO implements DAO<Personne>
 	public Personne find(Personne personne) 
 	{
 		try {
-			// je confo,ds pseudo et speudo
+		
 
 			ResultSet result = this.con_
 					.createStatement()
 					.executeQuery("SELECT * FROM Personne_ WHERE \"speudo\" = "
 							+ "'" + personne.getSpeudo() +"'" );
+			// test de depart 
 							//+ " =  AND statut = '"+personne.getStatut()
 							//+ "'AND \"Mdp\" = '" + personne.getMdp()+"'" );
 			
@@ -234,7 +241,11 @@ public class PersonneDAO implements DAO<Personne>
 	
 	
 	
-	// autre technique des get pr la comande de l autre coté 
+	/*********************************************************************************************************************************
+	 *  autre technique des get pr la comande de l autre coté , a titre de test afin d essayer 
+	 * @param personne
+	 * @return
+	 *************************************************************************************************************************************/
 	public Personne find_(Personne personne)
 	{
 	
@@ -281,15 +292,17 @@ public class PersonneDAO implements DAO<Personne>
 			while(result.next()) 
 			{
 				
-				//...................
+				//...................test de depart effacé 
 			}
 		}
-		catch(SQLException e) {
+		catch(SQLException e) 
+		{
 			e.printStackTrace();
 		}
 
 		return people;
 	}
+	
 	// fct pr creer un client
 	/*INSERT INTO "STUDENT03_27"."PERSONNE_"
 	 13 champs 

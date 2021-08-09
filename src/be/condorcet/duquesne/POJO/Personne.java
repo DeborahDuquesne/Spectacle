@@ -307,8 +307,8 @@ public String getEmail() {
 		{
 			return this.pDAO.find(this);
 		}
-		
-		public Personne findById() throws SQLException
+// recherch d une personne par l id
+		public Personne findById(int id ) throws SQLException
 		{
 			return this.pDAO.findById(this.id);
 		}

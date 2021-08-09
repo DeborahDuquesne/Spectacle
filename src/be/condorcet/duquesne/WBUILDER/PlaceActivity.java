@@ -52,7 +52,6 @@ public class PlaceActivity extends JFrame
 	private JLabel lblDiamant, lblBronze, lblArgent, lblOr;
 	private JLabel lblBase;
 	private JSpinField spinnerBase;
-	private JComboBox<Configuration> configCombo;
 	private List<Place> places = new ArrayList<Place>();
 	private Commande commande = new Commande();
 	private Spectacle spectacle = new Spectacle();
@@ -87,7 +86,7 @@ public class PlaceActivity extends JFrame
 		contentPane.setLayout(null);
 		panel = new JPanel();
 		panel.setBackground(Color.LIGHT_GRAY);
-		panel.setBounds(20, 85, 649, 370);
+		panel.setBounds(10, 11, 681, 443);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -159,24 +158,6 @@ public class PlaceActivity extends JFrame
 		panel.add(btnDeconn);
 		btnDeconn.setForeground(Color.WHITE);
 		btnDeconn.setBackground(Color.DARK_GRAY);
-		configCombo = new JComboBox<Configuration>();
-		configCombo.setBounds(10, 42, 681, 32);
-		contentPane.add(configCombo);
-		configCombo.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		
-		JLabel lblNewLabel = new JLabel("Vous avez selectionn\u00E9 : ");
-		lblNewLabel.setFont(new Font("Yu Gothic UI", Font.ITALIC, 16));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setBackground(Color.WHITE);
-		lblNewLabel.setBounds(10, 0, 681, 31);
-		contentPane.add(lblNewLabel);
-		configCombo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				activity.setIdConfig();
-			}
-		});
-		configItem= (Configuration) configCombo .getSelectedItem();
 		
 		
 		btnDeconn.addActionListener(new ActionListener() 
@@ -193,46 +174,12 @@ public class PlaceActivity extends JFrame
 		
 		
 		
-		
-		
-		
-		
-		
-		createConfigCombobox(frame.getSpectacleChoisit()) ;
-		
-		
-		
-		
+	
 		
 	}
 
 	
 	
-	public void createConfigCombobox(Spectacle s) 
-	{
-	
-		List<Configuration> cfg= new  ArrayList<Configuration>();
-		
-		configCombo.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent arg0) 
-			{
-				activity.setIdConfig();
-			}
-		});
-		// selection de tt sans condi
-		Configuration c= new Configuration();
-		cfg= c.findAll();
-		for (Configuration ct : cfg) 
-		{
-			configCombo .addItem(ct);
-		}
-	}
-	public void setIdConfig() 
-	{
-		configItem=(Configuration)configCombo.getSelectedItem();
-		
-	}
 	
 	
 	

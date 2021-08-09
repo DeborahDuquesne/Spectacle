@@ -76,7 +76,7 @@ public class Achatactivity extends JFrame
 	private JLabel lblPrix;
 	private JLabel lblPrixValue;
 	private JLabel lblNewLabel_1;
-	private boolean isClicked = false;
+	private boolean click = false;
 	private JButton btnRetou;
 	
 	int nbrBronze, nbrArgent, nbrOr , nbrDiamant , nbrBase;
@@ -123,7 +123,7 @@ public class Achatactivity extends JFrame
 		JButton btnAcheter = new JButton("Acheter");
 		btnAcheter.setBackground(Color.DARK_GRAY);
 		btnAcheter.setForeground(Color.WHITE);
-		btnAcheter.setBounds(24, 225, 138, 40);
+		btnAcheter.setBounds(0, 225, 162, 48);
 		btnAcheter.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e) 
@@ -152,8 +152,8 @@ public class Achatactivity extends JFrame
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				activity.isClicked = !isClicked;
-				if(isClicked) 
+				activity.click = !click;
+				if(click) 
 				{
 					
 					prix=prix+ 10;
@@ -180,9 +180,9 @@ public class Achatactivity extends JFrame
 		panel.add(rdbtnPaiementPaypal);
 
 		rdbtnPaiementSEPA = new JRadioButton("SEPA");
-		rdbtnPaiementSEPA.setToolTipText(" \u00E0 effectuer dans les 7 jours calendrier, sinon les tickets");
+		
 		rdbtnPaiementSEPA.setBackground(Color.LIGHT_GRAY);
-		rdbtnPaiementSEPA.setBounds(266, 117, 155, 21);
+		rdbtnPaiementSEPA.setBounds(266, 117, 103, 21);
 		panel.add(rdbtnPaiementSEPA);
 		rdbtnPaiementPayconiq = new JRadioButton("PAYCONIQ");
 		rdbtnPaiementPayconiq.setBackground(Color.LIGHT_GRAY);
@@ -191,15 +191,15 @@ public class Achatactivity extends JFrame
 		
 		rdbtnBc = new JRadioButton("BANCONTACT");
 		rdbtnBc.setBackground(Color.LIGHT_GRAY);
-		rdbtnBc.setBounds(260, 164, 109, 23);
+		rdbtnBc.setBounds(266, 167, 109, 23);
 		panel.add(rdbtnBc);
 
-		JLabel lblNewLabel = new JLabel("Mode de livraison");
+		JLabel lblNewLabel = new JLabel("MODE LIVRAISON : ");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel.setBounds(24, 30, 187, 18);
 		panel.add(lblNewLabel);
 
-		JLabel lblModeDePaiment = new JLabel("Mode de paiment");
+		JLabel lblModeDePaiment = new JLabel("MODE PAIEMENT :");
 		lblModeDePaiment.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblModeDePaiment.setBounds(266, 30, 155, 18);
 		panel.add(lblModeDePaiment);
@@ -208,26 +208,6 @@ public class Achatactivity extends JFrame
 		panel_1.setBounds(0, 0, 451, 43);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
-
-		JLabel labelTitre = new JLabel("Paiement");
-		labelTitre.setHorizontalAlignment(SwingConstants.CENTER);
-		labelTitre.setBounds(10, 0, 429, 39);
-		labelTitre.setFont(new Font("Tahoma", Font.PLAIN, 32));
-		labelTitre.setForeground(UIManager.getColor("ToggleButton.highlight"));
-		panel_1.add(labelTitre);
-		
-		btnRetou = new JButton("Quitter");
-		btnRetou.setBackground(Color.DARK_GRAY);
-		btnRetou.setForeground(Color.WHITE);
-		btnRetou.setBounds(353, 15, 88, 26);
-		btnRetou.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				activity.dispose();
-			}
-		});
-		panel_1.add(btnRetou);
 
 		modeLivraison.add(rdbtnLivraisonTimbre);
 		modeLivraison.add(rdbtnLivraisonSurPlace);
@@ -252,6 +232,40 @@ public class Achatactivity extends JFrame
 		lblNewLabel_1 = new JLabel("( +5 \u20AC de frais de dossier )");
 		lblNewLabel_1.setBounds(41, 187, 155, 13);
 		panel.add(lblNewLabel_1);
+/******************************************************************************************************
+ * 
+ * 			TEST ID PERSONNE BIEN RECUP 
+ * 
+ * 
+ * ******************************************************************************************************/		
+		JButton idP = new JButton("id perso");
+		idP.setBounds(190, 242, 89, 23);
+		panel.add(idP);
+		
+				
+				
+				btnRetou = new JButton("Quitter");
+				btnRetou.setBounds(290, 225, 131, 48);
+				panel.add(btnRetou);
+				btnRetou.setBackground(Color.DARK_GRAY);
+				btnRetou.setForeground(Color.WHITE);
+				btnRetou.addActionListener(new ActionListener() 
+				{
+					public void actionPerformed(ActionEvent e)
+					{
+						// ça ferme la frame 
+						activity.dispose();
+					}
+				});
+		idP.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				JOptionPane.showMessageDialog(null,"id p   "+personne.getId());
+				
+				
+			}
+		});
 		
 		
 		
@@ -293,14 +307,14 @@ public class Achatactivity extends JFrame
 			this.commande.setModeDePayement(payement.VISA);
 		}
 		
-		
+		/*j attribue la fkpersonne a la commande */
 		boolean oki =
-				this.commande.create();
+				this.commande.create(personne.getId());
 		
 		if(oki) 
 		{
 			createPlaces();
-			//decomptePlace() ; // prob avc les jointures ca fonctionne pas 
+			//decomptePlace() ; // prob 
 			
 			FinalActivityPlace page = new FinalActivityPlace();
 			page.setVisible(true);
@@ -308,7 +322,7 @@ public class Achatactivity extends JFrame
 		}
 		else 
 		{
-			JOptionPane.showMessageDialog(null, "prob non géré car teop compliqyé a ce stade !");
+			JOptionPane.showMessageDialog(null, "prob non géré car trop compliqué a ce stade !");
 		}
 	}
 	public void createPlaces() 
@@ -353,16 +367,28 @@ public class Achatactivity extends JFrame
 			{
 		
 			case "BRONZE" : 
-				for(int i = 0 ; i < nbrBronze ; i ++) categorie.catDown();
+				for(int i = 0 ; i < nbrBronze ; i ++) 
+					{
+						categorie.catDown();
+					}
 				break;
 			case "ARGENT" : 
-				for(int i = 0 ; i < nbrArgent ; i ++) categorie.catDown();
+				for(int i = 0 ; i < nbrArgent ; i ++)
+					{
+						categorie.catDown();
+					}
 				break;
 			case "OR" : 
-				for(int i = 0 ; i < nbrOr ; i ++) categorie.catDown();
+				for(int i = 0 ; i < nbrOr ; i ++) 
+					{
+						categorie.catDown();
+					}
 				break;
 			case "DIAMANT" : 
-				for(int i = 0 ; i < nbrDiamant ; i ++) categorie.catDown();
+				for(int i = 0 ; i < nbrDiamant ; i ++) 
+					{
+						categorie.catDown();
+					}
 				break;
 		}
 		

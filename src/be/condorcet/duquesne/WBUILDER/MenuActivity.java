@@ -13,6 +13,8 @@ import be.condorcet.duquesne.POJO.*;
 
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -41,7 +43,8 @@ import javax.swing.JScrollPane;
 import java.awt.SystemColor;
 import javax.swing.JComboBox;
 
-public class MenuActivity extends JFrame {
+public class MenuActivity extends JFrame 
+{
 
 	private JPanel contentPane;
 	private Personne personne;
@@ -58,11 +61,11 @@ public class MenuActivity extends JFrame {
 	
 	private JComboBox <Representation> representationsCb;
 	// le menu va dependre de qui se connecte un client aura des cdes des reservations alors qu un orga aura d autres options
+	
 	public MenuActivity(Personne personne) 
 	{
 		this.personne = personne;
 		activity = this;
-		
 		
 		ArtistesCb= new JComboBox<Artiste>();
 		representationsCb= new JComboBox<Representation>();
@@ -86,47 +89,7 @@ public class MenuActivity extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		
-		
-		
-		
-		
-		
-		// org 
-		
-		JButton btnSalle = new JButton("RESERVATION DE SALLE DE SPECTACLE");
-		 btnSalle.setFont(new Font("Tahoma", Font.BOLD, 14));
-		 btnSalle.setForeground(Color.WHITE);
-		 btnSalle.setBackground(Color.RED);
-		
-		 btnSalle.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent e) 
-			{
-				/*l orga loue des salles cette page les configure*/
-				ReservationSalle page = new ReservationSalle(personne);
-				page.setVisible(true);
-				activity.dispose();
-			}
-		});
-		 btnSalle.setBounds(27, 139, 362, 46);
-		panel.add( btnSalle);
-		btnReservation.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-
+	
 		JButton btnRetour = new JButton("DECONNEXION");
 		btnRetour.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnRetour.addActionListener(new ActionListener() {
@@ -154,51 +117,74 @@ public class MenuActivity extends JFrame {
 lblType.setBounds(92, 11, 563, 74);
 panel.add(lblType);
 
+/* test debug                     
+JButton test = new JButton("tttt");
+test.setBounds(467, 143, 89, 23);
+panel.add(test);
+test.addActionListener(new ActionListener()
+{
+	public void actionPerformed(ActionEvent arg0) 
+	{
+		JOptionPane.showMessageDialog(null,"relist de getlistby  "+personne.getId());
+		JOptionPane.showMessageDialog(null,"relist de getlistby  "+personne.getNom());
+		JOptionPane.showMessageDialog(null,"relist de getlistby  "+personne.getSpeudo());
+		
+	}
+});
+ */
 
 loadMenu();
 
 	}
 
-
-
-		
-
-		
-		
-
-
-
-
-															
-										
-										
-										
-										
-										
-										
-										
-										
-										
-										
-
+								
+	
 	
 
 	public void loadMenu() 
 	{
 		switch (personne.getStatut()) 
 		{
-		case "CLIENT":
-			clientMenu();
-			break;
-		case "ORAGNISAEUR":
-
-			//MenuOrganisateur();
-			break;
-		case "MANAGER":
-			ManagerMenu() ;
-			break;
-		
+			case "CLIENT":
+				clientMenu();
+				break;
+			case "ORGANISATEUR":
+	
+				MenuOrganisateur();
+				break;
+			case "MANAGER":
+				ManagerMenu() ;
+				break;
+			
 		}
+	}
+	
+	public void MenuOrganisateur()
+	{
+		// org 
+		
+				JButton btnSalle = new JButton("RESERVATION DE SALLE DE SPECTACLE");
+				 btnSalle.setFont(new Font("Tahoma", Font.BOLD, 14));
+				 btnSalle.setForeground(Color.WHITE);
+				 btnSalle.setBackground(Color.RED);
+				
+				 btnSalle.addActionListener(new ActionListener() 
+				{
+					public void actionPerformed(ActionEvent e) 
+					{
+						/*l orga loue des salles cette page les configure*/
+						ReservationSalle page = new ReservationSalle(personne);
+						page.setVisible(true);
+						activity.dispose();
+					}
+				});
+				 btnSalle.setBounds(10, 209, 362, 46);
+				panel.add( btnSalle);
+				btnReservation.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+					}
+				});
 	}
 	public void ManagerMenu() 
 	{
@@ -250,9 +236,4 @@ loadMenu();
 		});
 		
 	}
-
-	//public void MenuOrganisateur() 
-	//{
-			
-	//}
 }

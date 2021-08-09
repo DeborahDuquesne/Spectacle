@@ -40,7 +40,7 @@ public class FinalActivityPlace extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JOptionPane.showMessageDialog(null, "Payement effectué !");
+		JOptionPane.showMessageDialog(null, "achat effectué  !");
 	}
 
 }

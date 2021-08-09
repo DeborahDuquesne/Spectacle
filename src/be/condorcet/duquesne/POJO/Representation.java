@@ -132,6 +132,7 @@ public class Representation
 		this.heureFin = heureFin;
 	}
 
+
 	public int getId() {
 		return id;
 	}
@@ -146,6 +147,22 @@ public class Representation
 
 	public void setDateRepresentation(String dateRepresentation) {
 		this.dateRepresentation = dateRepresentation;
+	}
+
+	public Date getD() {
+		return d;
+	}
+
+	public void setD(Date d) {
+		this.d = d;
+	}
+
+	public String getCommentaire() {
+		return commentaire;
+	}
+
+	public void setCommentaire(String commentaire) {
+		this.commentaire = commentaire;
 	}
 
 	@Override

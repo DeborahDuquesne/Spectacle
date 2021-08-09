@@ -8,28 +8,44 @@ import be.condorcet.duquesne.DAO.*;
 public class PlanningSalle {
 	private final AbstractFactoryDAO dao =AbstractFactoryDAO.getFactory(AbstractFactoryDAO.DAO_FACTORY);
 	private final DAO<PlanningSalle> planningSalleDAO = dao.getPlanningSalleDAO();
-	private int id = 0;
+	
+	private int id ;
+	/*selon uml le planning (date) correspond a un spectacle*/
 	private Spectacle spectacle;
 	private Date dateFin;
 	private Date dateDebut;
+	private Date dateReservation;
 
 	
 
-	public void setId(int id) {
+	
+
+	public void setId(int id) 
+	{
 		this.id = id;
 	}
 
 	public int getId() {
 		return this.id;
 	}
-
-	public PlanningSalle(Date dateReservation , Spectacle spectacle) {
-		this.dateDebut = dateReservation;
+	public PlanningSalle() {}
+	public PlanningSalle(Date dateDebut , Spectacle spectacle) 
+	{
+		this.dateDebut = dateDebut;
 		this.dateFin= setDateFin();
 		this.spectacle = spectacle;
 	}
 
+	
 
+	public PlanningSalle( Date dateFin, Date dateDebut, Date dateReservation,Spectacle spectacle) 
+	{
+		
+		this.spectacle = spectacle;
+		this.dateFin = dateFin;
+		this.dateDebut = dateDebut;
+		this.dateReservation = dateReservation;
+	}
 
 	public boolean create() {
 		return this.planningSalleDAO.create(this);
@@ -50,7 +66,14 @@ public class PlanningSalle {
 		return new java.sql.Date(c.getTimeInMillis());
 	}
 
-	
+	public Date getDateReservation() 
+	{
+		return dateReservation;
+	}
+
+	public void setDateReservation(Date dateReservation) {
+		this.dateReservation = dateReservation;
+	}
 	public Spectacle getSpectacle() {
 		return this.spectacle;
 	}

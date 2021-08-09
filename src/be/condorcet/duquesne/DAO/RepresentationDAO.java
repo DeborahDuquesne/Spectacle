@@ -2,6 +2,7 @@ package be.condorcet.duquesne.DAO;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -23,47 +24,60 @@ public class RepresentationDAO implements DAO<Representation>
 	{
 		connect = conn;
 	}
+/*
+INSERT INTO "STUDENT03_27"."REPRESENTATION_" ("date", "heureDebut", "heureFin", "commentaire", "fk_spect") 
+VALUES ('2022-08-25', '19', '24', 'kk nnn', '9')
 
+
+
+*/
 	@Override
-	public boolean create(Representation representation) 
+	public boolean create(Representation r) 
 	{
-		try {
-			this.connect
-			.createStatement()
-			.executeUpdate("INSERT INTO Representation_ VALUES("
-					
-					+ representation.getDateRepresentation()
-					+ "','"
-					+ representation.getHeureDebut()
-					+ "','"
-					+ representation.getHeureFin()
-					+ "','"
-					+ representation.getSpectacle().getId()
-					+ "')"
-				);
-			return true;
-		} 
-		catch (SQLException e) 
+		try 
+		{
+			
+			PreparedStatement state = connect.prepareStatement
+        			("INSERT INTO Representation_(\"date\",\"heureDebut\",\"heureFin\",\"commentaire\",\"fk_spect\")"
+        					
+
+        					+ "VALUES (?,?,?,?,?)");
+        		state.setString(1, r.getDateRepresentation());
+	            state.setFloat(2, r.getHeureDebut());
+	            state.setFloat(3,r.getHeureFin());
+	            state.setString(4, r.getCommentaire());
+	            state.setInt(5, r.getSpectacle().getId());
+	            state.execute();
+
+			
+		}
+
+		catch (SQLException e)
 		{
 			e.printStackTrace();
 			return false;
 		}
+
+		return true;
 	}
 
 	@Override
-	public boolean delete(Representation obj) {
+	public boolean delete(Representation obj) 
+	{
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean update(Representation obj) {
+	public boolean update(Representation obj)
+	{
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public Representation find(Representation obj) {
+	public Representation find(Representation obj) 
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -123,7 +137,10 @@ public class RepresentationDAO implements DAO<Representation>
     	
 		return rlist;
 	}
-	
+	/*****************************************************************************************************************
+	 * 
+	 * 			AFIN DE TESTER LA RECUP DE TOUT SANS SOUCI
+	 * ***************************************************************************************************************/
 	@Override
 	public List getAll(Representation object) 
 	{
@@ -162,7 +179,8 @@ public class RepresentationDAO implements DAO<Representation>
 	}
 
 	@Override
-	public Representation findById(int id) throws SQLException {
+	public Representation findById(int id) throws SQLException 
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}

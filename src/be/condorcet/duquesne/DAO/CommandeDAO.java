@@ -23,11 +23,13 @@ public class CommandeDAO  implements DAO<Commande>
 {
 	protected Connection connect = null;
 	private Statement stmt=null;
-	
+	/*ctr qui instancie la connect */
 	public  CommandeDAO(Connection conn) 
 	{
 		connect = conn;
 	}
+	
+	
 	//pr creer la cde j ai pas le choix j ai fait milles test et si on suit les liens on a pas le choix..
 	PersonneDAO p =new PersonneDAO(this.connect);
 	// la personne est le client qui cree la cde 
@@ -35,20 +37,23 @@ public class CommandeDAO  implements DAO<Commande>
 	
 
 	@Override
-	public boolean delete(Commande obj) {
-		// TODO Auto-generated method stub
+	public boolean delete(Commande obj) 
+	{
+		
 		return false;
 	}
 
 	@Override
-	public boolean update(Commande obj) {
-		// TODO Auto-generated method stub
+	public boolean update(Commande obj) 
+	{
+		
 		return false;
 	}
 
 	@Override
-	public Commande find(Commande obj) {
-		// TODO Auto-generated method stub
+	public Commande find(Commande obj) 
+	{
+		
 		return null;
 	}
 /*select * from commande_ inner join personne_ 
@@ -85,7 +90,8 @@ public class CommandeDAO  implements DAO<Commande>
 						
 			}
 
-		} catch (SQLException e) {
+		} catch (SQLException e) 
+		{
 			e.printStackTrace();
 		}
 		return cdes;
@@ -111,15 +117,25 @@ public class CommandeDAO  implements DAO<Commande>
  * LES AUTRES ONT FAIT DES DOUBLES LIENS 
  * PAS D ID PAS DE CDE 
  * PAS DE LIEN PAS D ID
- * J AI TOUT ESSAYE IMPOSSIBL*/	
+ * J AI TOUT ESSAYE IMPOSSIBLE DE CHEZ IMPOSSIBLE 
+ * 
 	
-	/*INSERT INTO "STUDENT03_27"."COMMANDE_" ("modePaiement", "precisionCde", "modeLivraison", "total", "fk_pers") VALUES ('SEPA', 'neant', 'SUR_PLACE', '525', '30')
+	/*INSERT INTO "STUDENT03_27"."COMMANDE_" 
+	 * ("modePaiement", "precisionCde", "modeLivraison", "total", "fk_pers") VALUES ('SEPA', 'neant', 'SUR_PLACE', '525', '30')
 */
 	
 	@Override
 	public boolean create(Commande obj) 
 	{
 		Personne p = new Personne();
+		
+		/*
+		ResultSet result = this.connect
+				.createStatement()
+				.executeQuery("SELECT * FROM Personne_ WHERE \"id\" = "
+						+ "'" + "qque chose qui exisre pas ds cde er qui rend impossible la req de merde " +"'" );
+		*/
+		
 		PreparedStatement prepare = null;
 		String sql = "INSERT INTO Commande_ VALUES("
 				+ obj.getModeDePayement()+ "','" + obj.getModeDeLivraison()+ "','"
@@ -134,23 +150,10 @@ public class CommandeDAO  implements DAO<Commande>
         catch(SQLException e)
         {
             e.printStackTrace();
-        }
-        
+        }   
         return true;
 		
-		
-		
-		
-		
-		
-		
-		
-			
-			
-		
-			
-			
-			
+	
 	}
 
 	

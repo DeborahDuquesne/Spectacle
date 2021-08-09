@@ -1,5 +1,6 @@
 package be.condorcet.duquesne.POJO;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,6 +16,7 @@ public class Spectacle
 			.getFactory(AbstractFactoryDAO
 			.DAO_FACTORY);
 	private final DAO<Spectacle> spectacleDAO = dao.getSpectacleDAO();
+	
 	private Configuration configuration=new Configuration();// important sinon valeur nulle
 	private int id;
 	private String libel;
@@ -28,6 +30,7 @@ public class Spectacle
 	// prendre les representations corr au spectacle
 	List<Representation> reList = new LinkedList<>();
 	List<Configuration>cfgList = new LinkedList<>();
+	List<Spectacle> re = new LinkedList<>();
 	
 	public Configuration getConfig() 
 	{
@@ -35,7 +38,7 @@ public class Spectacle
 	}
 	
 
-	List<Spectacle> re = new LinkedList<>();
+	
 	
 	public Spectacle() 
 	{	
@@ -279,31 +282,28 @@ public class Spectacle
 	{
 		rep = new Representation();
 		// ca renvoie ttes les repre
-      List<Representation> list = rep.findAll();
-		
-      
+		List<Representation> list = rep.findAll();
+	
       //  JOptionPane.showMessageDialog( null,"taille liste repre ds spect .fd all"  +rep.findAll().size());
       
-      for(Representation res : list) 
-      {
-    	  {
-          	if(res.getSpectacle().getId()==this.id)
-          		this.reList.add(res);
-          }
-       // JOptionPane.showMessageDialog(null,"res.getSpectacle().getId()  "+res.getSpectacle().getId() + " id spect = "+ this.id);
-      }
+	      for(Representation res : list) 
+	      {
+	    	  {
+	          	if(res.getSpectacle().getId()==this.id)
+	          		this.reList.add(res);
+	          }
+	       // JOptionPane.showMessageDialog(null,"res.getSpectacle().getId()  "+res.getSpectacle().getId() + " id spect = "+ this.id);
+	      }
 		
         
         	//JOptionPane.showMessageDialog(null,"relist de getlistby  "+reList);
         	//JOptionPane.showMessageDialog( null,"res.getspect.getid "+res.getSpectacle().getId());
         	//JOptionPane.showMessageDialog( null,"res.getSpectacle().getId() == this.id "+(res.getSpectacle().getId() == this.id));
         	
-        }
+    }
         
 	
-	{
-		
-	}
+	
  /*****************************************************************************************************************************
   * 
   * 
@@ -320,7 +320,7 @@ public class Spectacle
   * 
   * 
   * 
-  * 				TEST 
+  * 				TEST debbuging 
   * 
   * 
   * 
@@ -328,7 +328,7 @@ public class Spectacle
   * 
   * 
   * 
-  * */
+  * **********************************************************************************************************************/
 	public String getListSpTest()
 	{
 		config= new Configuration();
@@ -396,8 +396,18 @@ public class Spectacle
         	//JOptionPane.showMessageDialog( null,"res.getSpectacle().getId() == this.id "+(res.getSpectacle().getId() == this.id));
         	
         }
-        
+	
+	
+	
+
+	
+	public Spectacle check() 
+	{
+		return this.spectacleDAO.find(this);
 	}
+	
+        
+}
 		
 
 
