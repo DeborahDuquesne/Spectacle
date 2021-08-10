@@ -9,6 +9,17 @@ import be.condorcet.duquesne.POJO.Spectacle;
 public interface  DAO<T> 
 {
 	public  boolean create(T obj);
+	/****************************************************************************************************
+	 * 
+	 * 
+	 * 		IMPOSSIBLE DE CREER UNE COMMAND SANS ID PERSONNE 
+	 * 		IMPOSSIBLE DE CREER UNE PLACE SANS ID COMMANDE 
+	 * 		ET COMME PAS DE DOUBLE SENS J AI PAS LE CHOIX
+	 * 		J AI TESTE MILLES TRUCS ET EN VAIN !!!!!!!!!!!!!!!!!!!!!!!!!
+	 * 		ALORS JE CUSTOMISE LE DAO !!!!!!!!!!!!!!!!!!
+	 * 
+	 * ****************************************************************************************************/
+	public  boolean create(T obj,int id );
 	
 	public  boolean delete(T obj);
 	

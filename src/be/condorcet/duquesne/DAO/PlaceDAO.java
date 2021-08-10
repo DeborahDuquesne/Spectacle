@@ -156,4 +156,13 @@ commande_ c on c."id"=p."fk_commande";*/
 		return null;
 	}
 
+
+
+
+	@Override
+	public boolean create(Place obj, int id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

@@ -161,4 +161,12 @@ public class ConfigurationDAO implements DAO<Configuration>
 	}
 
 	
+
+	@Override
+	public boolean create(Configuration obj, int id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	
 }

@@ -1,6 +1,7 @@
 package be.condorcet.duquesne.WBUILDER;
 
 import java.awt.event.ActionEvent;
+
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 
 
 import javax.swing.ButtonGroup;
@@ -25,6 +27,7 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.JRadioButton;
 
+import be.condorcet.duquesne.POJO.Artiste;
 import be.condorcet.duquesne.POJO.Categorie;
 import be.condorcet.duquesne.POJO.Commande;
 import be.condorcet.duquesne.POJO.Commande.livraison;
@@ -80,6 +83,7 @@ public class Achatactivity extends JFrame
 	private JButton btnRetou;
 	
 	int nbrBronze, nbrArgent, nbrOr , nbrDiamant , nbrBase;
+	private JButton cde;
 
 	public Achatactivity(Representation representation,
 			Personne personne, 
@@ -208,6 +212,21 @@ public class Achatactivity extends JFrame
 		panel_1.setBounds(0, 0, 451, 43);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
+		
+		cde = new JButton("cde");
+		cde.setBounds(10, 11, 89, 23);
+		cde.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				
+				
+				
+			}
+		});
+		
+		
+		panel_1.add(cde);
 
 		modeLivraison.add(rdbtnLivraisonTimbre);
 		modeLivraison.add(rdbtnLivraisonSurPlace);
@@ -308,6 +327,7 @@ public class Achatactivity extends JFrame
 		}
 		
 		/*j attribue la fkpersonne a la commande */
+		
 		boolean oki =
 				this.commande.create(personne.getId());
 		

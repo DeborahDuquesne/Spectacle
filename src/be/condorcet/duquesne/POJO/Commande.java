@@ -246,6 +246,7 @@ public class Commande
 	
 	public boolean create(int id) 
 	{
-		return this.commandeDAO.create(this);
+		return this.commandeDAO.create(this,id);
+				//this.commandeDAO.create(this); ca marche pas avec des milliers de test pas d id pas de cde 
 	}
 }

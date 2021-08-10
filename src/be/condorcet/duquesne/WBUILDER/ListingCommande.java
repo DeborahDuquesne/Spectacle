@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,9 +15,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import be.condorcet.duquesne.POJO.Client;
 import be.condorcet.duquesne.POJO.Commande;
 import be.condorcet.duquesne.POJO.Personne;
 import be.condorcet.duquesne.POJO.Spectacle;
+import javax.swing.JButton;
 
 public class ListingCommande extends JFrame 
 {
@@ -33,7 +37,7 @@ public class ListingCommande extends JFrame
 	public ListingCommande(Personne p) 
 	{
 		this.p=p;
-		
+		 ListingCommande activity=this;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -62,6 +66,24 @@ public class ListingCommande extends JFrame
 		sp_cm = new JComboBox<Commande>();
 		sp_cm.setBounds(10, 110, 414, 21);
 		panel_1.add(sp_cm);
+		
+		JButton btnR = new JButton("RETOUR");
+		btnR.setBounds(263, 208, 161, 23);
+		btnR.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				
+				MenuActivity page = new MenuActivity(p);
+				page.setVisible(true);
+				
+				activity.dispose();
+				
+				
+			}
+		});
+		panel_1.add(btnR);
+		
 		
 		List();
 		createCombobox() ;
@@ -94,5 +116,4 @@ public class ListingCommande extends JFrame
 		
 		allCde = laCde.findAll();
 	}
-
 }

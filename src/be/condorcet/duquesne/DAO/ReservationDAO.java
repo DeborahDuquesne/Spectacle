@@ -163,4 +163,14 @@ public class ReservationDAO implements DAO<Reservation> {
 		return null;
 	}
 
+
+	
+
+
+	@Override
+	public boolean create(Reservation obj, int id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

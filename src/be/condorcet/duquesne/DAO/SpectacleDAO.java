@@ -316,6 +316,15 @@ public class SpectacleDAO implements DAO<Spectacle>
 		return null;
 	}
 
+
+
+
+	@Override
+	public boolean create(Spectacle obj, int id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	
 	
 }

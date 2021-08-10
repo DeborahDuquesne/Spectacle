@@ -155,7 +155,42 @@ public class CommandeDAO  implements DAO<Commande>
 		
 	
 	}
+/*
+	/*INSERT INTO "STUDENT03_27"."COMMANDE_" 
+	 * ("modePaiement", "precisionCde", "modeLivraison", "total", "fk_pers") VALUES ('SEPA', 'neant', 'SUR_PLACE', '525', '30')*/
+	@Override
+	public boolean create(Commande c,int id)
+	{
+		
+		try 
+		{
+			PreparedStatement state = connect.prepareStatement
+        			("INSERT INTO Commande_(\"modePaiement\",\"precisionCde\",\"modeLivraison\",\"total\",\"fk_pers\")"
+        					
 
+        					+ "VALUES (?,?,?,?,?)");
+        		state.setString(1, c.getModeDePayement());
+	            state.setString(2, c.getPrecisionCde());
+	            state.setString(3,c.getModeDeLivraison());
+	            state.setFloat(4, c.getTotal());
+	            state.setInt(5, id);
+	            state.execute();
+
+			
+		}
+
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+
+		return true;
+		
+		
+	}
+
+	
 	
 
 

@@ -184,6 +184,12 @@ VALUES ('2022-08-25', '19', '24', 'kk nnn', '9')
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public boolean create(Representation obj, int id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 	
 }

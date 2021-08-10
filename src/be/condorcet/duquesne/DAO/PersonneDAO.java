@@ -545,6 +545,14 @@ public class PersonneDAO implements DAO<Personne>
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+
+	@Override
+	public boolean create(Personne obj, int id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 
 }

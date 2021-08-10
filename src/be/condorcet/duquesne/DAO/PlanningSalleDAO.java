@@ -96,6 +96,12 @@ Validation (commit) effectuée
 		return null;
 	}
 	
+	@Override
+	public boolean create(PlanningSalle obj, int id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
 	
 	
 	

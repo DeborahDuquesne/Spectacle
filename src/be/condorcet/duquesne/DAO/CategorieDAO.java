@@ -88,6 +88,12 @@ public class CategorieDAO implements DAO<Categorie>
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	@Override
+	public boolean create(Categorie obj, int id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
 
 
