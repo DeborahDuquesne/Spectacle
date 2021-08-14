@@ -46,6 +46,9 @@ import javax.swing.JComboBox;
 public class MenuActivity extends JFrame 
 {
 
+	private Spectacle s;
+	
+	
 	private JPanel contentPane;
 	private Personne personne;
 	private JPanel panel;
@@ -173,6 +176,7 @@ loadMenu();
 					public void actionPerformed(ActionEvent e) 
 					{
 						/*l orga loue des salles cette page les configure*/
+						
 						ReservationSalle page = new ReservationSalle(personne);
 						page.setVisible(true);
 						activity.dispose();

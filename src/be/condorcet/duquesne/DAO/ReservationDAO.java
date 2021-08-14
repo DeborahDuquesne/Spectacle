@@ -26,7 +26,14 @@ public class ReservationDAO implements DAO<Reservation> {
 	 * ENREGISTRE', 'null', '500', '26', '42')
 */
 	
-	
+	/*
+INSERT INTO "STUDENT03_27"."RESERVATION_" 
+("acompte", "solde", "statut", "commentaire", "prix", "fk_pers", "fk_planS") VALUES 
+('250', '500', 'ENREGISTRE', 'aucun', '750', '29', '468')
+
+Validation (commit) effectuée
+
+*/
 	@Override
 	public boolean create(Reservation obj)
 	{
@@ -40,7 +47,7 @@ public class ReservationDAO implements DAO<Reservation> {
         					
         					
         					+ "VALUES (?,?,?,?,?,?,?)");
-        	//Float.parseFloat(rs.getString(9));
+        	
         	state.setFloat(1, obj.getAcompte());
             state.setFloat(2, obj.getSolde());
             state.setString(3, obj.getStatut());
@@ -171,6 +178,13 @@ public class ReservationDAO implements DAO<Reservation> {
 	public boolean create(Reservation obj, int id) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+
+	@Override
+	public int findByLast(Reservation s) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

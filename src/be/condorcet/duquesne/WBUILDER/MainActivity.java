@@ -108,12 +108,12 @@ public class MainActivity extends JFrame
 
 		JLabel lblNewLabel_1 = new JLabel("     LISTE DES SPECTACLES ");
 		lblNewLabel_1.setBackground(Color.RED);
-		lblNewLabel_1.setBounds(10, 39, 352, 56);
+		lblNewLabel_1.setBounds(10, 11, 414, 84);
 		lblNewLabel_1.setForeground(Color.WHITE);
-		lblNewLabel_1.setFont(new Font("Rubik", Font.BOLD | Font.ITALIC, 21));
+		lblNewLabel_1.setFont(new Font("Rubik", Font.BOLD | Font.ITALIC, 23));
 		panel_1.add(lblNewLabel_1);
 		sp_cm = new JComboBox<Spectacle>();
-		sp_cm.setBounds(41, 110, 321, 21);
+		sp_cm.setBounds(20, 110, 387, 21);
 		panel_1.add(sp_cm);
 		
 		JLabel lblNewLabel = new JLabel("Interesse(e)? Cliquez sur le menu pour vous connecter "
@@ -134,6 +134,8 @@ public class MainActivity extends JFrame
 		menu.setBounds(52, 257, 296, 42);
 		panel_1.add(menu);
 		
+		
+		/* test pr verif 
 		JButton abcd = new JButton("New button");
 		abcd.setBounds(309, 39, 89, 23);
 		panel_1.add(abcd);
@@ -147,7 +149,7 @@ public class MainActivity extends JFrame
 				start.setVisible(true);
 				activity.dispose();
 				}
-		});
+		});*/
 		
 		menu.addActionListener(new ActionListener()
 		{

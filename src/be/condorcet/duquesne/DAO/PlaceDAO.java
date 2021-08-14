@@ -157,12 +157,46 @@ commande_ c on c."id"=p."fk_commande";*/
 	}
 
 
+	/*INSERT INTO "STUDENT03_27"."PLACE_" 
+	 * ("prix", "fk_commande", "fk_representation", "type_place") VALUES ('452', '181', '101', 'DIAMANT')
+	*/
+
+	@Override
+	public boolean create(Place p, int id)
+	{
+
+		try 
+		{
+			PreparedStatement state = con_.prepareStatement
+        			("INSERT INTO Place_(\"prix\",\"fk_commande\",\"fk_representation\",\"type_place\")"
+        					
+
+        					+ "VALUES (?,?,?,?)");
+        		state.setFloat(1, p.getPrix());
+	            state.setInt(2, id);// fk cde
+	            state.setInt(3,101);//p.getRepresentation().getId());//fk repre
+	            state.setString(4,"DIAMANT");// p.getType_categorie().toString());
+	           
+	            state.execute();
+
+			
+		}
+
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+
+		return true;
+	}
+
 
 
 	@Override
-	public boolean create(Place obj, int id) {
+	public int findByLast(Place s) {
 		// TODO Auto-generated method stub
-		return false;
+		return 0;
 	}
 
 }

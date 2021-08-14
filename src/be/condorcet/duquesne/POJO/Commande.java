@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import be.condorcet.duquesne.DAO.*;
 
 public class Commande 
@@ -23,14 +25,45 @@ public class Commande
 	{ 
 		SUR_PLACE,
 		TIMBRE_PRIOR,
-		ENVOIE_SECURISE    // 10 e 
+		ENVOI_SECURISE    // 10 e 
 	}
 	private List<Place> places = new ArrayList<Place>();
 	private int id;
+	
 	private payement modeDePayement;
 	private livraison modeDeLivraison;
 	private float total;
 	private String precisionCde;
+	private List<Commande> cdeL= new ArrayList<Commande>();
+	private Personne p = new Personne();
+	
+	
+	/*SANS LINE PERSONNE MEME AVEC DES BIDOUILES DE TARE C EST IMPOSSIBLE DE LISTER QUOI QUE CE SOIT !!!!!!!!!!!!!!!!!!!!!
+	 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -47,6 +80,14 @@ public class Commande
 	 *****************************************************************************************/
 	Place placeCdee;
 	
+	public Personne getP() 
+	{
+		
+		return p;
+	}
+	public void setP(Personne p) {
+		this.p = p;
+	}
 	public Commande(List<Place> places, int id, 
 			payement modeDePayement, livraison modeDeLivraison, float total,
 			String precisionCde, Place placeCdee) {
@@ -67,28 +108,30 @@ public class Commande
 	
 	/****************************************************************************************************
 	 * 
-	 * l argument personne est destinné a attribuer l id de la personne qui passe commande 
+	 * 
 	 * 
 	 * ***************************************************************************************************/
 	
-	public Commande(payement modeDePayement,
+	public Commande(int id,payement modeDePayement,
 			String precis, 
 			livraison modeDeLivraison, 
-			float total, 
-			Personne p) 
+			float total,Personne  c
+			) 
 	{
+		this.id=id;
 		this.modeDePayement = modeDePayement;
 		this.modeDeLivraison = modeDeLivraison;
 		this.total=total;
-		p=new Personne();
+		this.p=c;
+		
 	}
 	
 	
-
 	public int getId() 
 	{
 		return id;
 	}
+
 	public void setPlaces(List<Place> places) 
 	{
 		this.places = places;
@@ -156,9 +199,9 @@ public class Commande
 	}
 	public String getModeDeLivraison() 
 	{
-		if(this.modeDeLivraison == modeDeLivraison.ENVOIE_SECURISE) 
+		if(this.modeDeLivraison == modeDeLivraison.ENVOI_SECURISE) 
 		{
-			return "ENVOIE_SECURISEE";
+			return "ENVOI_SECURISE";
 		}
 			
 		else if(this.modeDeLivraison == modeDeLivraison.TIMBRE_PRIOR)
@@ -193,8 +236,8 @@ public class Commande
 	@Override
 	public String toString() 
 	{
-		return "N° "+this.id + "[ " + this.modeDeLivraison + " ]"+  "  [ "  +this.modeDePayement + " ] " 
-				+"  "+  this.getPrecisionCde();
+		return "N° "+this.id + "  [ " + this.modeDeLivraison + "   ]"+  "  [   "  +this.modeDePayement + " ]   " ;
+			//	+"  "+  this.getPrecisionCde();
 	}
 	
 	
@@ -211,7 +254,12 @@ public class Commande
 		return (List<Commande>) this.commandeDAO.findAll(this);
 	}
 	
-
+	
+	
+	public List<Commande> getdAll()
+	{
+		return (List<Commande>) this.commandeDAO.getAll(this);
+	}
 	/*****************************************************************************************************
 	 * 
 	 * SI ON RESPECTE LE DIAGRAMME DE CLASSE ON NE POSSEDE PAS DE LIEN PERSONNE DS COMMANDE CPDT LA COMMANDE
@@ -225,28 +273,51 @@ public class Commande
 	 * @param id
 	 * @return
 	 */
-	public void getPersonne(int id )
-	{
-		Personne p = new Personne();
-		try 
-		{
-			p=p.findById(id);
-		} 
-		catch (SQLException e) 
-		{
-			
-			e.printStackTrace();
-		}
-      
-	  
+	
         	
-    }
-	
-	
+   
 	
 	public boolean create(int id) 
 	{
 		return this.commandeDAO.create(this,id);
 				//this.commandeDAO.create(this); ca marche pas avec des milliers de test pas d id pas de cde 
 	}
+	
+
+	
+	
+	
+	
+
+	public void getListCdeByClient()
+	{
+		
+		List<Commande> list =this.findAll();
+	
+		JOptionPane.showMessageDialog(null, "taille list getcde ds commande"+this.findAll().size());
+		for(Commande cde : list)
+		{
+			if(cde.getP().getId() == cde.getId())
+			{
+				this.cdeL.add(cde);
+			}
+			//debug pr voir les recherche d id 
+			//JOptionPane.showMessageDialog(null, "cde.getP().getId()  id pers"+cde.getP().getId()+ "thi id" +cde.getId());
+			
+				
+		}
+		JOptionPane.showMessageDialog(null, "taille list de la cde apres verif "+cdeL.size());
+		
+	}
+	public List<Commande> getCdeL() 
+	{
+		return cdeL;
+	}
+	public void setCdeL(List<Commande> cdeL) {
+		this.cdeL = cdeL;
+	}
+	
+	
+	
+	
 }

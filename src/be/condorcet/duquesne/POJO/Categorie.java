@@ -28,7 +28,8 @@ public class Categorie
 		OR,
 		ARGENT,
 		DIAMANT,
-		BRONZE
+		BRONZE, 
+		NEANT    // pr chipoter avc la conf debout qui a pas de cat
 	};
 	
 	
@@ -108,8 +109,14 @@ public class Categorie
 		return this.commentaire;
 	}
 
+	
 
-	public void setCommentaire(String commentaire) {
+	public int getId() 
+	{
+		return this.id;
+	}
+	public void setCommentaire(String commentaire)
+	{
 		this.commentaire = commentaire;
 	}
 
@@ -253,6 +260,7 @@ public class Categorie
 	public boolean catDown()
 	{
 		boolean majNbrePlce = cDAO.update(this);
+		// ca retire un a chque plce prise 
 		return majNbrePlce;
 	}
 	

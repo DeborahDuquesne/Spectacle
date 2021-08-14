@@ -17,7 +17,7 @@ public class Spectacle
 			.DAO_FACTORY);
 	private final DAO<Spectacle> spectacleDAO = dao.getSpectacleDAO();
 	
-	private Configuration configuration=new Configuration();// important sinon valeur nulle
+	
 	private int id;
 	private String libel;
 	private int nombrePlaceParClient;
@@ -59,6 +59,7 @@ public class Spectacle
 		this.libel = libel;
 		this.nombrePlaceParClient = nombrePlaceParClient;
 	}
+	// ctr utilisé
 	public Spectacle(String libel,String genre,String urlImg,
 			String description,int nombrePlaceParClient) 
 	{
@@ -112,7 +113,7 @@ public class Spectacle
 		this.urlImg=urlImg;
 		this.description=description ;
 		this.rep=rep;
-		this.configuration=config;
+		this.config=config;
 		
 	}
 
@@ -155,12 +156,12 @@ public class Spectacle
 	}
 	public Configuration getConfiguration() 
 	{
-		return configuration;
+		return config;
 	}
 
 	public void setConfiguration(Configuration configuration) 
 	{
-		this.configuration = configuration;
+		this.config = configuration;
 	}
 
 	public int getId() 
@@ -292,7 +293,7 @@ public class Spectacle
 	          	if(res.getSpectacle().getId()==this.id)
 	          		this.reList.add(res);
 	          }
-	       // JOptionPane.showMessageDialog(null,"res.getSpectacle().getId()  "+res.getSpectacle().getId() + " id spect = "+ this.id);
+	        JOptionPane.showMessageDialog(null,"res.getSpectacle().getId()  "+res.getSpectacle().getId() + " id spect = "+ this.id);
 	      }
 		
         
@@ -342,7 +343,7 @@ public class Spectacle
       
         for(Configuration cf : listC) 
         {
-        	if(this.id==this.configuration.getId() )
+        	if(this.id==this.config.getId() )
         	{
         			this.cfgList.add(cf);// modif avc cat
         		
@@ -355,7 +356,7 @@ public class Spectacle
         
         for(Representation cf : listR) 
         {
-        	if(this.id==this.configuration.getId() )
+        	if(this.id==this.config.getId() )
         	{
         			this.reList.add(cf);// modif avc cat
         		
@@ -367,7 +368,7 @@ public class Spectacle
         
         for(int i=0;i<listS.size();i++) 
 		{
-        	JOptionPane.showMessageDialog(null,"id spect" +listS.get(i).getId() );
+        	//JOptionPane.showMessageDialog(null,"id spect" +listS.get(i).getId() );
         	/*
 			if(listS.get(i).getId()==(listR.get(i).getId()))
 			{
@@ -399,14 +400,22 @@ public class Spectacle
 	
 	
 	
-
+	
 	
 	public Spectacle check() 
 	{
 		return this.spectacleDAO.find(this);
 	}
 	
-        
+	/* retrouve la derniere ligne inseree car pour ajouter une representation on a pas le choix */
+	
+	public int lastRecord() 
+	{
+		return this.spectacleDAO.findByLast(this);
+		
+	}
+	
+	
 }
 		
 

@@ -34,6 +34,7 @@ VALUES ('2022-08-25', '19', '24', 'kk nnn', '9')
 	@Override
 	public boolean create(Representation r) 
 	{
+		Spectacle d = new Spectacle();
 		try 
 		{
 			
@@ -46,7 +47,14 @@ VALUES ('2022-08-25', '19', '24', 'kk nnn', '9')
 	            state.setFloat(2, r.getHeureDebut());
 	            state.setFloat(3,r.getHeureFin());
 	            state.setString(4, r.getCommentaire());
-	            state.setInt(5, r.getSpectacle().getId());
+	            state.setInt(5,d.lastRecord());
+	           
+	            
+	            
+	            JOptionPane.showMessageDialog(null, "d.lastRecord() !"+d.lastRecord());
+	            JOptionPane.showMessageDialog(null, "r.getSpectacle().getId() !"+r.getSpectacle().getId());
+	            		// bidouille vu que rien ne marche 
+	            		//r.getSpectacle().getId());// null 
 	            state.execute();
 
 			
@@ -189,6 +197,11 @@ VALUES ('2022-08-25', '19', '24', 'kk nnn', '9')
 	public boolean create(Representation obj, int id) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	@Override
+	public int findByLast(Representation s) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	

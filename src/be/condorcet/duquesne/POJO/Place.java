@@ -14,17 +14,20 @@ public class Place {
 	private Representation representation;
 	
 	private TypesCat type_cat;//type de place 
-	public int getId() {
-		return id;
-	}
+	
+	public Place() {}
 	public Place(float prix, Representation representation, Commande commande,
 			TypesCat type_categorie) 
 	{
 		
 		this.prix = prix;
-		this.representation = representation;
+		this.representation = new Representation();
 		commande= new Commande();
 		this.type_cat = type_categorie;
+	}
+	
+	public int getId() {
+		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
@@ -49,7 +52,9 @@ public class Place {
 		this.type_cat= type_categorie;
 	}
 	
-	public boolean create() {
-		return this.placeDAO.create(this);
+	public boolean create(int id) 
+	{
+		return this.placeDAO.create(this, id);
+				//this.placeDAO.create(this); sans id impossible
 	}
 }

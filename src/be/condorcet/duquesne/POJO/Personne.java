@@ -3,7 +3,10 @@ package be.condorcet.duquesne.POJO;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JOptionPane;
 
 import be.condorcet.duquesne.DAO.AbstractFactoryDAO;
 import be.condorcet.duquesne.DAO.PersonneDAO;
@@ -27,6 +30,33 @@ public class Personne
 	protected String telephone;
 	protected String email;
 	protected int age;
+	
+	
+	private  List<Commande> clientCde1 = new ArrayList<Commande>();
+	
+	public List<Commande> getClientCde1() {
+		return clientCde1;
+	}
+	public void setClientCde1(List<Commande> clientCde1) {
+		this.clientCde1 = clientCde1;
+	}
+
+
+
+	private Commande cde;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 // ctr avec ts les arg
 	public Personne(Integer id, String statut, String mdp, String speudo, String adresse, String prenom,
@@ -60,7 +90,7 @@ public class Personne
 	
 	}
 	
-	public Personne(int id, String s,String mdp,String statut)
+	public Personne(int id, String s,String n,String statut)
 
 	{
 		this.id=id;
@@ -122,8 +152,23 @@ public class Personne
 		
 	}
 	
+// pr liste client cdes 
 
-
+public Personne(int id,String nom2, String prenom2, String email2, String statut2) 
+	{
+	    this.id=id;
+		this.nom=nom;
+		this.prenom=prenom;
+		this.email=email;
+		this.statut=statut;
+	
+	}
+/*test a cause des crasses de cde*/
+public Personne(int id, String nom) 
+{
+	this.id=id;
+	this.nom=nom;
+}	
 public int getAge() {
 		return age;
 	}
@@ -214,7 +259,7 @@ public String getEmail() {
 	{
 		return " id=" + id + ", mdp=" + mdp + ", speudo=" + speudo + ", adresse=" + adresse
 				+ ", prenom=" + prenom + ", statut=" + statut + ", nom=" + nom +
-				", telephone=" + telephone ;
+				", telephone=" + telephone  ;
 	}
 	// methode pour l inscription qui sera redefenie ds artiste, etc 
 	public boolean register() 
@@ -312,4 +357,9 @@ public String getEmail() {
 		{
 			return this.pDAO.findById(this.id);
 		}
+		
+		
+		
+		
+		
 	}

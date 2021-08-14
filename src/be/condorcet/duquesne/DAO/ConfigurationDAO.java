@@ -1,6 +1,7 @@
 package be.condorcet.duquesne.DAO;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -28,10 +29,13 @@ public class ConfigurationDAO implements DAO<Configuration>
 		connect = conn;
 	}
 
+	
+	/*INSERT INTO "STUDENT03_27"."CONFIG_" ("type", "libel", "description", "fk_spect") VALUES ('CONCERT_ASSIS', 'old', 'bof', '414')
+*/
 	@Override
-	public boolean create(Configuration obj) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean create(Configuration c) 
+	{
+		return true;
 	}
 
 	@Override
@@ -163,9 +167,39 @@ public class ConfigurationDAO implements DAO<Configuration>
 	
 
 	@Override
-	public boolean create(Configuration obj, int id) {
+	public boolean create(Configuration c, int id) 
+	{
+		try 
+		{
+			PreparedStatement state = connect.prepareStatement
+        			("INSERT INTO Commande_(\"type\",\"libel\",\"description\",\"fk_spect\")"
+        					
+
+        					+ "VALUES (?,?,?,?)");
+        		state.setString(1, c.getType());
+	            state.setString(2, c.getLibel());
+	            state.setString(3,c.getDescription());
+	           
+	            state.setInt(4, id); // fk spet
+	            state.execute();
+
+			
+		}
+
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+
+		return true;
+	}
+
+	@Override
+	public int findByLast(Configuration s) 
+	{
 		// TODO Auto-generated method stub
-		return false;
+		return 0;
 	}
 
 	

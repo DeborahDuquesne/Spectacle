@@ -44,6 +44,7 @@ public class Achatactivity extends JFrame
  * 				VARIABLES
  * ************************************************************/
 	private JPanel contentPane;
+	private JPanel panel;
 /******************************************************************************************
  * 
  * 
@@ -63,16 +64,21 @@ public class Achatactivity extends JFrame
 	private float prix ;
 	
 	
-	private JPanel panel;
+	
 	private ButtonGroup modeLivraison = new ButtonGroup();
 	private ButtonGroup modePaiement = new ButtonGroup();
-	private JRadioButton rdbtnLivraisonSurPlace,
-	rdbtnLivraisonTimbre, 
-	rdbtnLivraisonEnvoieSecu, 
-	rdbtnPaiementVisa,
-	rdbtnPaiementPaypal,
-	rdbtnPaiementSEPA,
-	rdbtnPaiementPayconiq,
+	/***************************************************************************************************
+	 * 
+	 *  les radios btn pr le paiement et la livraison
+	 * 
+	 * *************************************************************************************************/
+	private JRadioButton rdbtnSurPl,
+	rdbtnPrior, 
+	rdbtnSecur, 
+	rdbtnVisa,
+	rdbtnPayP,
+	rdbtnSepa,
+	rdbtnPayC,
 	rdbtnBc;
 	
 	
@@ -139,20 +145,20 @@ public class Achatactivity extends JFrame
 		
 		
 		
-		rdbtnLivraisonSurPlace = new JRadioButton("Sur place");
-		rdbtnLivraisonSurPlace.setBackground(Color.LIGHT_GRAY);
-		rdbtnLivraisonSurPlace.setBounds(24, 54, 121, 21);
-		panel.add(rdbtnLivraisonSurPlace);
+		rdbtnSurPl = new JRadioButton("Sur place");
+		rdbtnSurPl.setBackground(Color.LIGHT_GRAY);
+		rdbtnSurPl.setBounds(24, 54, 121, 21);
+		panel.add(rdbtnSurPl);
 
-		rdbtnLivraisonTimbre = new JRadioButton("Envoir avec imbre prior");
-		rdbtnLivraisonTimbre.setBackground(Color.LIGHT_GRAY);
-		rdbtnLivraisonTimbre.setBounds(24, 86, 179, 21);
-		panel.add(rdbtnLivraisonTimbre);
+		rdbtnPrior = new JRadioButton("Envoir avec imbre prior");
+		rdbtnPrior.setBackground(Color.LIGHT_GRAY);
+		rdbtnPrior.setBounds(24, 86, 179, 21);
+		panel.add(rdbtnPrior);
 
-		rdbtnLivraisonEnvoieSecu = new JRadioButton("Envoie s\u00E9curis\u00E9 ( + \u20AC10 ) ");
-		rdbtnLivraisonEnvoieSecu.setBackground(Color.LIGHT_GRAY);
-		rdbtnLivraisonEnvoieSecu.setBounds(24, 117, 179, 21);
-		rdbtnLivraisonEnvoieSecu.addActionListener(new ActionListener() 
+		rdbtnSecur = new JRadioButton("Envoie s\u00E9curis\u00E9 ( + \u20AC10 ) ");
+		rdbtnSecur.setBackground(Color.LIGHT_GRAY);
+		rdbtnSecur.setBounds(24, 117, 179, 21);
+		rdbtnSecur.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
@@ -171,27 +177,27 @@ public class Achatactivity extends JFrame
 				
 			}
 		});
-		panel.add(rdbtnLivraisonEnvoieSecu);
+		panel.add(rdbtnSecur);
 
-		rdbtnPaiementVisa = new JRadioButton("VISA");
-		rdbtnPaiementVisa.setBackground(Color.LIGHT_GRAY);
-		rdbtnPaiementVisa.setBounds(266, 54, 103, 21);
-		panel.add(rdbtnPaiementVisa);
+		rdbtnVisa = new JRadioButton("VISA");
+		rdbtnVisa.setBackground(Color.LIGHT_GRAY);
+		rdbtnVisa.setBounds(266, 54, 103, 21);
+		panel.add(rdbtnVisa);
 
-		rdbtnPaiementPaypal = new JRadioButton("PAYPALL");
-		rdbtnPaiementPaypal.setBackground(Color.LIGHT_GRAY);
-		rdbtnPaiementPaypal.setBounds(266, 86, 103, 21);
-		panel.add(rdbtnPaiementPaypal);
+		rdbtnPayP = new JRadioButton("PAYPALL");
+		rdbtnPayP.setBackground(Color.LIGHT_GRAY);
+		rdbtnPayP.setBounds(266, 86, 103, 21);
+		panel.add(rdbtnPayP);
 
-		rdbtnPaiementSEPA = new JRadioButton("SEPA");
+		rdbtnSepa = new JRadioButton("SEPA");
 		
-		rdbtnPaiementSEPA.setBackground(Color.LIGHT_GRAY);
-		rdbtnPaiementSEPA.setBounds(266, 117, 103, 21);
-		panel.add(rdbtnPaiementSEPA);
-		rdbtnPaiementPayconiq = new JRadioButton("PAYCONIQ");
-		rdbtnPaiementPayconiq.setBackground(Color.LIGHT_GRAY);
-		rdbtnPaiementPayconiq.setBounds(266, 141, 109, 23);
-		panel.add(rdbtnPaiementPayconiq);
+		rdbtnSepa.setBackground(Color.LIGHT_GRAY);
+		rdbtnSepa.setBounds(266, 117, 103, 21);
+		panel.add(rdbtnSepa);
+		rdbtnPayC = new JRadioButton("PAYCONIQ");
+		rdbtnPayC.setBackground(Color.LIGHT_GRAY);
+		rdbtnPayC.setBounds(266, 141, 109, 23);
+		panel.add(rdbtnPayC);
 		
 		rdbtnBc = new JRadioButton("BANCONTACT");
 		rdbtnBc.setBackground(Color.LIGHT_GRAY);
@@ -219,7 +225,14 @@ public class Achatactivity extends JFrame
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				
+				payer() ;
+				JOptionPane.showMessageDialog(null, "id cde "+activity.commande.getId());
+				if (activity.commande.getId()!=0)
+		{
+			Place p= new Place();
+			p.create(activity.commande.getId());
+			JOptionPane.showMessageDialog(null, "place cree");
+		}
 				
 				
 			}
@@ -227,14 +240,21 @@ public class Achatactivity extends JFrame
 		
 		
 		panel_1.add(cde);
+		/******************************************************************************************************
+		 * 
+		 * 			pour n autoriser qu un seul choix de rdio btn on doit les mettre dans des rzdio froupe
+		 * 
+		 * *****************************************************************************************************/
 
-		modeLivraison.add(rdbtnLivraisonTimbre);
-		modeLivraison.add(rdbtnLivraisonSurPlace);
-		modeLivraison.add(rdbtnLivraisonEnvoieSecu);
-		modePaiement.add(rdbtnPaiementSEPA);
-		modePaiement.add(rdbtnPaiementPaypal);
-		modePaiement.add(rdbtnPaiementVisa);
-		modePaiement.add(rdbtnPaiementPayconiq);
+		modeLivraison.add(rdbtnPrior);
+		modeLivraison.add(rdbtnSurPl);
+		modeLivraison.add(rdbtnSecur);
+		modePaiement.add(rdbtnSepa);
+		modePaiement.add(rdbtnPayP);
+		modePaiement.add(rdbtnVisa);
+		modePaiement.add(rdbtnPayC);
+		modePaiement.add(rdbtnBc);
+		
 		
 		lblPrix = new JLabel("Prix : ");
 		lblPrix.setFont(new Font("Tahoma", Font.PLAIN, 17));
@@ -246,22 +266,30 @@ public class Achatactivity extends JFrame
 		lblPrixValue.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblPrixValue.setBounds(125, 163, 90, 21);
 		panel.add(lblPrixValue);
-		lblPrixValue.setText(Float.toString(commande.getTotal()));
+		lblPrixValue.setText("0.0 \u20AC");
 		
-		lblNewLabel_1 = new JLabel("( +5 \u20AC de frais de dossier )");
-		lblNewLabel_1.setBounds(41, 187, 155, 13);
+		lblNewLabel_1 = new JLabel("( +5 \u20AC de frais d'enregistrement)");
+		lblNewLabel_1.setBounds(10, 187, 186, 27);
 		panel.add(lblNewLabel_1);
 /******************************************************************************************************
  * 
- * 			TEST ID PERSONNE BIEN RECUP 
+ * 			TEST ID PERSONNE BIEN RECUP JUSTE TEST DEBUG
  * 
  * 
  * ******************************************************************************************************/		
-		JButton idP = new JButton("id perso");
+	/*	JButton idP = new JButton("id perso");
 		idP.setBounds(190, 242, 89, 23);
 		panel.add(idP);
 		
+		idP.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				JOptionPane.showMessageDialog(null,"id p   "+personne.getId());
 				
+				
+			}
+		});  */
 				
 				btnRetou = new JButton("Quitter");
 				btnRetou.setBounds(290, 225, 131, 48);
@@ -276,15 +304,7 @@ public class Achatactivity extends JFrame
 						activity.dispose();
 					}
 				});
-		idP.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent arg0) 
-			{
-				JOptionPane.showMessageDialog(null,"id p   "+personne.getId());
-				
-				
-			}
-		});
+		
 		
 		
 		
@@ -296,28 +316,28 @@ public class Achatactivity extends JFrame
 		this.commande.augmenterCout(5);
 		/*en fct de ce qui sera choisi on attribue la valeur de paiement et
 		 * de livraison a la cde*/
-		if (rdbtnLivraisonTimbre.isSelected()) 
+		if (rdbtnPrior.isSelected()) 
 		{
 			this.commande.setModeDeLivraison(livraison.TIMBRE_PRIOR);
 		} 
-		else if (rdbtnLivraisonSurPlace.isSelected()) 
+		else if (rdbtnSurPl.isSelected()) 
 		{
 			this.commande.setModeDeLivraison(livraison.SUR_PLACE);
 		} 
 		else 
 		{
-			this.commande.setModeDeLivraison(livraison.ENVOIE_SECURISE);
+			this.commande.setModeDeLivraison(livraison.ENVOI_SECURISE);
 		}
 
-		if (rdbtnPaiementSEPA.isSelected()) 
+		if (rdbtnSepa.isSelected()) 
 		{
 			this.commande.setModeDePayement(payement.SEPA);
 		} 
-		else if (rdbtnPaiementPaypal.isSelected()) 
+		else if (rdbtnPayP.isSelected()) 
 		{
 			this.commande.setModeDePayement(payement.PAYPAL);
 		} 
-		else if (rdbtnPaiementPayconiq.isSelected()) 
+		else if (rdbtnPayC.isSelected()) 
 		{
 			this.commande.setModeDePayement(payement.PAYCONIQ);
 		} 
@@ -333,8 +353,9 @@ public class Achatactivity extends JFrame
 		
 		if(oki) 
 		{
+			JOptionPane.showMessageDialog(null, "oki pr la cde cree!");
 			createPlaces();
-			//decomptePlace() ; // prob 
+			decomptePlace() ; // prob 
 			
 			FinalActivityPlace page = new FinalActivityPlace();
 			page.setVisible(true);
@@ -371,7 +392,7 @@ public class Achatactivity extends JFrame
 						nbrDiamant++;
 					break;
 			}// insert place ( id,prix,fkcde,fkrepre,typepalce)
-			place.create();
+			place.create(commande.getId());
 		}
 		
 	}

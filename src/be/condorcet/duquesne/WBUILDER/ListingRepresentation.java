@@ -182,7 +182,8 @@ public class ListingRepresentation extends JFrame
 					}
 				});
 				// modif 27 07 en llist 2
-				if(!s.getRepresentationList().isEmpty()) {
+				if(!s.getRepresentationList().isEmpty()) 
+				{
 					for(Representation rep : s.getRepresentationList())
 						Combobox.addItem(rep);
 				
@@ -257,12 +258,11 @@ public class ListingRepresentation extends JFrame
 				//r.findAll();
 				
 				
-				//dateDebutLabel.setText(currentSpectacle.getPlanning().getdateDebutReservation().toString() + " - 12:00");
-				//dateFinLabel.setText(currentSpectacle.getPlanning().getDateFinReservation().toString() + " - 12:00");
+				
 				//deux.setText("no de psectacle :  "+Integer.toString(s.getId()));
 				
 					
-				//.getPlanning().getSpectacle().getConfiguration().getDescription());
+				
 				
 				heureD.setText("Heure de commencement : "+r.getHeureDebut());
 				heureF.setText("Heure de fin : "+ r.getHeureFin());
@@ -271,7 +271,7 @@ public class ListingRepresentation extends JFrame
 				sp.setText("Spectacle de : " + r.getSpectacle().getLibel());
 				spp.setText("Genre : "+r.getSpectacle().getGenre());
 				
-				//config. a faire 
+				
 				
 				
 				

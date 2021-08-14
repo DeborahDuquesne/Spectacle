@@ -312,15 +312,43 @@ public class SpectacleDAO implements DAO<Spectacle>
 	@Override
 	public Spectacle findById(int id) throws SQLException 
 	{
-		// TODO Auto-generated method stub
+		
 		return null;
+	}
+	
+	
+	@Override
+	public int findByLast(Spectacle s)
+	{
+		
+		
+		
+		try 
+		{
+			ResultSet result = this.connect.createStatement()
+					.executeQuery("SELECT MAX(\"id\") FROM spectacle_" 
+					
+					
+					
+				);
+			if (result.next()) 
+			{
+				s.getId();
+			}
+
+		}
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		JOptionPane.showMessageDialog(null, "id spectacle daao  "+s.getId());
+		return s.getId();
 	}
 
 
-
-
 	@Override
-	public boolean create(Spectacle obj, int id) {
+	public boolean create(Spectacle obj, int id) 
+	{
 		// TODO Auto-generated method stub
 		return false;
 	}

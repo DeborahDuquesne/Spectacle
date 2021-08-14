@@ -10,6 +10,8 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import be.condorcet.duquesne.POJO.*;
+import be.condorcet.duquesne.POJO.Commande.livraison;
+import be.condorcet.duquesne.POJO.Commande.payement;
 
 // interface DAO qui va etre implémentée
 public class PersonneDAO implements DAO<Personne>
@@ -37,12 +39,78 @@ public class PersonneDAO implements DAO<Personne>
 		return false;
 	}
 
-	
+	/***********************************************************************************************
+	 * 
+	 * j ai besoin de l id de la personne pr lister ds commande je possede rien du client car aux joyeux liens
+	 * 
+	 * 
+	 * 
+	 * ***********************************************************************************************/
 	@Override
-	public List<?> findAll(Personne obj) 
+	public List<Commande> findAll(Personne p) 
 	{
-		
 		return null;
+	}
+	
+	public List<Client> findAllClient(Personne p) 
+	{
+		List<Client> listeDesClients = new ArrayList<Client>();
+		try 
+		{
+			ResultSet result = this.con_
+					.createStatement()
+					.executeQuery("SELECT * FROM Personne_ "
+							+ "WHERE \"statut\"= '" 
+							+ Client.statut +"'" );
+			/*14 ...11*/
+			while(result.next()) 
+			{
+				listeDesClients.add(
+					new Client(
+						
+						result.getInt(1),// id
+            			result.getString(2),// mdp
+            			result.getString(3), //speudo
+            			result.getString(4),//statut
+            			result.getString(5), //adress
+            			result.getString(6),//tel
+            			result.getString(7), //email
+            			result.getString(8),//prenom
+            			result.getString(9),//nom
+            			
+            			result.getInt("age")//11
+            			
+            			
+            			
+            			
+            			
+            			
+            			
+            			
+            			
+            			
+            			
+            			
+            			
+            			
+            			
+            			
+            			
+            			
+            			
+            			
+            			
+					)	
+				);
+				
+				 
+				}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return listeDesClients;
+		
 	}
 	// tes au debut 
 	public List<Artiste> artistesFindAll()
@@ -239,46 +307,32 @@ public class PersonneDAO implements DAO<Personne>
 	
 	
 	
-	
+	/*select commande_."id",commande_."modePaiement",commande_."precisionCde",commande_."modeLivraison", 
+commande_."total",commande_."fk_pers",
+personne_."id", personne_."nom",personne_."prenom",personne_."email",personne_."statut" 
+ from commande_
+inner join personne_ on commande_."fk_pers"=personne_."id"
+where commande_."fk_pers"=13 and "statut" ='CLIENT';*/
 	
 	/*********************************************************************************************************************************
 	 *  autre technique des get pr la comande de l autre coté , a titre de test afin d essayer 
 	 * @param personne
 	 * @return
+	 * j en ai besoin pr les commandes a titre de test 
+	 * 
+	 * select * from personne_  inner join commande_  on commande_."fk_pers"=personne_."id";
+	 * 
+	 * 
 	 *************************************************************************************************************************************/
-	public Personne find_(Personne personne)
+	public Personne find_(Personne p)
 	{
-	
-			try 
-			{
-				ResultSet result = this.con_.createStatement()
-						.executeQuery("SELECT * FROM PERSONNE_ WHERE \"id\" = '" 
-						+ personne.getId()
-						
-						+ "'"
-					);
-				if (result.next()) 
-				{
-					return new Personne(result.getInt(1),
-	            			result.getString(2),
-	            			result.getString(3), 
-	            			result.getString(4),
-	            			result.getString(5), 
-	            			result.getString(6),
-	            			result.getString(7), 
-	            			result.getString(8),
-	            			result.getString(9),
-	            			result.getInt("age"));
-				}
-
-			}
-			catch (SQLException e) 
-			{
-				e.printStackTrace();
-				return null;
-			}
+	 
+		
+			
 			return null;
 	}
+	
+	/*a titre de test de debbug */
 	
 	public List<Personne> getAll() 
 	{
@@ -553,6 +607,14 @@ public class PersonneDAO implements DAO<Personne>
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
 
+
+	@Override
+	public int findByLast(Personne s) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	
+	
 }

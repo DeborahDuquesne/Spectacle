@@ -1,6 +1,9 @@
 package be.condorcet.duquesne.POJO;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JOptionPane;
 
 import be.condorcet.duquesne.DAO.AbstractFactoryDAO;
 import be.condorcet.duquesne.DAO.PersonneDAO;
@@ -16,7 +19,7 @@ public class Client extends Personne
 	protected final PersonneDAO pDAO = dao.getPersonneDAO();
 	
 	public final static String statut = "CLIENT";
-	private Commande cde;
+	
 
 	public int getId() {
 		return id;
@@ -26,45 +29,47 @@ public class Client extends Personne
 		this.id = id;
 	}
 
-	public Commande getCde() {
-		return cde;
-	}
-
-	public void setCde(Commande cde) {
-		this.cde = cde;
-	}
-
+	
 	public Client() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Client(int id, String s, String mdp, String statut) {
-		super(id, s, mdp, statut);
-		// TODO Auto-generated constructor stub
+	public Client(int id, String nom) 
+	{
+		super(id, nom);
+		
 	}
 
 	public Client(Integer id, String statut, String mdp, String speudo, String adresse, 
-			String prenom, String nom,
-			String telephone, String email) {
+			String prenom, String nom,String telephone, String email) 
+	{
 		super(id, statut, mdp, speudo, adresse, prenom, nom, telephone, email);
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public Client(String s, String mdp, String t, String a, String e, String n, String p, int age) {
 		super(s, mdp, t, a, e, n, p, age);
-		// TODO Auto-generated constructor stub
+		
 	}
 // pr find 
 	public Client(Integer id, String statut, String mdp, String speudo, String adresse, String prenom, String nom,
-			String telephone, String email, int age) {
+			String telephone, String email, int age) 
+	{
 		super(id, statut, mdp, speudo, adresse, prenom, nom, telephone, email, age);
 	
 	}
 
-	public Client(String pseudo, String mdp, String nom, String prenom, String adresse, int age) {
-		super(pseudo, mdp, nom, prenom, adresse, age);
-		// TODO Auto-generated constructor stub
+	/*********************************************************************************************
+	 * 
+	 * 		utilisié pour le findAll des personne avec leurs commandes
+	 * 
+	 * ********************************************************************************************/
+	public Client(int id,String nom, String prenom, String email,String statut) 
+	{
+		super(id,nom,prenom,email,statut);
+	
+		
 	}
 
 	public Client(String pseudo, String mdp, String statut) {
@@ -80,21 +85,14 @@ public class Client extends Personne
 	@Override
 	public String toString()
 	{
-		return "Client [id=" + id + ", dao=" + dao + ", pDAO=" + pDAO + ", getSpeudo()=" + getSpeudo() + ", getPrenom()="
-				+ getPrenom() + ", getNom()=" + getNom() + "]";
+		return "iNO =" + id + " " + getPrenom() + " " 
+				+ getPrenom() + ", getNom()=" + getNom() + "  " ;
 	}
 	
 	
 	
-/*LE DIAGRAMME UML OBLIGE CETTE PROCEDURE LE PLUS FACILE SERA DE TAPER DES LIENS PARTOUT POUR CHOPPER LE INFOS MAIS SI ON FAIT
- * CA , CA VA GUEULERT A L ORAL DOC ON CHERCHE DES SOLUTIONS */	
 	
-	public void getListCommandeByClient()
-	{
-		
-	}
-	
-	
+
 	
 	
 	

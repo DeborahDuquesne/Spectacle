@@ -1,6 +1,7 @@
 package be.condorcet.duquesne.DAO;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -21,8 +22,14 @@ public class CategorieDAO implements DAO<Categorie>
 	{
 		connect = conn;
 	}
+	
+	
+	/*INSERT INTO "STUDENT03_27"."CATEGORIE_" 
+	 * ("commentaire", "type", "prix", "nbrPlaceDispo", "nbrPlaceMax", "fk_config") VALUES ('neant', 'DEBOUT', '15', '8000', '100', '421')
+*/
 	@Override
-	public boolean create(Categorie obj) {
+	public boolean create(Categorie obj) 
+	{
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -32,12 +39,30 @@ public class CategorieDAO implements DAO<Categorie>
 		return false;
 	}
 	@Override
-	public boolean update(Categorie obj) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean update(Categorie c) 
+	{
+		try 
+		{
+			this.connect
+			.createStatement()
+			.executeUpdate("UPDATE Categorie_ "
+					+ "SET nbrPlaceDispo = \"nbrPlaceDispo\" - 1 WHERE Categorie_.\"id\" = ' "+c.getId()
+						
+						+"'");
+			
+			return true;
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+			return false;
+		}
+		
+
 	}
 	@Override
-	public Categorie find(Categorie obj) {
+	public Categorie find(Categorie obj) 
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -89,10 +114,54 @@ public class CategorieDAO implements DAO<Categorie>
 		return null;
 	}
 	
+	
+	/*INSERT INTO "STUDENT03_27"."CATEGORIE_" ("commentaire", "type", "prix", "nbrPlaceDispo", "nbrPlaceMax", "fk_config") VALUES ('neant', 'DEBOUT', '15', '8000', '100', '421')
+*/
+	/*******************************************************************************************************
+	 * 
+	 * 
+	 * 	POUR LA CREATION D UNE CATEGORIE ON A BESOIN DE L ID DE LA CONFIG 
+	 * LES BARAKIS IRONT TAPER UN ATTRIBUT CONFIGURATION DANS CATEGORIE ET LE TOUR EST JOUE 
+	 * JE RESTE DAN DU CRUD DONC ON NE PEUT PAS COMMENCER A CRITIQUER MON DAO
+	 * 
+	 * *******************************************************************************************************/
 	@Override
-	public boolean create(Categorie obj, int id) {
+	public boolean create(Categorie c, int id) 
+	{
+		try 
+		{
+			PreparedStatement state = connect.prepareStatement
+        			("INSERT INTO Categorie_(\"commentaire\",\"type\",\"prix\","
+        					+ "\"nbrPlaceDispo\",\"nbrplaceMax\", \"fk_config\")"
+        					
+
+        					+ "VALUES (?,?,?,?,?,?)");
+			
+        		state.setString(1, c.getCommentaire());
+	            state.setString(2, c.getType());
+	            state.setInt(3,c.getPrix());
+	            state.setInt(4, c.getNbrePlaceLibre());
+	            state.setInt(5, c.getNbrPlaceMaximum());
+	            state.setInt(5, id);
+	            
+	            state.execute();
+
+			
+		}
+
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+
+		return true;
+	}
+	@Override
+	public int findByLast(Categorie s) 
+	{
 		// TODO Auto-generated method stub
-		return false;
+		return 0;
 	}
 }
 

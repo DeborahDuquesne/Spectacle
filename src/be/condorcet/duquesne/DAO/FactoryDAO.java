@@ -35,7 +35,8 @@ public class FactoryDAO  extends AbstractFactoryDAO
 		
 	}
 	@Override
-	public DAO<PlanningSalle> getPlanningSalleDAO() {
+	public DAO<PlanningSalle> getPlanningSalleDAO() 
+	{
 		return new PlanningSalleDAO(conn);
 		}
 	@Override

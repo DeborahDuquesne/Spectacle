@@ -33,7 +33,7 @@ public class Configuration
 	private final AbstractFactoryDAO dao = AbstractFactoryDAO.getFactory(AbstractFactoryDAO.DAO_FACTORY);
 	private final DAO<Configuration> cgDAO = dao.getConfigurationDAO();
 	private String description;// libel
-	private String commentaire;
+	private String libel;
 	private List<Categorie> categoriesList;
 	private Categorie cat = new Categorie();
 	private Ticket type;
@@ -45,13 +45,13 @@ public class Configuration
 	
 	//pr test les req 
 	public Configuration( int id,String description, 
-			String commentaire, 
+			String libel, 
 			List<Categorie> categoriesList, Ticket type)
 			//Spectacle spectacle) 
 {
 		
 		this.description = description;
-		this.commentaire = commentaire;
+		this.libel=libel;
 		this.categoriesList = categoriesList;
 		this.type = type;
 		this.id = id;
@@ -89,27 +89,35 @@ public class Configuration
 	{
 		this.categoriesList= categoriesList;
 	}
-	public Configuration(int id,  String description, Ticket place,String commentaire ) 
+	public Configuration(int id,  String description, Ticket place,String libel ) 
 	{
 		this.id = id;
 		this.description = description;
 		this.type = place;
-		this.commentaire= commentaire;
+		this.libel=libel;
 		
 	}
 	
 	
-	public Configuration(int id,  String description, Ticket place,String commentaire,Categorie cat  ) 
+	public Configuration(int id,  String description, Ticket place,String libel,Categorie cat  ) 
 	{
 		this.id = id;
 		this.description = description;
 		this.type = place;
-		this.commentaire= commentaire;
+		this.libel=libel;
 		this.cat=cat;
 		
 	}
 	
 	
+
+	public String getLibel() {
+		return libel;
+	}
+
+	public void setLibel(String libel) {
+		this.libel = libel;
+	}
 
 	public String getDescription() {
 		return this.description;

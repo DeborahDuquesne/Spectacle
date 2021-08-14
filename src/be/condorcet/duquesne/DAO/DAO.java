@@ -20,6 +20,8 @@ public interface  DAO<T>
 	 * 
 	 * ****************************************************************************************************/
 	public  boolean create(T obj,int id );
+	//besoin aussi pr la creation d une representation
+	public int findByLast(T s);
 	
 	public  boolean delete(T obj);
 	

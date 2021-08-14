@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import be.condorcet.duquesne.POJO.Categorie;
 import be.condorcet.duquesne.POJO.Categorie.TypesCat;
 import be.condorcet.duquesne.POJO.Client;
@@ -59,8 +61,13 @@ public class CommandeDAO  implements DAO<Commande>
 /*select * from commande_ inner join personne_ 
  * on commande_."fk_pers" = personne_."id" inner join place_ on Commande_."id"=place_."fk_commande";;*/
 	
-	/*la personne commande de places 3 tables jointes */
+	/*la personne commande de places 3 tables jointes pas complet a refaire */
+	
+	
+	
+	
 	@Override
+	
 	public List<Commande> findAll(Commande commande) 
 	{
 		List<Commande> cdes = new ArrayList<Commande>();
@@ -68,24 +75,24 @@ public class CommandeDAO  implements DAO<Commande>
 
 		try 
 		{
-			String sql = "select * from commande_ inner join personne_"
-					+ " on commande_.\"fk_pers\" = personne_.\"id\""
-				
-					+ "inner join place_ on Commande_.\"id\"=place_.\"fk_commande\"";
+			String sql = "SELECT  * FROM Commande_ WHERE \"fk_pers\"='"
+					+ 13 + "'";
 			
 			
 			ResultSet rs = this.connect.createStatement().executeQuery(sql);
 		
 			while (rs.next()) 
 			{
+				int id =rs.getInt(1);
 				payement paie= payement.valueOf(rs.getString(2));
 				String preci= rs.getString(3);
 				livraison mL= livraison.valueOf(rs.getString(4));
 				Float t= rs.getFloat(5);
+				p.setId(id);
 				
 						/*trouver un truc pr id personne */
 				
-				cdes.add(new Commande(paie,preci,mL,t,null));
+				cdes.add(new Commande(id,paie,preci,mL,t,p));
 						
 						
 			}
@@ -97,12 +104,51 @@ public class CommandeDAO  implements DAO<Commande>
 		return cdes;
 
 	}
-
+	/*getAll simple oki */
 	@Override
-	public List getAll(Commande object) 
+	public List getAll(Commande c) 
 	{
-		// TODO Auto-generated method stub
-		return null;
+
+		
+		List<Commande> cdes = new ArrayList<Commande>();
+		
+
+		try 
+		{
+			String sql = "select * from commande_ inner join personne_ on commande_.\"fk_pers\" = personne_.\"id\"";
+				
+			
+			
+			ResultSet rs = this.connect.createStatement().executeQuery(sql);
+		
+			while (rs.next()) 
+			{
+				int id = rs.getInt(1);
+				payement paie= payement.valueOf(rs.getString(2));
+				String preci= rs.getString(3);
+				livraison mL= livraison.valueOf(rs.getString(4));
+				Float t= rs.getFloat(5);
+				int fkp=rs.getInt(6);
+				
+				//public Personne(int id,nom)
+				int idP = rs.getInt(7);
+				String nom=rs.getString(14);
+				Client p = new Client(idP,nom);
+				
+					
+				
+				cdes.add(new Commande(id,paie,preci,mL,t,p));
+						
+						
+			}
+
+		} catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		JOptionPane.showMessageDialog(null, "taille list getcde de DAO  "+cdes.size());
+		return cdes;
+		
 	}
 
 	@Override
@@ -188,6 +234,12 @@ public class CommandeDAO  implements DAO<Commande>
 		return true;
 		
 		
+	}
+
+	@Override
+	public int findByLast(Commande s) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	
