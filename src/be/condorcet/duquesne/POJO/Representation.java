@@ -25,6 +25,7 @@ public class Representation
 	private float heureDebut;
 	private float heureFin;
 	private int id;
+	//a voir si c est mieux date ou string a tester 
 	private String dateRepresentation;
 	private Date d;
 	private String commentaire;
@@ -46,18 +47,18 @@ public class Representation
 	}
 	
 	public Representation(){}
-			
-	public Representation(int id, float heureDebut, float heureFin, 
-			Date d, String commentaire,Spectacle s) 
+			/*utilisé ds la reser de salle*/
+	public Representation( float heureDebut, float heureFin, 
+			Date d,Spectacle s) 
 	{
 		
-		this.id=id;
+		this.spectacle=s;
 		this.heureDebut = heureDebut;
 		this.heureFin = heureFin;
 	
 		this.d=d;
-		this.commentaire = commentaire;
-		this.spectacle=s;
+		
+		
 	}
 	
 	public Representation(int id,float heureDebut, float heureFin, 

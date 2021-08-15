@@ -343,7 +343,7 @@ public class Spectacle
 	          	if(res.getSpectacle().getId()==this.id)
 	          		this.reList.add(res);
 	          }
-	        JOptionPane.showMessageDialog(null,"res.getSpectacle().getId()  "+res.getSpectacle().getId() + " id spect = "+ this.id);
+	       // JOptionPane.showMessageDialog(null,"res.getSpectacle().getId()  "+res.getSpectacle().getId() + " id spect = "+ this.id);
 	      }
 		
         

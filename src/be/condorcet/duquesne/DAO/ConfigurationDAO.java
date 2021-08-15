@@ -62,6 +62,7 @@ public class ConfigurationDAO implements DAO<Configuration>
 	@Override
 	public List<Configuration> findAll(Configuration obj)
 	{
+		//a une cat
 		List<Configuration> liste = new ArrayList<Configuration>();
 		
 		Statement stm = null;
@@ -73,6 +74,7 @@ public class ConfigurationDAO implements DAO<Configuration>
 				rs=this.connect.createStatement().executeQuery(sql);
 				while(rs.next())
 				{
+					
 				List<Categorie> categories = new ArrayList<Categorie>();
 				
 				int idCat = Integer.parseInt(rs.getString(12));
@@ -165,14 +167,14 @@ public class ConfigurationDAO implements DAO<Configuration>
 	}
 
 	
-
+	/*recoit l id du spectacle car pas de double lien do,c on bidouille*/
 	@Override
 	public boolean create(Configuration c, int id) 
 	{
 		try 
 		{
 			PreparedStatement state = connect.prepareStatement
-        			("INSERT INTO Commande_(\"type\",\"libel\",\"description\",\"fk_spect\")"
+        			("INSERT INTO Config_(\"type\",\"libel\",\"description\",\"fk_spect\")"
         					
 
         					+ "VALUES (?,?,?,?)");

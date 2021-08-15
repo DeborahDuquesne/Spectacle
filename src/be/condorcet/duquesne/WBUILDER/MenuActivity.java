@@ -74,8 +74,6 @@ public class MenuActivity extends JFrame
 	private JComboBox  <Reservation>cbRs;
 	private List<Reservation> allRes = new ArrayList<Reservation>();
 	private Reservation laReserv = new Reservation();
-	private JLabel a;
-	private JLabel b;
 	;
 	// le menu va dependre de qui se connecte un client aura des cdes des reservations alors qu un orga aura d autres options
 	
@@ -164,6 +162,10 @@ test.addActionListener(new ActionListener()
  */
 
 				loadMenu();
+				
+				
+				
+				
 
 	}
 
@@ -221,20 +223,23 @@ test.addActionListener(new ActionListener()
 	}
 	public void ManagerMenu() 
 	{
+		
 		JLabel lblNewLabel = new JLabel("Les differentes reservations");
+		lblNewLabel.setForeground(Color.WHITE);
+		
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Yu Gothic UI", Font.PLAIN, 11));
-		lblNewLabel.setBounds(10, 130, 285, 14);
+		
+		lblNewLabel.setFont(new Font("Yu Gothic UI", Font.PLAIN, 25));
+		lblNewLabel.setBackground(Color.WHITE);
+		
+		lblNewLabel.setBounds(60, 96, 393, 34);
 		panel.add(lblNewLabel);
+		
+		
 		cbRs = new JComboBox();
 		cbRs.setBounds(10, 178, 582, 22);
 		panel.add(cbRs);
-		a = new JLabel("New label");
-		a.setBounds(108, 266, 163, 14);
-		panel.add(a);
-		b = new JLabel("New label");
-		b.setBounds(92, 291, 203, 14);
-		panel.add(b);
+		
 		/*j ai pas compris il fait quoi le gestionnaire de salle donc je vais faire au feeling */
 		List();
 		displayCombo();
@@ -324,8 +329,7 @@ test.addActionListener(new ActionListener()
 	{
 		
 		laReserv= (Reservation) cbRs.getSelectedItem();
-		a.setText(".... : " +laReserv.getId());
-		b.setText(".... : "+laReserv.getStatut());
+		
 		
 		
 

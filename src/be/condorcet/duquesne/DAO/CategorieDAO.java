@@ -37,7 +37,8 @@ public class CategorieDAO implements DAO<Categorie>
 		return true;
 	}
 	@Override
-	public boolean delete(Categorie obj) {
+	public boolean delete(Categorie obj) 
+	{
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -137,9 +138,8 @@ public class CategorieDAO implements DAO<Categorie>
 		{
 			PreparedStatement state = connect.prepareStatement
         			("INSERT INTO Categorie_(\"commentaire\",\"type\",\"prix\","
-        					+ "\"nbrPlaceDispo\",\"nbrplaceMax\", \"fk_config\")"
+        					+ "\"nbrPlaceDispo\",\"nbrPlaceMax\", \"fk_config\")"
         					
-
         					+ "VALUES (?,?,?,?,?,?)");
 			
         		state.setString(1, c.getCommentaire());
@@ -147,7 +147,7 @@ public class CategorieDAO implements DAO<Categorie>
 	            state.setInt(3,c.getPrix());
 	            state.setInt(4, c.getNbrePlaceLibre());
 	            state.setInt(5, c.getNbrPlaceMaximum());
-	            state.setInt(5, id);
+	            state.setInt(6, id);
 	            
 	            state.execute();
 

@@ -291,9 +291,9 @@ public class Categorie
 	 * 
 	 * @return
 	 ************************************************************************************************************/
-	public boolean create() 
+	public boolean create(int id ) 
 	{
-		boolean cat = cDAO.create(this);
+		boolean cat = cDAO.create(this,id);
 		return cat;
 	}
 	/******************************************************************************************************************

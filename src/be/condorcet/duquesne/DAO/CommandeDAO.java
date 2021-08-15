@@ -169,7 +169,7 @@ public class CommandeDAO  implements DAO<Commande>
 		{
 			e.printStackTrace();
 		}
-		JOptionPane.showMessageDialog(null, "taille list getcde de DAO  get all  "+cdes.size());
+		//JOptionPane.showMessageDialog(null, "taille list getcde de DAO  get all  "+cdes.size());
 		
 		return null;
 				//cdes;

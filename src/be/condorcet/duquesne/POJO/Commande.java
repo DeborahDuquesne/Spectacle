@@ -357,7 +357,7 @@ public class Commande
 				this.cdeL.add(cde);
 			}
 			
-			JOptionPane.showMessageDialog(null, "id cde  "+cde.getId());
+			//JOptionPane.showMessageDialog(null, "id cde  "+cde.getId());
 				
 		}
 		//JOptionPane.showMessageDialog(null, "taille list de la cde apres verif "+cdeL.size());

@@ -115,7 +115,7 @@ Validation (commit) effectuée
 			e.printStackTrace();
 		}
 		
-		JOptionPane.showMessageDialog( null,"taille list reserv findAll dao avc pk spec  "+rlist.size());
+		//JOptionPane.showMessageDialog( null,"taille list reserv findAll dao avc pk spec  "+rlist.size());
     	
 		return rlist;
 		
@@ -170,7 +170,7 @@ Validation (commit) effectuée
       
             state.setFloat(5, obj.getPrix());
             state.setInt(6,id);
-            state.setInt(7, obj.getPlanningSalle().getId());
+            state.setInt(7, 468);
            
             
             state.execute();

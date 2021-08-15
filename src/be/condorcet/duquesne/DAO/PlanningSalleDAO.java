@@ -111,7 +111,7 @@ planningsalle_."fk_spect"
 				int nbrePlace= rs.getInt(11);
 				Spectacle s = new Spectacle(libel,genre,img,description,nbrePlace);
 				
-			int ipP;
+			
 				// on peut bosser avec le nom des champs aussi c est au choix
 				liste.add(new PlanningSalle(i,date2,date1,date3,s)
 						

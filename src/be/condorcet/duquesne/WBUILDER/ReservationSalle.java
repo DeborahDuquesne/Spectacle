@@ -45,12 +45,16 @@ import javax.swing.SwingConstants;
 import javax.swing.JSpinner;
 import com.toedter.components.JLocaleChooser;
 import javax.swing.JTextArea;
+import javax.swing.SpinnerNumberModel;
 
 public class ReservationSalle extends JFrame 
 {
 
 	private JPanel contentPane;
 	private Personne personne;
+	private Configuration laConfig;
+	private JTextArea descCF;
+	private JComboBox cbConfig ;
 	/*lors de la loca on a besoin type de place , des artistes et d un spectacle et d une repr*/
 	Spectacle spectacle = new Spectacle();
 	List<Representation> representationList = new ArrayList<Representation>();
@@ -83,7 +87,7 @@ public class ReservationSalle extends JFrame
 	private JComboBox<Artiste> cbArtiste;
 	private JButton choix;
 	private ReservationSalle activity;
-	private JTextField textPx;
+	private JSpinner prix_;
 	private JSpinner  nbreMaxClient;
 	private JTextField textField_1;
 
@@ -96,6 +100,10 @@ public class ReservationSalle extends JFrame
 	// add 12 08 pr test 
 	private PlanningSalle pl;
 	List<PlanningSalle> plp= new ArrayList<PlanningSalle>();
+	List<Configuration> allConfig= new ArrayList<Configuration>();
+	
+	private   JSpinner solde_;
+	private JSpinner acompte_;
 	
 	/******************************************************************************************************
 	 * 
@@ -132,11 +140,11 @@ public class ReservationSalle extends JFrame
 				public void paintComponent(Graphics g) {
 					Image img = Toolkit.getDefaultToolkit()
 							.getImage(MainActivity
-							.class.getResource("/be/condorcet/duquesne/IMG/rs.jpg"));
+							.class.getResource("/be/condorcet/duquesne/IMG/rs2.jpg"));
 							g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
 				}
 			};
-			panel.setBounds(0, 11, 536, 683);
+			panel.setBounds(10, 11, 536, 683);
 			contentPane.add(panel);
 			panel.setLayout(null);
 
@@ -195,10 +203,11 @@ public class ReservationSalle extends JFrame
 			lblNewLabel_1.setBounds(355, 465, 183, 20);
 			panel.add(lblNewLabel_1);
 			// champ ou on entre le prix
-			textPx = new JTextField();
-			textPx.setBounds(0, 571, 104, 20);
-			panel.add(textPx);
-			textPx.setColumns(10);
+			prix_ = new JSpinner();
+			prix_.setModel(new SpinnerNumberModel(new Integer(0), null, null, new Integer(1)));
+			prix_.setBounds(0, 571, 104, 20);
+			panel.add(prix_);
+			
 			/* btn qui globalise la totaliyé de la reservation de salle*/
 			JButton add = new JButton("AJOUTER");
 			add.setForeground(Color.YELLOW);
@@ -208,9 +217,7 @@ public class ReservationSalle extends JFrame
 			add.addActionListener(e -> 
 			{
 				
-				//addRepresentation();
-				//JOptionPane.showMessageDialog(null, "representation ajoutée ");
-				// qd tt fctionne individuellement je regroupe ici 
+				reserver() ;
 				
 			});
 			/**************************************************************************************************
@@ -243,10 +250,19 @@ public class ReservationSalle extends JFrame
 			 *  combo des differentes configu
 			 * 
 			 * ******************************************************************************************************/
-			JComboBox cbConfig = new JComboBox();
+			
+			
+			
+			
+			
+			cbConfig = new JComboBox<Configuration>();
+					//new JComboBox();
 			cbConfig.setFont(new Font("Yu Gothic", Font.BOLD | Font.ITALIC, 11));
 
 			cbConfig.setModel(new DefaultComboBoxModel(Ticket.values()));
+			
+			
+			
 
 			cbConfig.setBounds(355, 479, 180, 26);
 			panel.add(cbConfig);
@@ -255,40 +271,60 @@ public class ReservationSalle extends JFrame
 			
 			/* creation des places en fct de ce qui est choisi a ameliorer */
 			
+			
+				
+				
+				
+		
+			
 			cbConfig.addActionListener(new ActionListener() 
 			{
 				public void actionPerformed(ActionEvent arg0) 
 				{
 					// je choppe la place select
 					place = (Ticket) cbConfig.getSelectedItem();
+					//JOptionPane.showMessageDialog(null, "id configselect  "+cbConfig.getSelectedItem()); donne la cat 
 					// je formate les chmps je les nettoie
 					clear();
 					//si c est debout y aura zero categorie
 					if (place == Ticket.DEBOUT) 
 					{
 						aucun.setVisible(true);
+						debout.setVisible(true);
 					} 
 					// si on est ds la config cirque assis
-					else if (place == Ticket.CIRQUE_ASSIS) 
+					else if (place == Ticket.CIRQUE_ASSIS) // a les 4
 					{
-						
+						// visibimité label et chp
 						brz.setVisible(true);
-						arg.setVisible(true);
-						or.setVisible(true);
 						bronze.setVisible(true);
-						or_.setVisible(true);
+						arg.setVisible(true);
 						argent.setVisible(true);
+						or.setVisible(true);
 						
-					} 
-					else
-					{
+						or_.setVisible(true);
+						
 						dia.setVisible(true);
 						diam.setVisible(true);
+						
+						
+					} 
+					else// a les 3
+					{
+						brz.setVisible(true);
+						bronze.setVisible(true);
+						arg.setVisible(true);
+						argent.setVisible(true);
+						or.setVisible(true);
+						
+						or_.setVisible(true);
 					}
+				
+					
 					
 				}
 			});
-			
+				
 			
 			/*l org doit en premier ajouté le spectacle u il configure ensuite */
 			AddSpectacle = new JButton("Ajouter Spectacle");
@@ -300,7 +336,7 @@ public class ReservationSalle extends JFrame
 				public void actionPerformed(ActionEvent arg0) 
 				{
 					addSpectacle() ;
-					JOptionPane.showMessageDialog(null, "spectacle ajouté ");
+					//JOptionPane.showMessageDialog(null, "spectacle ajouté ");
 				}
 			});
 			
@@ -318,10 +354,8 @@ public class ReservationSalle extends JFrame
 			}
 			
 			
-			
+			JOptionPane.showMessageDialog(null, "oki specta "+spectacle.getId());
 			artisteList() ;
-			createArtistes() ;
-			
 			
 		
 		}
@@ -367,7 +401,7 @@ public class ReservationSalle extends JFrame
 		panel.add(cbArtiste);
 		
 		description_ = new JTextArea();
-		description_.setBounds(10, 351, 224, 56);
+		description_.setBounds(10, 351, 205, 40);
 		panel.add(description_);
 		
 		JLabel lblNewLabel_3 = new JLabel("DESCRIPTION REPRESENTATION");
@@ -497,33 +531,33 @@ public class ReservationSalle extends JFrame
 		 * 
 		 * ***************************************************************/
 		 diam = new JLabel("DIAMANT");
-		 diam.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
-		 diam.setForeground(Color.RED);
+		 diam.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+		 diam.setForeground(Color.BLACK);
 		diam.setBounds(21, 491, 63, 14);
 		panel.add(diam);
 		
 		 argent = new JLabel("ARGENT");
-		 argent.setForeground(Color.RED);
-		 argent.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
+		 argent.setForeground(Color.BLACK);
+		 argent.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
 		argent.setBounds(116, 491, 46, 14);
 		panel.add(argent);
 		
 		 or_ = new JLabel("OR");
-		 or_.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
-		 or_.setForeground(Color.RED);
+		 or_.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+		 or_.setForeground(Color.BLACK);
 		or_.setBounds(321, 493, 46, 14);
 		panel.add(or_);
 		
 		bronze = new JLabel("BRONZE");
-		bronze.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
-		bronze.setForeground(Color.RED);
+		bronze.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 13));
+		bronze.setForeground(Color.BLACK);
 		bronze.setBounds(204, 491, 46, 14);
 		panel.add(bronze);
 		
 		debout = new JLabel("DEBOUT");
-		debout.setForeground(Color.RED);
-		debout.setFont(new Font("Yu Gothic", Font.BOLD | Font.ITALIC, 11));
-		debout.setBounds(229, 546, 121, 23);
+		debout.setForeground(Color.BLACK);
+		debout.setFont(new Font("Yu Gothic", Font.BOLD, 13));
+		debout.setBounds(277, 548, 85, 23);
 		panel.add(debout);
 		
 		
@@ -588,7 +622,7 @@ public class ReservationSalle extends JFrame
 		 * 
 		 * **************************************************************************************************************************************************/
 		
-		
+		/*
 		
 		JButton btnNewButton = new JButton("addRepresentation");
 		btnNewButton.addActionListener(new ActionListener() 
@@ -600,10 +634,10 @@ public class ReservationSalle extends JFrame
 			}
 		});
 		
-		btnNewButton.setBounds(356, 365, 89, 23);
+		btnNewButton.setBounds(265, 368, 89, 23);
 		panel.add(btnNewButton);
 		/* DEBUG */
-		
+		/*
 		
 		JButton btnNewButton_1 = new JButton("addConfiguration");
 		btnNewButton_1.addActionListener(new ActionListener() 
@@ -614,9 +648,9 @@ public class ReservationSalle extends JFrame
 				JOptionPane.showMessageDialog(null, "config avec succes !");
 			}
 		});
-		btnNewButton_1.setBounds(441, 365, 89, 23);
+		btnNewButton_1.setBounds(244, 370, 63, 23);
 		panel.add(btnNewButton_1);
-		
+	
 		addResc = new JButton("addReservation");
 		addResc.addActionListener(new ActionListener() 
 		{
@@ -626,13 +660,12 @@ public class ReservationSalle extends JFrame
 				
 					planningSalle = addPlanning();
 				
-					// TODO Auto-generated catch block
-				
 			
 				addReservation(planningSalle);
+				
 			}
 		});
-		addResc.setBounds(265, 365, 89, 23);
+		addResc.setBounds(273, 336, 89, 23);
 		panel.add(addResc);
 		/********************************************************************************************************
 		 * 
@@ -683,7 +716,7 @@ public class ReservationSalle extends JFrame
 		
 		
 		createCombobox() ;
-		//createComboboxPl() ;
+		//createComboboxPl() ; a titre de test 
 		addRepresentation();
 		
 		
@@ -698,6 +731,34 @@ public class ReservationSalle extends JFrame
 		addP.setBounds(437, 429, 89, 23);
 		panel.add(addP);
 		
+		JLabel lblNewLabel_7 = new JLabel("Descriptionn Configuration");
+		lblNewLabel_7.setBounds(375, 374, 155, 14);
+		panel.add(lblNewLabel_7);
+		
+		descCF = new JTextArea();
+		descCF.setBounds(368, 394, 162, 27);
+		panel.add(descCF);
+		
+		
+		
+		solde_ = new JSpinner();
+		solde_.setBounds(440, 546, 90, 20);
+		panel.add(solde_);
+		
+		JLabel lblNewLabel_8 = new JLabel("Acompte");
+		lblNewLabel_8.setBounds(369, 574, 59, 14);
+		panel.add(lblNewLabel_8);
+		
+		acompte_ = new JSpinner();
+		acompte_.setBounds(444, 571, 86, 20);
+		panel.add(acompte_);
+		
+		JLabel solde = new JLabel("Solde");
+		solde.setHorizontalAlignment(SwingConstants.CENTER);
+		solde.setBounds(352, 549, 78, 14);
+		panel.add(solde);
+		
+		
 		addP.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e) 
@@ -706,8 +767,8 @@ public class ReservationSalle extends JFrame
 					p=addPlanning();
 					JOptionPane.showMessageDialog(null, "planning avec succes !");
 					
-					JOptionPane.showMessageDialog(null, "fk plann !"+pl.getId());
-					JOptionPane.showMessageDialog(null, "cbo plann !"+createComboboxPl() );
+					//JOptionPane.showMessageDialog(null, "fk plann !"+pl.getId());
+					//JOptionPane.showMessageDialog(null, "cbo plann !"+createComboboxPl() );
 				
 					
 					
@@ -744,6 +805,8 @@ public class ReservationSalle extends JFrame
 	
 		return spectacle =(Spectacle) cbS.getSelectedItem();
 	}
+	
+	
 	public PlanningSalle  createComboboxPl() 
 	{
 		cbS.addActionListener(new ActionListener() 
@@ -904,66 +967,14 @@ public class ReservationSalle extends JFrame
 		for (Representation representation : representationList)
 		{
 			representation.create();
-			JOptionPane.showMessageDialog(null, "representa de addR/ repreList "+representationList);
+			//JOptionPane.showMessageDialog(null, "representa de addR/ repreList "+representationList);
 		}
 		
 	}
 	
-	private boolean setR() 
-	{
-		addR = new JButton("Ajouter representation");
-		
-		addR.setForeground(Color.BLACK);
-		addR.setBackground(Color.WHITE);
-		addR.setBounds(247, 427, 180, 27);
-		
-		
-		addR.addActionListener(new ActionListener() 
-		{
-			@Override
-			public void actionPerformed(ActionEvent e) 
-			{
-				
-				float heureD= HD.getValue();	
-				float heureF=  HF.getValue() ;
-				java.util.Date u = date.getDate();
-				
-				
-				java.sql.Date date = new java.sql.Date(u.getTime());
-				
-				int id =spectacle.lastRecord();
-				
-				
-				JOptionPane.showMessageDialog(null, "id spectacle "+id);
-				JOptionPane.showMessageDialog(null, "heure debut  "+heureD);
-				JOptionPane.showMessageDialog(null, "heure fin  "+heureF);
-				JOptionPane.showMessageDialog(null, "date  "+date);
-				
-				
-				//Representation r = new Representation(date, heureD, heureF, id);
-				
-				
-				//JOptionPane.showMessageDialog(null, "bcle  "+representationList);
-				//r.create();
-						
-			}
-		});
-		
-		
-		
-		panel.add(addR);
-		
-		
-		
-		
-		
-		
-		
-		return true;
-	}
 	
 	
-	
+	/*oki*/
 	
 	private PlanningSalle addPlanning() 
 	{
@@ -976,6 +987,7 @@ public class ReservationSalle extends JFrame
 		
 		//public PlanningSalle( Date dateFin, Date dateDebut, Date dateReservation,Spectacle spectacle) 
 		PlanningSalle p= new PlanningSalle(date2,date,date,spectacle);
+		//JOptionPane.showMessageDialog(null, "id specta   !"+spectacle.getId());
 				//(date, spectacle);
 		p.create();
 		
@@ -985,16 +997,26 @@ public class ReservationSalle extends JFrame
 	private void addReservation(PlanningSalle planningSalle) 
 	{
 		//public Reservation(float acompte ,float solde , 
-		//float prix,String statut, PlanningSalle planningSalle , Personne organisateur) {
-		Reservation reservation = new Reservation(0, 0, 0, planningSalle, 
+		//float prix,String statut, PlanningSalle planningSalle , Personne organisateur) 
+		/*spinner a cause des float*/
+		/*
+		Float solde=(Float) solde_.getValue();
+		Float acompte= (Float)acompte_.getValue();
+		Float prix=(Float) prix_.getValue();
+		
+		
+		bordel avec builder, 0 c est tres bien les spectacle sont gratuit voila 
+		*/
+			Reservation reservation = new Reservation(0,0,0, planningSalle, 
 				this.personne);
 		
-		JOptionPane.showMessageDialog(null, "personne de reserv  !"+this.personne);
-		JOptionPane.showMessageDialog(null," plann de reserv !"+ planningSalle);
+	//	JOptionPane.showMessageDialog(null, "personne de reserv  !"+this.personne);
+		//JOptionPane.showMessageDialog(null," plann de reserv !"+ planningSalle);
 		// le px varie en fct des jours de reserv donc on attrinue le jour au calcul du prix
 		reservation.setPrixByday(getDate());
 		
-		reservation.create();
+		reservation.create(this.personne.getId());
+		//JOptionPane.showMessageDialog(null, "reserv ajoutee !");
 	}
 	/**************************************************************************************************
 	 * 
@@ -1071,18 +1093,27 @@ public class ReservationSalle extends JFrame
 		plp = s.findAll();
 		
 	}
-	
+	/*fonctionnel sans libel et sans description*/
 	private void addConfiguration() 
 	{
-		String description = description_.getText();
+		String description = descCF.getText();
+		String libel = place.toString();
 		
-		// trouver un systeme av le spectacle 
-		Configuration configuration = new Configuration(description, place);
-			boolean oki = configuration.create();
+		/*public Configuration( int id,String description, 
+			String libel, 
+			List<Categorie> categoriesList, Ticket type)*/
+		
+			Configuration configuration = new Configuration(description,libel, place);
+			
+			//JOptionPane.showMessageDialog(null, "id config  "+configuration.getId());
+			int id =spectacle.lastRecord();//id spect ajoute
+			
+			boolean oki = configuration.create(id);
 			if (oki) 
 			{
 
-				// ici la cat s ajoute ds la config 
+				addCat(configuration) ;
+				//JOptionPane.showMessageDialog(null, "categorie ajoutée  "+configuration.getId());
 			}
 		}
 
@@ -1092,11 +1123,14 @@ public class ReservationSalle extends JFrame
 			List<Categorie> categories = setCat(configuration);
 			for (Categorie categorie : categories) 
 			{
-				categorie.create();
+				categorie.create(422);
+				//JOptionPane.showMessageDialog(null, "id cat ds ad actt  "+categorie.getId());
 			}
+			
 		}
+		
 	
-	public void create() 
+	public void reserver() 
 	{
 		/*************************************************************************************************************
 		 * 
@@ -1105,7 +1139,9 @@ public class ReservationSalle extends JFrame
 		 * 
 		 * ************************************************************************************************************/
 		boolean oki = addSpectacle();
-		if (oki) 
+		boolean oki2=setR();
+		
+		if (oki && oki2) 
 		{
 			//planning oki
 			PlanningSalle planningSalle = null;
@@ -1124,7 +1160,9 @@ public class ReservationSalle extends JFrame
 
 			JOptionPane.showMessageDialog(null, "Ajouté avec succes !");
 			this.dispose();
-		}else {
+		}
+		else 
+		{
 			JOptionPane.showMessageDialog(null, "Erreur lors de l'ajout du spectacle !");
 		}
 		
@@ -1148,6 +1186,62 @@ public class ReservationSalle extends JFrame
 			return catCirque(configuration);
 		}
 
+	}
+	//oki fct
+	private boolean setR() 
+	{
+		addR = new JButton("Ajouter representation");
+		
+		addR.setForeground(Color.BLACK);
+		addR.setBackground(Color.WHITE);
+		addR.setBounds(220, 427, 178, 27);
+		
+		
+		addR.addActionListener(new ActionListener() 
+		{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				
+				float heureD= HD.getValue();	
+				float heureF=  HF.getValue() ;
+				java.util.Date u = date.getDate();
+				
+				
+				java.sql.Date date = new java.sql.Date(u.getTime());
+				
+				
+				/*
+				
+				JOptionPane.showMessageDialog(null, "id spectacle "+id);
+				JOptionPane.showMessageDialog(null, "heure debut  "+heureD);
+				JOptionPane.showMessageDialog(null, "heure fin  "+heureF);
+				JOptionPane.showMessageDialog(null, "date  "+date);
+				*/
+				
+				
+				Representation r = new Representation(heureD,heureF,date,spectacle);
+				JOptionPane.showMessageDialog(null, "representation ajoute");
+				
+				
+				r.create();
+			
+				
+						
+			}
+		});
+		
+		
+		
+		panel.add(addR);
+		
+		
+		
+		
+		
+		
+		
+		return true;
 	}
 }
 	

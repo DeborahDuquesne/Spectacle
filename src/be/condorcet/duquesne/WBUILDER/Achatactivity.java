@@ -355,7 +355,7 @@ public class Achatactivity extends JFrame
 		
 		if(oki) 
 		{
-			JOptionPane.showMessageDialog(null, "oki pr la cde cree!");
+			//JOptionPane.showMessageDialog(null, "oki pr la cde cree!");
 			createPlaces();
 			decomptePlace() ; // prob 
 			
@@ -400,7 +400,7 @@ public class Achatactivity extends JFrame
 	}
 	public void decomptePlace() 
 	{
-		List<Categorie> categories = null;//configuration.getCategories();
+		List<Categorie> categories =configuration.getCategories();
 		
 		for(Categorie categorie : categories) 
 		{

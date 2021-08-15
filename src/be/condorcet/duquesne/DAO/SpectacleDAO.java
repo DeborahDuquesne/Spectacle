@@ -371,7 +371,7 @@ public class SpectacleDAO implements DAO<Spectacle>
 		{
 			e.printStackTrace();
 		}
-		JOptionPane.showMessageDialog(null, "id spectacle daao  "+s.getId());
+		//JOptionPane.showMessageDialog(null, "id spectacle daao  "+s.getId());
 		return s.getId();
 	}
 

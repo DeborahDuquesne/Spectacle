@@ -75,10 +75,15 @@ public class Reservation {
 	}
 	public String getCommentaire() 
 	{
+		if(this.commentaire==" " || this.commentaire==null) 
+		{
+			return"aucun commentaire";
+		}
 		return commentaire;
 	}
 	public void setCommentaire(String commentaire) 
 	{
+		
 		this.commentaire = commentaire;
 	}
 	
@@ -152,17 +157,17 @@ public class Reservation {
 	public String toString() 
 	{
 		return "Reservation [acompte=" + acompte + ", solde=" + solde + ", prix=" + prix + ", statut=" + statut
-				+ ", commentaire=" + commentaire + "]";
+				+ ", commentaire=" + this.getCommentaire() + "]";
 	}
 	
 	/**************************************************************************************************************
 	 * 
-	 * creation de la reservation
+	 * creation de la reservation avec id de la personne qui reserve 
 	 * 
 	 * ***********************************************************************************************************/
-	public boolean create() 
+	public boolean create(int id ) 
 	{		
-		return reservationDAO.create(this);
+		return reservationDAO.create(this,id);
 	}
 	
 }

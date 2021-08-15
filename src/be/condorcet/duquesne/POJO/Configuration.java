@@ -56,7 +56,7 @@ public class Configuration
 	public Configuration( int id,String description, 
 			String libel, 
 			List<Categorie> categoriesList, Ticket type)
-			//Spectacle spectacle) 
+			
 {
 		
 		this.description = description;
@@ -64,14 +64,14 @@ public class Configuration
 		this.categoriesList = categoriesList;
 		this.type = type;
 		this.id = id;
-		//this.spectacle = spectacle;
+		
 	}
 
-	public Configuration( String description, Ticket type) 
+	public Configuration( String description,String libel, Ticket type) 
 	{
 			super();
 			this.description = description;
-					
+			this.libel=libel;	
 			this.type = type;
 		
 			
@@ -107,7 +107,7 @@ public class Configuration
 	
 	public List<Categorie> getCategories()
 	{
-		
+		categoriesList=new ArrayList<Categorie>();
 		return this.categoriesList;
 	}
 	public Categorie getCat() 
@@ -130,15 +130,26 @@ public class Configuration
 	
 	
 
-	public String getLibel() {
+	public String getLibel() 
+	{
+		if(this.libel== "" || this.libel==null)
+		{
+			return" aucun libel";
+		}
 		return libel;
 	}
 
-	public void setLibel(String libel) {
+	public void setLibel(String libel) 
+	{
 		this.libel = libel;
 	}
 
-	public String getDescription() {
+	public String getDescription() 
+	{
+		if(this.description==" "  || this.description==null)
+		{
+			return "aucune description";
+		}
 		return this.description;
 	}
 
@@ -156,7 +167,8 @@ public class Configuration
 	{
 		return this.id;
 	}
-	public String getType() {
+	public String getType() 
+	{
 		if(this.type == Ticket.DEBOUT) 
 			return "DEBOUT";
 		else if(this.type == Ticket.CIRQUE_ASSIS)
@@ -166,7 +178,8 @@ public class Configuration
 	}
 
 
-	public void setType(Ticket type) {
+	public void setType(Ticket type) 
+	{
 		this
 		
 		.type = type;
@@ -175,14 +188,14 @@ public class Configuration
 	/**************************************************************************************************************
 	 * 
 	 * 
-	 * 		creation d une config 
+	 * 		creation d une config avec l id su spectacle 
 	 * 
 	 * 
 	 * @return
 	**************************************************************************************************************** */
-	public boolean create() 
+	public boolean create(int id ) 
 	{
-		 boolean oki= cgDAO.create(this);
+		 boolean oki= cgDAO.create(this,id);
 		 return oki;
 		
 	}
