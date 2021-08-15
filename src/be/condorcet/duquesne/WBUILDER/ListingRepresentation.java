@@ -25,6 +25,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import be.condorcet.duquesne.POJO.Personne;
@@ -120,7 +121,10 @@ public class ListingRepresentation extends JFrame
 			    sp.setColumns(10);
 			    
 			    btnPlace = new JButton("CHOIX DES PLACES");
-			    btnPlace.setBounds(37, 467, 546, 39);
+			    btnPlace.setFont(new Font("Tw Cen MT", Font.BOLD, 15));
+			    btnPlace.setBackground(UIManager.getColor("CheckBox.foreground"));
+			    btnPlace.setForeground(Color.BLACK);
+			    btnPlace.setBounds(34, 442, 546, 48);
 			    btnPlace.addActionListener(new ActionListener()
 				{
 					public void actionPerformed(ActionEvent e)
@@ -139,7 +143,20 @@ public class ListingRepresentation extends JFrame
 			    spp.setColumns(10);
 				activity=this;
 				
-				
+				 
+		        JButton btnRetour = new JButton("RETOUR LISTE DES SPECTACLES ");
+		 		btnRetour.setFont(new Font("Tw Cen MT", Font.BOLD, 15));
+		 		btnRetour.setBounds(34, 493, 546, 36);
+		 		btnRetour.setBackground(Color.RED);
+		 		btnRetour.setForeground(UIManager.getColor("CheckBox.darkShadow"));
+		 		btnRetour.addActionListener(new ActionListener() {
+		 			public void actionPerformed(ActionEvent e) {
+		 				ListingSpectacle page = new ListingSpectacle( p);
+		 				page.setVisible(true);
+		 				activity.dispose();
+		 			}
+		 		});
+		 		nbre.add(btnRetour);
 			
 				
 			/* selon les besoins du visu on peut choisur une jlist */ 

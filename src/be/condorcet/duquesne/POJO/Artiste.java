@@ -8,17 +8,40 @@ import be.condorcet.duquesne.DAO.PersonneDAO;
 public class Artiste extends Personne
 {
 	private final AbstractFactoryDAO dao = AbstractFactoryDAO.getFactory(AbstractFactoryDAO.DAO_FACTORY);
-	
 	protected final PersonneDAO pDAO = dao.getPersonneDAO();
+	
+	/*****************************************************************************************************
+	 *  les attributs 
+	 *
+	 ******************************************************************************************************/
 	private String nomArtistique;
 	public final static String statut = "ARTISTE";
-	private Spectacle spect;
-	private Personne artiste;
-	public Artiste() 
-	{
-		
-		
-	}
+	
+	
+	
+	
+	/************************************************************************************************************************
+	 * 
+	 * 
+	 * j ai suivi l uml mais moi j aurai dit qu un artiste a un ou plus spectacle
+	 * et un spectacle a aussi un ou pls artiste 
+	 * l uml a ete fait par bozo le clown ?
+	 * 
+	 * 
+	 * 
+	 * 
+	 * ***********************************************************************************************************************/
+	
+	
+	
+	/***********************************************************************************************************************
+	 * 
+	 * 
+	 * les differents ctr
+	 * 
+	 * *********************************************************************************************************************/
+	public Artiste() {}
+	
 	
 	
 	
@@ -45,34 +68,39 @@ public class Artiste extends Personne
 		super(s, mdp, t, a, e, n, p);
 		this.nomArtistique=nomA;
 		
-		// TODO Auto-generated constructor stub
+		
+		
 	}
-	public String getNomArtistique() {
+	/*******************************************************************************************************
+	 * 
+	 * 
+	 *  les getter et setter 
+	 * 
+	 * 
+	 * ******************************************************************************************************/
+	public String getNomArtistique() 
+	{
 		return nomArtistique;
 	}
-	public void setNomArtistique(String nomArtistique) {
+	public void setNomArtistique(String nomArtistique) 
+	{
 		this.nomArtistique = nomArtistique;
 	}
-	public Spectacle getSpect() {
-		return spect;
-	}
-	public void setSpect(Spectacle spect) {
-		this.spect = spect;
-	}
-	public Personne getArtiste() {
-		return artiste;
-	}
-	public void setArtiste(Personne artiste) {
-		this.artiste = artiste;
-	}
 	
+	
+	// affiche l obejt 
 	@Override
 	public String toString() 
 	{
 		return "    "  + nomArtistique + " ";
 	}
 	
-	
+	/**********************************************************************************************************
+	 * 
+	 * 		fct d inscpription pr l artiste 
+	 * 
+	 * 
+	 * *********************************************************************************************************/
 	@Override
 	public boolean register() 
 	{
@@ -81,16 +109,25 @@ public class Artiste extends Personne
 
 
 
-
+	/****************************************************************************************************************
+	 * 
+	 * 
+	 * listing des artistes 
+	 * 
+	 * 
+	 * *************************************************************************************************************/
 
 	public static List<Artiste> getAll()
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public boolean create() {
-		return true;
-				//this.pDAO.createArtisteSpectacle(this);
+	
+	
+	
+	public boolean create() 
+	{
+		return true;//this.pDAO.createArtisteSpectacle(this);
 	}
 	
 

@@ -226,9 +226,15 @@ public class SpectacleDAO implements DAO<Spectacle>
 			
 			return liste;
 		}
-	/*simple requete dans la  table spectacle pr des besoins de test */
 	
 	
+	/****************************************************************************************************************
+	 * 
+	 * 
+	 * simple requete dans la  table spectacle pr des besoins de test 
+	 * 
+	 * 
+	 * *****************************************************************************************************************/
 	@Override
 	public List getAll(Spectacle s) 
 	{
@@ -271,6 +277,7 @@ public class SpectacleDAO implements DAO<Spectacle>
 			return liste;
 		}
 	
+	
 	@Override
 	public boolean delete(Spectacle obj) 
 	{
@@ -282,7 +289,12 @@ public class SpectacleDAO implements DAO<Spectacle>
 	{
 		return false;
 	}
-// pr ajout d un spectacle ds la reservation de salle de l org 
+/*****************************************************************************************************************
+ * 
+ * recherche d un spectacle ds la table en fct du libel
+ * 
+ * 
+ * ****************************************************************************************************************/
 	@Override
 	public Spectacle find(Spectacle s) 
 	{
@@ -308,7 +320,18 @@ public class SpectacleDAO implements DAO<Spectacle>
 	}
 
 
-	
+	/**********************************************************************************************************
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 	peut s aververer utile ds le cadre d une rechercher par id 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * ****************************************************************************************************************/
 	@Override
 	public Spectacle findById(int id) throws SQLException 
 	{
@@ -316,6 +339,13 @@ public class SpectacleDAO implements DAO<Spectacle>
 		return null;
 	}
 	
+	/*****************************************************************************************************************
+	 * 
+	 * dans l frame de reserv de salle l org ajoute un spectacle avant de configurer il faut donc chopper le dernier inséré
+	 * 
+	 * 
+	 * ***************************************************************************************************************
+	 */
 	
 	@Override
 	public int findByLast(Spectacle s)
@@ -345,7 +375,13 @@ public class SpectacleDAO implements DAO<Spectacle>
 		return s.getId();
 	}
 
-
+	/********************************************************************************************************
+	 * 
+	 * Avec le bonheur d interduction de double lien ce systeme de fct est vitale pour l ajout d objet 
+	 * qui ne possede aucun moyen de chopper l id de l autre classe 
+	 * 
+	 * ********************************************************************************************************
+	 */
 	@Override
 	public boolean create(Spectacle obj, int id) 
 	{

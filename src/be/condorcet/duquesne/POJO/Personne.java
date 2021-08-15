@@ -19,7 +19,15 @@ public class Personne
 	protected Connection con_ = null;
 	
 	protected final PersonneDAO pDAO = dao.getPersonneDAO();
-	// protected car classe mere 
+
+	/***********************************************************************************************************************
+	 * 
+	 * 
+	 *  les attributs en  protected car classe mere 
+	 * 
+	 * 
+	 * **********************************************************************************************************************/
+	
 	protected int id;
 	protected String mdp;
 	protected String speudo;
@@ -32,33 +40,26 @@ public class Personne
 	protected int age;
 	
 	
-	private  List<Commande> clientCde1 = new ArrayList<Commande>();
+	/**********************************************************************
+	 * 
+	 * 
+	 *  a titre exceptionnel 
+	 * 
+	 **************************************************************************/
 	
-	public List<Commande> getClientCde1() {
-		return clientCde1;
-	}
-	public void setClientCde1(List<Commande> clientCde1) {
-		this.clientCde1 = clientCde1;
-	}
+	
+	
+	
 
+	/***********************************************************************************************************************
+	 * 
+	 * 
+	 *  les ctr 
+	 * 
+	 * 
+	 * **********************************************************************************************************************/
+	
 
-
-	private Commande cde;
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-// ctr avec ts les arg
 	public Personne(Integer id, String statut, String mdp, String speudo, String adresse, String prenom,
 			String nom,String telephone,String email,int age)  
 	{
@@ -169,24 +170,33 @@ public Personne(int id, String nom)
 	this.id=id;
 	this.nom=nom;
 }	
-public int getAge() {
+
+/***********************************************************************************************************************
+ * 
+ * 
+ *  les setter getter
+ * 
+ * 
+ * **********************************************************************************************************************/
+
+public int getAge() 
+{
 		return age;
-	}
-	public void setAge(int age) {
-		this.age = age;
-	}
-public String getEmail() {
+}
+public void setAge(int age) 
+{
+	this.age = age;
+}
+public String getEmail() 
+{
 		return email;
-	}
-	public void setEmail(String email) {
+}
+	public void setEmail(String email) 
+{
 		this.email = email;
-	}
+}
 	
 
-	
-
-	
-	// setter getter genéré par alt shift + s 
 
 	public int getId() 
 	{
@@ -253,7 +263,7 @@ public String getEmail() {
 		this.nom = nom;
 	}
 	
-	
+	// affichage de l objet 
 	@Override
 	public String toString() 
 	{
@@ -261,13 +271,22 @@ public String getEmail() {
 				+ ", prenom=" + prenom + ", statut=" + statut + ", nom=" + nom +
 				", telephone=" + telephone  ;
 	}
-	// methode pour l inscription qui sera redefenie ds artiste, etc 
+	/****************************************************************************************************************
+	 * 
+	 * 
+	 * incription  redefinie ds ttes les autres classes qui heritent de personne
+	 * 
+	 * 
+	 * @return
+	 *********************************************************************************************************************/
 	public boolean register() 
 	{
 		
 		return false;
 	}
-	// soit comme ca soit en bool 
+	
+	
+	
 	public Personne loginCheck(String pseudo,String psw) 
 	{
 		if(pseudo!=null && psw!=null)
@@ -287,6 +306,18 @@ public String getEmail() {
 		}
 		return null;
 	}
+	
+	/**************************************************************************************************************
+	 * 
+	 * 
+	 * 
+	 *   verif pr la connexion en fct de mdp du statut et de speudo 
+	 * 
+	 * @param p
+	 * @param m
+	 * @param s
+	 * @return
+	******************************************************************************************************************** */
 	public int check_log(String p,String m,String s)
 	{
 		List<Personne> P= pDAO.getAll();
@@ -310,20 +341,37 @@ public String getEmail() {
 		
 	}
 	
-	
+	/****************************************************************************************************
+	 * 
+	 * 
+	 *   methode de connexion
+	 * 
+	 * @return
+	 *******************************************************************************************************/
 	
 	public boolean login() 
 	{
 		return this.pDAO.login(this);
 	}
-	/*liste des personnes par statut 	artiste*/
 	
 	
+	/**************************************************************************************************************
+	 * 
+	 * 
+	 * 
+	 *  liste des artistes 
+	 * 
+	 * 
+	 * @return
+	 *********************************************************************************************************************/
 	public List<Artiste> findAllArtiste()
 	{
 		return this.pDAO. artistesFindAll();
 	}
 	
+	
+	
+	// a titre de test 
 	 public Personne Log(String p,String m)
 
      {
@@ -345,21 +393,73 @@ public String getEmail() {
 		 return null;
      }
 	
-  // methode de connexion
+ 
 	
-	
+	/*************************************************************************************************************
+	 * 
+	 * 
+	 * utilise pour voir si la personne qui se connecte n est pas deja ds la db 
+	 * 
+	 * 
+	 * @return
+	 **********************************************************************************************************/
 		public Personne find()  
 		{
 			return this.pDAO.find(this);
 		}
-// recherch d une personne par l id
+	/**********************************************************************************************************
+	 * 
+	 * 
+	 * 
+	 *  dans l hypothese ou on recherche qqun par son id 
+	 * 
+	 * 
+	 * ********************************************************************************************************/
 		public Personne findById(int id ) throws SQLException
 		{
 			return this.pDAO.findById(this.id);
 		}
 		
+		public Personne FindAll()
+		{
+			return (Personne) this.pDAO.findAll(this);
+		}
 		
 		
+		/********************************************************************************************
+		 * 
+		 * 
+		 * 
+		 * a titre de test mais elle sert a rien 
+		 * 
+		 * 
+		 * @return
+		 *************************************************************************************************/
+		public static List<Personne> getList() 
+		{
+			AbstractFactoryDAO dao = AbstractFactoryDAO
+					.getFactory(AbstractFactoryDAO.DAO_FACTORY);
+			
+			 PersonneDAO pDAO = dao.getPersonneDAO();
+			 return pDAO.getAll();
+		}
 		
+		
+		/*******************************************************************************************
+		 * 
+		 * 
+		 * 
+		 * 		idee du prof pr eviter les double lien  mais je vais faire autrement 
+		 * @param id
+		 * @return
+		 ******************************************************************************************/
+		public static Personne getUser(int id) 
+		{
+			AbstractFactoryDAO dao = AbstractFactoryDAO
+					.getFactory(AbstractFactoryDAO.DAO_FACTORY);
+			
+			 PersonneDAO pDAO = dao.getPersonneDAO();
+			 return pDAO.findToOrder(id);
+		}
 		
 	}

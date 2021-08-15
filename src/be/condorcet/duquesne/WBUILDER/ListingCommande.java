@@ -162,8 +162,9 @@ public class ListingCommande extends JFrame
 		
 		
 		
+			//allCde=laCde.findAll();
 			laCde.getListCdeByClient();
-			//JOptionPane.showMessageDialog(null, "taille list getCde de cde" +laCde.getCdeL().size() );
+			//JOptionPane.showMessageDialog(null, "taille list getCde de cde ds frame " +laCde.findAll().size() );
 
 			
 			sp_cm.addActionListener(new ActionListener() 
@@ -177,10 +178,10 @@ public class ListingCommande extends JFrame
 		
 		
 		
-		if(!laCde.getCdeL().isEmpty()) 
+		if(!allCde.isEmpty()) 
 		{
 			
-			for(Commande comm  : laCde.getCdeL())
+			for(Commande comm  : allCde)
 				sp_cm.addItem(comm);
         
 			
@@ -287,7 +288,9 @@ public class ListingCommande extends JFrame
 	{
 		
 		
-		allCde=laCde.getdAll();
+		allCde=laCde.findAll();
+				
+			
 				
 	}
 }

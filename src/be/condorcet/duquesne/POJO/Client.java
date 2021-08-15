@@ -19,25 +19,24 @@ public class Client extends Personne
 	protected final PersonneDAO pDAO = dao.getPersonneDAO();
 	
 	public final static String statut = "CLIENT";
-	
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
+	private List<Commande> cdeDesUsers= new ArrayList<Commande>();
+	private Commande cde ;
 
 	
-	public Client() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 
-	public Client(int id, String nom) 
+	/***************************************************************************************************************
+	 * 
+	 * 
+	 * 		les differents ctr
+	 * 
+	 * 
+	 * 
+	 * *************************************************************************************************************/
+
+	public Client(int id, String nom, Commande c) 
 	{
 		super(id, nom);
+		this.cde=c;
 		
 	}
 
@@ -48,7 +47,8 @@ public class Client extends Personne
 		
 	}
 
-	public Client(String s, String mdp, String t, String a, String e, String n, String p, int age) {
+	public Client(String s, String mdp, String t, String a, String e, String n, String p, int age) 
+	{
 		super(s, mdp, t, a, e, n, p, age);
 		
 	}
@@ -77,11 +77,57 @@ public class Client extends Personne
 		// TODO Auto-generated constructor stub
 	}
 	
+	public Client() {}
+
+	/***************************************************************************************************************
+	 * 
+	 * 
+	 * 		les getter setter 
+	 * 
+	 * 
+	 * 
+	 * *************************************************************************************************************/
+	public int getId() 
+	{
+		return id;
+	}
+
+	public void setId(int id) 
+	{
+		this.id = id;
+	}
+
+	
+	
+		
+	public List<Commande> getCdeDesUsers() {
+		return cdeDesUsers;
+	}
+
+	public void setCdeDesUsers(List<Commande> cdeDesUsers) {
+		this.cdeDesUsers = cdeDesUsers;
+	}
+
+	public Commande getCde() {
+		return cde;
+	}
+
+	public void setCde(Commande cde) {
+		this.cde = cde;
+	}
+	/****************************************************************************************************************
+	 * 
+	 * 	inscription du client 
+	 * 
+	 * 
+	 ******************************************************************************************************************/
+	
 	@Override
 	public boolean register() 
 	{
 		return pDAO.create(((Client) this));
 	}
+	// affiche l objet 
 	@Override
 	public String toString()
 	{
@@ -90,8 +136,11 @@ public class Client extends Personne
 	}
 	
 	
-	
-	
+	@Override
+	public Personne FindAll()
+	{
+		return (Client) this.pDAO.findAll(this);
+	}
 
 	
 	

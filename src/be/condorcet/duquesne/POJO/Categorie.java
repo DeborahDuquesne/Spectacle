@@ -14,15 +14,26 @@ public class Categorie
 {
 	private final AbstractFactoryDAO dao = AbstractFactoryDAO.getFactory(AbstractFactoryDAO.DAO_FACTORY);
 	private final DAO<Categorie> cDAO = dao.getCategorieDAO();
+	
+	/*****************************************************************************************************
+	 *  les attributs 
+	 *
+	 ******************************************************************************************************/
 	private String commentaire;
 	private TypesCat type ;
 	private int prix = 0;
 	private int id = 0;
 	
 	private int nbrePlaceLibre;
-	// je capte pas son utilité
 	private int nbrPlaceMaximum;
-
+	/*********************************************************************************************************
+	 * 
+	 * 
+	 *   enum des differents types de categories qui seront liés aux differentes configurations
+	 * 
+	 * @author Debora
+	 *
+	 ************************************************************************************************************/
 	public enum TypesCat 
 	{
 		OR,
@@ -34,12 +45,20 @@ public class Categorie
 	
 	
 	
-	// ct par defaut 
+	/***************************************************************************************************************
+	 * 
+	 * 
+	 * 		les differents ctr
+	 * 
+	 * 
+	 * 
+	 * *************************************************************************************************************/
 	public Categorie() {}
 	
 	// ctr avec ts les attributs
 	public Categorie(String commentaire, TypesCat type, int prix, int id,
-			int nbrePlaceLibre, int nbrPlaceMaximum) {
+			int nbrePlaceLibre, int nbrPlaceMaximum) 
+	{
 		super();
 		this.commentaire = commentaire;
 		this.type = type;
@@ -62,7 +81,8 @@ public class Categorie
 		this.calculPlace(type, place);
 	}
 	
-	//(idCat,com,typeC,prix,nbre,nbre2
+
+
 	
 	
 	public Categorie(int id,String comm,TypesCat type, int prix,int n1,
@@ -82,18 +102,10 @@ public class Categorie
 		
 	{
 		
-		
 		this.prix = prix;
 		
 		this.id=id;
 	}
-
-// getter setter
-	
-
-
-	
-
 
 
 	public Categorie(TypesCat type,int prix , Ticket place , Configuration conf)
@@ -105,7 +117,16 @@ public class Categorie
 		this.calculPlace(type, place);
 	}
 
-	public String getCommentaire() {
+	
+	/*******************************************************************************************************
+	 * 
+	 * 
+	 *  les getter et setter 
+	 * 
+	 * 
+	 * ******************************************************************************************************/
+	public String getCommentaire() 
+	{
 		return this.commentaire;
 	}
 
@@ -137,12 +158,14 @@ public class Categorie
 	}
 
 
-	public int getPrix() {
+	public int getPrix()
+	{
 		return prix;
 	}
 
 
-	public void setPrix(int prix) {
+	public void setPrix(int prix)
+	{
 		this.prix = prix;
 	}
 
@@ -150,7 +173,8 @@ public class Categorie
 	
 
 
-	public void setId(int id) {
+	public void setId(int id) 
+	{
 		this.id = id;
 	}
 
@@ -158,39 +182,49 @@ public class Categorie
 	
 
 
-	public int getNbrePlaceLibre() {
+	public int getNbrePlaceLibre() 
+	{
 		return nbrePlaceLibre;
 	}
 
 
-	public void setNbrePlaceLibre(int nbrePlaceLibre) {
+	public void setNbrePlaceLibre(int nbrePlaceLibre)
+	{
 		this.nbrePlaceLibre = nbrePlaceLibre;
 	}
 
 
-	public int getNbrPlaceMaximum() {
+	public int getNbrPlaceMaximum() 
+	{
 		return nbrPlaceMaximum;
 	}
 
 
-	public void setNbrPlaceMaximum(int nbrPlaceMaximum) {
+	public void setNbrPlaceMaximum(int nbrPlaceMaximum) 
+	{
 		this.nbrPlaceMaximum = nbrPlaceMaximum;
 	}
 	
 	
 	
-	
+	// afffichage l objetc 
 	@Override
-	public String toString() {
+	public String toString() 
+	{
 		return " CAT:   " +   type + "   " + prix + "euros " ;
 				//+ ", nbrePlaceLibre=" + nbrePlaceLibre + ", nbrPlaceMaximum=" + nbrPlaceMaximum + "]";
 	}
 
 
-	// diverses methodes 
+	/*********************************************************************************************************
+	 * 
+	 * 
+	 * 
+	 * 
+	 * ***********************************************************************************************************/
 	public void calculPlace(TypesCat type, Ticket place) 
 	{
-		// si 
+		
 		if(place == null) 
 			{
 				return ; //retourne à la méthode qui a appeler calcul..();
@@ -250,26 +284,49 @@ public class Categorie
 	}
 	
 	
-
+	/***********************************************************************************************************
+	 * 
+	 * 
+	 *   creation de a categorie 
+	 * 
+	 * @return
+	 ************************************************************************************************************/
 	public boolean create() 
 	{
 		boolean cat = cDAO.create(this);
 		return cat;
 	}
-	// av les reservation le nbre de place va diminuer 
+	/******************************************************************************************************************
+	 * 
+	 * 
+	 *   les place dominue en fct de achats 
+	 * 
+	 * *********************************************************************************************************************/
 	public boolean catDown()
 	{
 		boolean majNbrePlce = cDAO.update(this);
 		// ca retire un a chque plce prise 
 		return majNbrePlce;
 	}
-	
+	/*********************************************************************************************************************
+	 * 
+	 * 		liste des categories
+	 * 
+	 * ********************************************************************************************************************/
+	 
+	 
 	public List<Categorie> findAll()
 	{
 		return (List<Categorie>) cDAO.findAll(this);
 				
 	}
-	
+	/*************************************************************************************************************
+	 * 
+	 * 
+	 *    testing and debbug
+	 * 
+	 * 
+	 *****************************************************************************************************************/
 	public void display()
 	{
 		List<Categorie> list = this.findAll();

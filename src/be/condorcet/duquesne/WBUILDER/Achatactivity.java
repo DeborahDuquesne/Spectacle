@@ -133,7 +133,7 @@ public class Achatactivity extends JFrame
 		JButton btnAcheter = new JButton("Acheter");
 		btnAcheter.setBackground(Color.DARK_GRAY);
 		btnAcheter.setForeground(Color.WHITE);
-		btnAcheter.setBounds(0, 225, 162, 48);
+		btnAcheter.setBounds(0, 225, 228, 48);
 		btnAcheter.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e) 
@@ -205,11 +205,13 @@ public class Achatactivity extends JFrame
 		panel.add(rdbtnBc);
 
 		JLabel lblNewLabel = new JLabel("MODE LIVRAISON : ");
+		lblNewLabel.setForeground(Color.YELLOW);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel.setBounds(24, 30, 187, 18);
 		panel.add(lblNewLabel);
 
 		JLabel lblModeDePaiment = new JLabel("MODE PAIEMENT :");
+		lblModeDePaiment.setForeground(Color.YELLOW);
 		lblModeDePaiment.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblModeDePaiment.setBounds(266, 30, 155, 18);
 		panel.add(lblModeDePaiment);
@@ -218,7 +220,7 @@ public class Achatactivity extends JFrame
 		panel_1.setBounds(0, 0, 451, 43);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
-		
+		/*
 		cde = new JButton("cde");
 		cde.setBounds(10, 11, 89, 23);
 		cde.addActionListener(new ActionListener() 
@@ -239,7 +241,7 @@ public class Achatactivity extends JFrame
 		});
 		
 		
-		panel_1.add(cde);
+		panel_1.add(cde);*/
 		/******************************************************************************************************
 		 * 
 		 * 			pour n autoriser qu un seul choix de rdio btn on doit les mettre dans des rzdio froupe
@@ -268,8 +270,8 @@ public class Achatactivity extends JFrame
 		panel.add(lblPrixValue);
 		lblPrixValue.setText("0.0 \u20AC");
 		
-		lblNewLabel_1 = new JLabel("( +5 \u20AC de frais d'enregistrement)");
-		lblNewLabel_1.setBounds(10, 187, 186, 27);
+		lblNewLabel_1 = new JLabel("( +5 \u20AC de frais de gestion de dossier)");
+		lblNewLabel_1.setBounds(10, 187, 193, 27);
 		panel.add(lblNewLabel_1);
 /******************************************************************************************************
  * 
@@ -292,7 +294,7 @@ public class Achatactivity extends JFrame
 		});  */
 				
 				btnRetou = new JButton("Quitter");
-				btnRetou.setBounds(290, 225, 131, 48);
+				btnRetou.setBounds(221, 225, 210, 48);
 				panel.add(btnRetou);
 				btnRetou.setBackground(Color.DARK_GRAY);
 				btnRetou.setForeground(Color.WHITE);

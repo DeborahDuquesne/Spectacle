@@ -29,7 +29,10 @@ public class Configuration
 		        return nbre;
 		 }
 	}
-	
+	/*****************************************************************************************************
+	 *  les attributs 
+	 *
+	 ******************************************************************************************************/
 	private final AbstractFactoryDAO dao = AbstractFactoryDAO.getFactory(AbstractFactoryDAO.DAO_FACTORY);
 	private final DAO<Configuration> cgDAO = dao.getConfigurationDAO();
 	private String description;// libel
@@ -39,8 +42,14 @@ public class Configuration
 	private Ticket type;
 	
 	int id;
-	//private Spectacle spectacle;
 	
+	/***********************************************************************************************************************
+	 * 
+	 * 
+	 *  les ctr 
+	 * 
+	 * 
+	 * **********************************************************************************************************************/
 	public Configuration() {}
 	
 	//pr test les req 
@@ -58,16 +67,44 @@ public class Configuration
 		//this.spectacle = spectacle;
 	}
 
-	public Configuration( String description, Ticket type, Spectacle spectacle) 
-			{
+	public Configuration( String description, Ticket type) 
+	{
 			super();
 			this.description = description;
-			
-			
+					
 			this.type = type;
 		
-			//this.spectacle = spectacle;
-			}
+			
+	}
+	
+	public Configuration(int id,  String description, Ticket place,String libel ) 
+	{
+		this.id = id;
+		this.description = description;
+		this.type = place;
+		this.libel=libel;
+		
+	}
+	
+	
+	public Configuration(int id,  String description, Ticket place,String libel,Categorie cat  ) 
+	{
+		this.id = id;
+		this.description = description;
+		this.type = place;
+		this.libel=libel;
+		this.cat=cat;
+		
+	}
+	
+	/***********************************************************************************************************************
+	 * 
+	 * 
+	 *  getter setter 
+	 * 
+	 * 
+	 * **********************************************************************************************************************/
+	
 	public List<Categorie> getCategories()
 	{
 		
@@ -89,25 +126,7 @@ public class Configuration
 	{
 		this.categoriesList= categoriesList;
 	}
-	public Configuration(int id,  String description, Ticket place,String libel ) 
-	{
-		this.id = id;
-		this.description = description;
-		this.type = place;
-		this.libel=libel;
-		
-	}
 	
-	
-	public Configuration(int id,  String description, Ticket place,String libel,Categorie cat  ) 
-	{
-		this.id = id;
-		this.description = description;
-		this.type = place;
-		this.libel=libel;
-		this.cat=cat;
-		
-	}
 	
 	
 
@@ -123,38 +142,20 @@ public class Configuration
 		return this.description;
 	}
 
-	@Override
-	public String toString()
 	
+
+
+	
+
+	public void setId(int id) 
 	{
-		
-		
-		return " Cat list " 
-				+ categoriesList + ", type=" + type + " " ;//+
-				//", id cfg " + id + " "+
-				//"id cat " + "  "+cat.getId() +  " " 
-				//;
-	}
-
-
-	
-
-	public void setId(int id) {
 		this.id = id;
 	}
 
-	public int getId() {
+	public int getId()
+	{
 		return this.id;
 	}
-
-	public boolean create() 
-	{
-		 boolean oki= cgDAO.create(this);
-		 return oki;
-		
-	}
-
-
 	public String getType() {
 		if(this.type == Ticket.DEBOUT) 
 			return "DEBOUT";
@@ -170,12 +171,43 @@ public class Configuration
 		
 		.type = type;
 	}
-	// config spect cat 
+	
+	/**************************************************************************************************************
+	 * 
+	 * 
+	 * 		creation d une config 
+	 * 
+	 * 
+	 * @return
+	**************************************************************************************************************** */
+	public boolean create() 
+	{
+		 boolean oki= cgDAO.create(this);
+		 return oki;
+		
+	}
+
+
+	
+	/***********************************************************************************************************************
+	 * 
+	 * 
+	 * 		liste des configurations
+	 * 
+	 * @return
+	 ***************************************************************************************************************************/
 	public List<Configuration> findAll()
 	{
 		return (List<Configuration>) cgDAO.findAll(this);
 				
 	}
+	
+	/********************************************************************************
+	 * 
+	 * fct de test debbug
+	 * 
+	 * 
+	 *********************************************************************************/
 	
 	public void display()
 	{
@@ -189,8 +221,19 @@ public class Configuration
 		// JOptionPane.showMessageDialog(null,"id config  "+s.getConfiguration().getId());
 	}
 	
+	// affichage de l oobjet 
+	@Override
+	public String toString()
 	
-	
+	{
+		
+		
+		return " Cat list " 
+				+ categoriesList + ", type=" + type + " " ;//+
+				//", id cfg " + id + " "+
+				//"id cat " + "  "+cat.getId() +  " " 
+				//;
+	}
 	
 	
 }

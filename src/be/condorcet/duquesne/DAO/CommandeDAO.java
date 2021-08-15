@@ -31,13 +31,6 @@ public class CommandeDAO  implements DAO<Commande>
 		connect = conn;
 	}
 	
-	
-	//pr creer la cde j ai pas le choix j ai fait milles test et si on suit les liens on a pas le choix..
-	PersonneDAO p =new PersonneDAO(this.connect);
-	// la personne est le client qui cree la cde 
-	
-	
-
 	@Override
 	public boolean delete(Commande obj) 
 	{
@@ -68,16 +61,24 @@ public class CommandeDAO  implements DAO<Commande>
 	
 	@Override
 	
-	public List<Commande> findAll(Commande commande) 
+	public List<Commande> findAll(Commande c) 
 	{
+		
 		List<Commande> cdes = new ArrayList<Commande>();
-		Personne p= new Personne();
+		
+		
+		String sql = "SELECT  * FROM Commande_ inner join personne_ "
+				+ "on personne_.\"id\" = commande_.\"fk_pers\""
+				+ " WHERE commande_.\"fk_pers\"='"
+				+13+ "'";
+				
+				
+		
 
 		try 
 		{
-			String sql = "SELECT  * FROM Commande_ WHERE \"fk_pers\"='"
-					+ 13 + "'";
 			
+			//JOptionPane.showMessageDialog(null, "id de la personne ds dao cde   "+c.getP().getId()); ca renvoie bien 
 			
 			ResultSet rs = this.connect.createStatement().executeQuery(sql);
 		
@@ -88,11 +89,24 @@ public class CommandeDAO  implements DAO<Commande>
 				String preci= rs.getString(3);
 				livraison mL= livraison.valueOf(rs.getString(4));
 				Float t= rs.getFloat(5);
-				p.setId(id);
+				int fkp=rs.getInt(6);
 				
-						/*trouver un truc pr id personne */
+				//public Personne(int id,nom)
+				int idP = rs.getInt(7);
+				String nom=rs.getString(14);
 				
-				cdes.add(new Commande(id,paie,preci,mL,t,p));
+				
+				Commande cde = new Commande(id,paie,preci,mL,t);
+				Client cc = new Client(idP,nom,cde);
+				//JOptionPane.showMessageDialog(null, "id personne de  staic get user de person  "+Personne.getUser(idP));	
+				
+			
+				
+				
+				
+				
+				cdes.add(new Commande(id,paie,preci,mL,t,cc));
+						
 						
 						
 			}
@@ -115,7 +129,14 @@ public class CommandeDAO  implements DAO<Commande>
 
 		try 
 		{
-			String sql = "select * from commande_ inner join personne_ on commande_.\"fk_pers\" = personne_.\"id\"";
+			String sql = "select * from commande_ inner join personne_ on commande_.\"fk_pers\""
+					
+					 ;
+					
+			
+			
+					//+ "// = personne_.\"id\" ";
+					//+ "WHERE commande_.\"fk_pers\"='"+c.getP().getId()+ "'";
 				
 			
 			
@@ -133,12 +154,14 @@ public class CommandeDAO  implements DAO<Commande>
 				//public Personne(int id,nom)
 				int idP = rs.getInt(7);
 				String nom=rs.getString(14);
-				Client p = new Client(idP,nom);
+				Client p = new Client(idP,nom,null);
 				
 					
 				
 				cdes.add(new Commande(id,paie,preci,mL,t,p));
-						
+				
+				//JOptionPane.showMessageDialog(null, "id personne "+c.getP().getId());	
+				//JOptionPane.showMessageDialog(null, "id cde "+c.getId());		
 						
 			}
 
@@ -146,8 +169,10 @@ public class CommandeDAO  implements DAO<Commande>
 		{
 			e.printStackTrace();
 		}
-		JOptionPane.showMessageDialog(null, "taille list getcde de DAO  "+cdes.size());
-		return cdes;
+		JOptionPane.showMessageDialog(null, "taille list getcde de DAO  get all  "+cdes.size());
+		
+		return null;
+				//cdes;
 		
 	}
 
@@ -237,7 +262,8 @@ public class CommandeDAO  implements DAO<Commande>
 	}
 
 	@Override
-	public int findByLast(Commande s) {
+	public int findByLast(Commande s) 
+	{
 		// TODO Auto-generated method stub
 		return 0;
 	}

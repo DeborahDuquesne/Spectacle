@@ -12,7 +12,7 @@ public interface  DAO<T>
 	/****************************************************************************************************
 	 * 
 	 * 
-	 * 		IMPOSSIBLE DE CREER UNE COMMAND SANS ID PERSONNE 
+	 * 		IMPOSSIBLE DE CREER UNE COMMANDE SANS ID PERSONNE 
 	 * 		IMPOSSIBLE DE CREER UNE PLACE SANS ID COMMANDE 
 	 * 		ET COMME PAS DE DOUBLE SENS J AI PAS LE CHOIX
 	 * 		J AI TESTE MILLES TRUCS ET EN VAIN !!!!!!!!!!!!!!!!!!!!!!!!!

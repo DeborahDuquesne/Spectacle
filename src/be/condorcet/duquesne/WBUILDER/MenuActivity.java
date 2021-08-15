@@ -45,10 +45,18 @@ import javax.swing.JComboBox;
 
 public class MenuActivity extends JFrame 
 {
+	
+	/***************************************************************************************************************************
+	 * 
+	 * 
+	 * 			VARIABLES 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * ****************************************************************************************************************************/
 
 	private Spectacle s;
-	
-	
 	private JPanel contentPane;
 	private Personne personne;
 	private JPanel panel;
@@ -63,6 +71,12 @@ public class MenuActivity extends JFrame
 	
 	
 	private JComboBox <Representation> representationsCb;
+	private JComboBox  <Reservation>cbRs;
+	private List<Reservation> allRes = new ArrayList<Reservation>();
+	private Reservation laReserv = new Reservation();
+	private JLabel a;
+	private JLabel b;
+	;
 	// le menu va dependre de qui se connecte un client aura des cdes des reservations alors qu un orga aura d autres options
 	
 	public MenuActivity(Personne personne) 
@@ -81,7 +95,8 @@ public class MenuActivity extends JFrame
 
 		panel = new JPanel() 
 		{
-			public void paintComponent(Graphics g) {
+			public void paintComponent(Graphics g) 
+			{
 				Image img = Toolkit.getDefaultToolkit()
 						.getImage(MainActivity
 						.class.getResource("/be/condorcet/duquesne/IMG/s2.jpg"));
@@ -95,8 +110,10 @@ public class MenuActivity extends JFrame
 	
 		JButton btnRetour = new JButton("DECONNEXION");
 		btnRetour.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnRetour.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnRetour.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
 				MainActivity page = new MainActivity();
 				page.setVisible(true);
 				activity.dispose();
@@ -120,7 +137,9 @@ public class MenuActivity extends JFrame
 lblType.setBounds(92, 11, 563, 74);
 panel.add(lblType);
 
-/* test debug                     
+ 
+
+/* test debug      afin de voir xi on recup bien la bne personne                 
 JButton test = new JButton("tttt");
 test.setBounds(467, 143, 89, 23);
 panel.add(test);
@@ -135,8 +154,16 @@ test.addActionListener(new ActionListener()
 	}
 });
  */
+/**************************************************************************************************************************************
+ * 
+ * 
+ * 		EN FCT DE QUI SE CONNECTE LA FRAME EST LEGEREMENT DIFFERENTE 
+ * 
+ * 
+ * *************************************************************************************************************************************
+ */
 
-loadMenu();
+				loadMenu();
 
 	}
 
@@ -164,7 +191,7 @@ loadMenu();
 	
 	public void MenuOrganisateur()
 	{
-		// org 
+		
 		
 				JButton btnSalle = new JButton("RESERVATION DE SALLE DE SPECTACLE");
 				 btnSalle.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -184,15 +211,33 @@ loadMenu();
 				});
 				 btnSalle.setBounds(10, 209, 362, 46);
 				panel.add( btnSalle);
-				btnReservation.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
+				btnReservation.addActionListener(new ActionListener() 
+				{
+					public void actionPerformed(ActionEvent e) 
+					{
 						
 					}
 				});
 	}
 	public void ManagerMenu() 
 	{
-		
+		JLabel lblNewLabel = new JLabel("Les differentes reservations");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Yu Gothic UI", Font.PLAIN, 11));
+		lblNewLabel.setBounds(10, 130, 285, 14);
+		panel.add(lblNewLabel);
+		cbRs = new JComboBox();
+		cbRs.setBounds(10, 178, 582, 22);
+		panel.add(cbRs);
+		a = new JLabel("New label");
+		a.setBounds(108, 266, 163, 14);
+		panel.add(a);
+		b = new JLabel("New label");
+		b.setBounds(92, 291, 203, 14);
+		panel.add(b);
+		/*j ai pas compris il fait quoi le gestionnaire de salle donc je vais faire au feeling */
+		List();
+		displayCombo();
 	}
 	public void clientMenu()
 	{
@@ -239,5 +284,60 @@ loadMenu();
 			}
 		});
 		
+	}
+	
+	
+	
+	private Reservation  displayCombo()
+	{
+		
+		allRes=laReserv.findAll();
+		cbRs.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				activity.setId();
+			}
+		});
+		if(!allRes.isEmpty()) 
+		{
+			
+			for(Reservation comm  : allRes)
+				cbRs.addItem(comm);
+        
+			
+		}
+
+		else 
+		{
+			JLabel rep = new JLabel("NADA !");
+	        rep.setHorizontalAlignment(SwingConstants.CENTER);
+	        rep.setFont(new Font("Tahoma", Font.BOLD, 20));
+			rep.setBounds(30, 360, 610, 45);
+			contentPane.add(rep);
+		}
+		
+		return laReserv= (Reservation) cbRs.getSelectedItem();
+	}
+	
+	public void setId()
+	{
+		
+		laReserv= (Reservation) cbRs.getSelectedItem();
+		a.setText(".... : " +laReserv.getId());
+		b.setText(".... : "+laReserv.getStatut());
+		
+		
+
+		
+	}	
+	
+	public void List() 
+	{
+		
+		
+		allRes=laReserv.findAll();
+				
+				
 	}
 }

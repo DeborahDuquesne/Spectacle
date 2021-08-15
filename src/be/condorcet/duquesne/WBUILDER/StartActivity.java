@@ -18,8 +18,13 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-public class StartActivity extends JFrame {
+public class StartActivity extends JFrame 
+{
 
+	/*****************************************************************************************************
+	 *  les attributs 
+	 *
+	 ******************************************************************************************************/
 	private JPanel contentPane;
 
 	
@@ -58,6 +63,11 @@ public class StartActivity extends JFrame {
 		lblNewLabel_1.setFont(new Font("Rockwell Nova", Font.BOLD | Font.ITALIC, 30));
 		panel_1.add(lblNewLabel_1);
 
+		/*********************************************************************************
+		 * 
+		 * nle clic sur le btn permet l acces a la page de connexion
+		 * 
+		 ************************************************************************************/
 		JButton loginBtn = new JButton("CONNEXION");
 		loginBtn.addActionListener(new ActionListener()
 		{
@@ -72,14 +82,20 @@ public class StartActivity extends JFrame {
 		loginBtn.setForeground(Color.black);
 		loginBtn.setBackground(Color.RED);
 		panel_1.add(loginBtn);
-
+		/*********************************************************************************
+		 * 
+		 * nle clic sur le btn permet l acces a la page d inscription 
+		 * 
+		 ************************************************************************************/
 		JButton registerBtn = new JButton("INSCRIPTION");
 		registerBtn.setBounds(65, 208, 172, 78);
 		panel_1.add(registerBtn);
 		registerBtn.setForeground(Color.black);
 		registerBtn.setBackground(Color.RED);
-		registerBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		registerBtn.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
 				RegisActivity page= new RegisActivity();
 				page.setVisible(true);
 				activity.dispose();

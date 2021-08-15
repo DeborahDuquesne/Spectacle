@@ -12,41 +12,42 @@ import be.condorcet.duquesne.POJO.*;
 public class Reservation {
 	private final AbstractFactoryDAO dao =AbstractFactoryDAO.getFactory(AbstractFactoryDAO.DAO_FACTORY);
 	private final DAO<Reservation> reservationDAO = dao.getReservationDAO();
+
+	/******************************************************************************************
+	 * 
+	 * attributs
+	 * 
+	 * **************************************************************************************/
 	private int id ;
 	private float acompte;
 	private float solde;
 	private float prix;
 	private String statut = "actif";
 	private String commentaire;
-	private Personne organisateur;
+	
 	private PlanningSalle planningSalle;
 
 	
+
+	/******************************************************************************************
+	 * 
+	 * les ctr
+	 * 
+	 * **************************************************************************************/
 	
-	
-	public Reservation(float acompte ,float solde , 
+	public Reservation(int id,float acompte ,float solde , 
 			float prix,String statut, PlanningSalle planningSalle , Personne organisateur) {
+		this.id=id;
 		this.acompte = acompte;
 		this.solde = solde;
 		this.prix = prix;
 		this.statut=statut;
-		this.organisateur = organisateur;
+	
 		this.planningSalle = planningSalle;
 	}
-	public float getAcompte() {
-		return acompte;
-	}
-	public void setAcompte(float acompte) {
-		this.acompte = acompte;
-	}
-	public String getCommentaire() {
-		return commentaire;
-	}
-	public void setCommentaire(String commentaire) {
-		this.commentaire = commentaire;
-	}
-	public Reservation() {
-	}
+	
+	public Reservation() {}
+	
 	
 	public Reservation(float i, float j, float k,
 			PlanningSalle planningSalle, Personne personne) 
@@ -55,24 +56,59 @@ public class Reservation {
 		this.solde = j;
 		this.prix = k;
 		
-		this.organisateur=personne;
+		
 		this.planningSalle = planningSalle;
 	}
-	public int getId() {
+
+	/******************************************************************************************
+	 * 
+	 * les ctr 
+	 * 
+	 * **************************************************************************************/
+	public float getAcompte() 
+	{
+		return acompte;
+	}
+	public void setAcompte(float acompte) 
+	{
+		this.acompte = acompte;
+	}
+	public String getCommentaire() 
+	{
+		return commentaire;
+	}
+	public void setCommentaire(String commentaire) 
+	{
+		this.commentaire = commentaire;
+	}
+	
+	public int getId()
+	{
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(int id) 
+	{
 		this.id = id;
 	}
-	public float getSolde() {
+	public float getSolde() 
+	{
 		return solde;
 	}
-	public void setSolde(float solde) {
+	public void setSolde(float solde) 
+	{
 		this.solde = solde;
 	}
-	public float getPrix() {
+	public float getPrix() 
+	{
 		return prix;
 	}
+	
+	/**********************************************************************
+	 * 
+	 *  calcul du prix en fct du jour demandé 
+	 * 
+	 * @param jourReserv
+	************************************************************************** */
 	public void setPrixByday(Date jourReserv) 
 	{
 		/*4.500 € si J est vendredi ou samedi 
@@ -93,34 +129,39 @@ public class Reservation {
 	{
 		return statut;
 	}
-	public void setStatut(String statut) {
+	public void setStatut(String statut) 
+	{
 		this.statut = statut;
 	}
-	public Personne getOrganisateur() {
-		return organisateur;
-	}
-	public void setOrganisateur(Personne organisateur) {
-		this.organisateur = organisateur;
-	}
-	public PlanningSalle getPlanningSalle() {
+	
+	public PlanningSalle getPlanningSalle() 
+	{
 		return planningSalle;
 	}
 	
-	public void setPlanningSalle(PlanningSalle planningSalle) {
+	public void setPlanningSalle(PlanningSalle planningSalle) 
+	{
 		this.planningSalle = planningSalle;
 	}
-	public List<Reservation> findAll() {
+	public List<Reservation> findAll() 
+	{
 		return  (List<Reservation>) reservationDAO.findAll(this);
 	}
 	
 	@Override
-	public String toString() {
+	public String toString() 
+	{
 		return "Reservation [acompte=" + acompte + ", solde=" + solde + ", prix=" + prix + ", statut=" + statut
 				+ ", commentaire=" + commentaire + "]";
 	}
 	
-	
-	public boolean create() {		
+	/**************************************************************************************************************
+	 * 
+	 * creation de la reservation
+	 * 
+	 * ***********************************************************************************************************/
+	public boolean create() 
+	{		
 		return reservationDAO.create(this);
 	}
 	

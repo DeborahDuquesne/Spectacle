@@ -45,7 +45,10 @@ import javax.swing.UIManager;
 public class MainActivity extends JFrame 
 {
 	
-	
+	/******************************************************************************
+	 *  point d entree , le main , c est cette page qui demarre 
+	 * 
+	 * ******************************************************************************/
 	public static void main(String[] args) 
 	{
 		EventQueue.invokeLater(new Runnable() 
@@ -64,16 +67,14 @@ public class MainActivity extends JFrame
 			}
 		});
 	}
-
+	/*****************************************************************************************************
+	 *  les attributs 
+	 *
+	 ******************************************************************************************************/
 	private JPanel contentPane;
-
-	
-
 	private List<Spectacle> allSpectacles = new ArrayList<Spectacle>();
-	
 	private Spectacle leSpectacle;
 	private Spectacle spectacle = new Spectacle();
-
 	private JComboBox<Spectacle> sp_cm;
 	
 

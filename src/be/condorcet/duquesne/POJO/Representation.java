@@ -14,7 +14,14 @@ public class Representation
 	private final AbstractFactoryDAO dao =AbstractFactoryDAO
 			.getFactory(AbstractFactoryDAO
 			.DAO_FACTORY);
+	
 	private final DAO<Representation> rDAO = dao.getRepresentationDAO();
+
+	/******************************************************************************************
+	 * 
+	 * attributs
+	 * 
+	 * **************************************************************************************/
 	private float heureDebut;
 	private float heureFin;
 	private int id;
@@ -22,8 +29,15 @@ public class Representation
 	private Date d;
 	private String commentaire;
 	private Spectacle spectacle;
+	
+	/******************************************************************************************
+	 * 
+	 * ctr
+	 * 
+	 * **************************************************************************************/
 
-	public Representation(int id,String  dateRepresentation, float heureDebut2, float heureFin2) {
+	public Representation(int id,String  dateRepresentation, float heureDebut2, float heureFin2) 
+	{
 		this.id = id;
 		this.dateRepresentation = dateRepresentation;
 		this.heureDebut = heureDebut2;
@@ -33,12 +47,9 @@ public class Representation
 	
 	public Representation(){}
 			
-	
-
-	
-
 	public Representation(int id, float heureDebut, float heureFin, 
-			Date d, String commentaire,Spectacle s) {
+			Date d, String commentaire,Spectacle s) 
+	{
 		
 		this.id=id;
 		this.heureDebut = heureDebut;
@@ -48,11 +59,10 @@ public class Representation
 		this.commentaire = commentaire;
 		this.spectacle=s;
 	}
-
-	
 	
 	public Representation(int id,float heureDebut, float heureFin, 
-			String dateRepresentation, String commentaire) {
+			String dateRepresentation, String commentaire) 
+	{
 		this.id=id;
 		this.heureDebut = heureDebut;
 		this.heureFin = heureFin;
@@ -77,7 +87,8 @@ public class Representation
 	}
 	
 	public Representation(String dateRepresentation,float heureDebut, float heureFin
-			, Spectacle s) {
+			, Spectacle s)
+	{
 	
 		
 		this.heureDebut = heureDebut;
@@ -87,7 +98,8 @@ public class Representation
 		this.spectacle=s;
 	}
 	public Representation(int id,float heureDebut, float heureFin,
-			String dateRepresentation) {
+			String dateRepresentation) 
+	{
 	
 		this.id=id;
 		this.heureDebut = heureDebut;
@@ -107,64 +119,84 @@ public class Representation
 	
 		this.spectacle=s;
 	}
-
-	public Spectacle getSpectacle() {
+	/******************************************************************************************
+	 * 
+	 * setter getter
+	 * 
+	 * **************************************************************************************/
+	public Spectacle getSpectacle() 
+	{
 		return spectacle;
 	}
 
-	public void setSpectacle(Spectacle spectacle) {
+	public void setSpectacle(Spectacle spectacle) 
+	{
 		this.spectacle = spectacle;
 	}
 
-	public float getHeureDebut() {
+	public float getHeureDebut()
+	{
 		return heureDebut;
 	}
 
-	public void setHeureDebut(float heureDebut) {
+	public void setHeureDebut(float heureDebut)
+	{
 		this.heureDebut = heureDebut;
 	}
 
-	public float getHeureFin() {
+	public float getHeureFin()
+	{
 		return heureFin;
 	}
 
-	public void setHeureFin(float heureFin) {
+	public void setHeureFin(float heureFin) 
+	{
 		this.heureFin = heureFin;
 	}
 
 
-	public int getId() {
+	public int getId() 
+	{
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(int id) 
+	{
 		this.id = id;
 	}
 
-	public String getDateRepresentation() {
+	public String getDateRepresentation() 
+	{
 		return dateRepresentation;
 	}
 
-	public void setDateRepresentation(String dateRepresentation) {
+	public void setDateRepresentation(String dateRepresentation) 
+	{
 		this.dateRepresentation = dateRepresentation;
 	}
 
-	public Date getD() {
+	public Date getD() 
+	{
 		return d;
 	}
 
-	public void setD(Date d) {
+	public void setD(Date d) 
+	{
 		this.d = d;
 	}
 
-	public String getCommentaire() {
+	public String getCommentaire() 
+	{
 		return commentaire;
 	}
 
-	public void setCommentaire(String commentaire) {
+	public void setCommentaire(String commentaire) 
+	{
 		this.commentaire = commentaire;
 	}
 
+	
+	// affichage de l objet 
 	@Override
 	public String toString() 
 	{
@@ -178,20 +210,42 @@ public class Representation
 		
 	}
 
-	
-// ou on donne id spectacle 
+	/**********************************************************************************************************
+	 * 
+	 * 
+	 *   liste des representations liées avec les spectacles
+	 * 
+	 * 
+	 * ***********************************************************************************************************/
 	public List<Representation> findAll ()
 	{
 		return (List<Representation>) rDAO.findAll(this);
 	}
-	//ca liste la totalité des repr sans inner 
+	/***************************************************************************************************************
+	 * 
+	 * 
+	 * liste sns jointure
+	 * 
+	 * 
+	 * @return
+	 *****************************************************************************************************************/
+
 	public List<Representation>getAll ()
 	{
 		return (List<Representation>) rDAO.getAll(this);
 	}
 	
-	
-	public boolean create() {
+	/********************************************************************************************************************
+	 * 
+	 * 
+	 *   creation d une repreentation
+	 * 
+	 * @return
+	********************************************************************************************************************** */
+	public boolean create() 
+	{
 		return rDAO.create(this);
 	}
+	
+	
 }

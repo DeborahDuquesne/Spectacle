@@ -25,13 +25,16 @@ public class CategorieDAO implements DAO<Categorie>
 	
 	
 	/*INSERT INTO "STUDENT03_27"."CATEGORIE_" 
+	 * INSERT INTO "STUDENT03_27"."CATEGORIE_" ("commentaire", "type", "prix", "nbrPlaceDispo", "nbrPlaceMax", "fk_config") VALUES ('aucun', 'BRONZE', '25', '5000', '58', '421')
+
 	 * ("commentaire", "type", "prix", "nbrPlaceDispo", "nbrPlaceMax", "fk_config") VALUES ('neant', 'DEBOUT', '15', '8000', '100', '421')
 */
 	@Override
-	public boolean create(Categorie obj) 
+	public boolean create(Categorie c) 
 	{
-		// TODO Auto-generated method stub
-		return false;
+		
+
+		return true;
 	}
 	@Override
 	public boolean delete(Categorie obj) {
@@ -66,8 +69,10 @@ public class CategorieDAO implements DAO<Categorie>
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
 	@Override
-	public List<Categorie> findAll(Categorie obj) {
+	public List<Categorie> findAll(Categorie obj) 
+	{
 
 		List<Categorie> liste = new ArrayList<Categorie>();
 			Statement stm = null;

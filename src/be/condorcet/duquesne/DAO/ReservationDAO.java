@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 
 import be.condorcet.duquesne.POJO.*;
 
@@ -37,98 +38,12 @@ Validation (commit) effectuée
 	@Override
 	public boolean create(Reservation obj)
 	{
-		try
-        {
-                      
-        	PreparedStatement state = con_.prepareStatement
-        			("INSERT INTO Reservation_(\"acompte\",\"solde\",\"statut\","
-        					+ "\"commentaire\",\"prix\""
-        					+ ",\"fk_pers\",\"fk_planS\")"
-        					
-        					
-        					+ "VALUES (?,?,?,?,?,?,?)");
-        	
-        	state.setFloat(1, obj.getAcompte());
-            state.setFloat(2, obj.getSolde());
-            state.setString(3, obj.getStatut());
-            
-            state.setString(4, obj.getCommentaire());
-      
-            state.setFloat(5, obj.getPrix());
-            state.setInt(6, obj.getOrganisateur().getId());
-            state.setInt(7, obj.getPlanningSalle().getId());
-           
-            
-            state.execute();
-            return true;
-        }
-
-        catch(SQLException e)
-        {
-            e.printStackTrace();
-        }
+		
         
         return false;
 
 	}
-	/************************************************************************************************
-	 * 
-	 * 					test de depart car double lien avc spect 
-	 * 
-	 ******************* ****************************************************************************/
-	public List<Representation> findAll_(Representation representation) 
-	{
-		List<Representation> rlist= new ArrayList<Representation>();
 	
-		String sql = "Select * From representation_ inner join Spectacle_"
-				+ " on spectacle_.\"id\"=representation_.\"fk_spect\"";
-		
-		try {
-			ResultSet rs = this.con_.createStatement()					
-					.executeQuery(sql);
-							
-
-			
-			while (rs.next()) 
-			
-			{
-				//le spectacle 
-				Spectacle s = new Spectacle(
-						rs.getInt(7),
-						rs.getString(8),
-						rs.getString(9),
-						rs.getString(10),
-						rs.getString(11),
-						
-						rs.getInt(12)
-						);
-			
-				
-				
-				int rId = Integer.parseInt(rs.getString(1));
-				String date  =rs.getString(2);
-				int heureDebut = (int) Float.parseFloat(rs.getString(3));
-				int heureFin = (int) Float.parseFloat(rs.getString(4));
-				
-				
-				
-				Representation r= new Representation(rId,heureDebut,heureFin, date,s);
-				// ajout de la repre a la liste
-				rlist.add(r);
-									
-				
-						
-			}
-
-		} catch (SQLException e) 
-		{
-			e.printStackTrace();
-		}
-		
-		//JOptionPane.showMessageDialog( null,"taille list represendao findAll avc pk spec  "+rlist.size());
-    	
-		return rlist;
-	}
 	@Override
 	public boolean delete(Reservation obj) 
 	{
@@ -145,7 +60,64 @@ Validation (commit) effectuée
 	@Override
 	public List<Reservation> findAll(Reservation reservation) 
 	{
-		return null;
+		List<Reservation> rlist= new ArrayList<Reservation>();
+		
+		String sql = "select *from reservation_ ";
+			//	+ "inner join planningSalle_ \r\n"
+			//	+ "on RESERVATION_.\"fk_planS\" = PLANNINGSALLE_.\"id\" ";
+		
+		try {
+			ResultSet rs = this.con_.createStatement()					
+					.executeQuery(sql);
+							
+
+			
+			while (rs.next()) 
+			
+			{
+				//13 champs
+				
+				
+				
+				int rIR = Integer.parseInt(rs.getString(1));
+				Float acompte = rs.getFloat(2);
+				Float solde= rs.getFloat(3);
+				String statut= rs.getString(4);
+				String comm= rs.getString(5);
+				Float px=rs.getFloat(6);
+				/*
+				
+				int fkP=rs.getInt(7);
+				int fkPl=rs.getInt(8);
+				int idPlan=rs.getInt(9);
+				Date dateD = Date.valueOf(rs.getString("10"));
+				Date dateF = Date.valueOf(rs.getString("11"));
+				 int fkSp= rs.getInt(12);
+				 Date dateReserv = Date.valueOf(rs.getString("13"));
+				 /*
+				  * 
+				  * 
+				  */
+				 /*public PlanningSalle( int id,Date dateFin, Date dateDebut, Date dateReservation,Spectacle spectacle) */
+				//PlanningSalle pl = new PlanningSalle(idPlan,dateF,dateD,dateReserv,null);
+				Reservation r = new Reservation(rIR,acompte,solde,px,statut,null,null);
+				/*public Reservation(float acompte ,float solde , 
+			float prix,String statut, PlanningSalle planningSalle , Personne organisateur) {*/
+				
+				rlist.add(r);
+									
+				
+						
+			}
+
+		} catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		JOptionPane.showMessageDialog( null,"taille list reserv findAll dao avc pk spec  "+rlist.size());
+    	
+		return rlist;
 		
 	}
 
@@ -175,9 +147,42 @@ Validation (commit) effectuée
 
 
 	@Override
-	public boolean create(Reservation obj, int id) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean create(Reservation obj, int id)
+	
+	{
+		
+		try
+        {
+                      
+        	PreparedStatement state = con_.prepareStatement
+        			("INSERT INTO Reservation_(\"acompte\",\"solde\",\"statut\","
+        					+ "\"commentaire\",\"prix\""
+        					+ ",\"fk_pers\",\"fk_planS\")"
+        					
+        					
+        					+ "VALUES (?,?,?,?,?,?,?)");
+        	
+        	state.setFloat(1, obj.getAcompte());
+            state.setFloat(2, obj.getSolde());
+            state.setString(3, obj.getStatut());
+            
+            state.setString(4, obj.getCommentaire());
+      
+            state.setFloat(5, obj.getPrix());
+            state.setInt(6,id);
+            state.setInt(7, obj.getPlanningSalle().getId());
+           
+            
+            state.execute();
+            return true;
+        }
+
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        
+        return false;
 	}
 
 

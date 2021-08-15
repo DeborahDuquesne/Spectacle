@@ -13,6 +13,39 @@ public class Commande
 	
 	private final AbstractFactoryDAO dao = AbstractFactoryDAO.getFactory(AbstractFactoryDAO.DAO_FACTORY);
 	private final DAO<Commande> commandeDAO = dao.getCommandeDAO();
+	
+	/*****************************************************************************************************
+	 *  les attributs 
+	 *
+	 ******************************************************************************************************/
+	private List<Place> places = new ArrayList<Place>();
+	private int id;
+	private payement modeDePayement;
+	private livraison modeDeLivraison;
+	private float total;
+	private String precisionCde;
+	private List<Commande> cdeL= new ArrayList<Commande>();
+	/********************************************************************************************************************************
+	 * 
+	 * 
+	 * JE SUIS AU COURANT DE LA REGLE DES DOUBLES LIENS 
+	 * J AI PAS EU LE CHOIX VAR BCP DE BUGS DUR DES CONNERIES
+	 * C EST LE SEUL DANS LE PROJET 
+	 * 
+	 * 
+	 *******************************************************************************************************************************/
+	private Personne p= new Personne();;
+	
+	Place placeCdee;
+	
+	
+	/******************************************************************************************************
+	 * 
+	 * enum des differents moyens de paiement
+	 * 
+	 * @author Debora
+	 *
+	 *******************************************************************************************************/
 	public static enum payement 
 	{ 
 		VISA,
@@ -20,47 +53,19 @@ public class Commande
 		SEPA ,
 		PAYCONIQ
 	}
-	
+	/******************************************************************************************************
+	 * 
+	 * enum des differents moyens d envoie des place
+	 * 
+	 * @author Debora
+	 *
+	 *******************************************************************************************************/
 	public static enum livraison 
 	{ 
 		SUR_PLACE,
 		TIMBRE_PRIOR,
 		ENVOI_SECURISE    // 10 e 
 	}
-	private List<Place> places = new ArrayList<Place>();
-	private int id;
-	
-	private payement modeDePayement;
-	private livraison modeDeLivraison;
-	private float total;
-	private String precisionCde;
-	private List<Commande> cdeL= new ArrayList<Commande>();
-	private Personne p = new Personne();
-	
-	
-	/*SANS LINE PERSONNE MEME AVEC DES BIDOUILES DE TARE C EST IMPOSSIBLE DE LISTER QUOI QUE CE SOIT !!!!!!!!!!!!!!!!!!!!!
-	 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -76,56 +81,24 @@ public class Commande
 	 * 
 	 * SELON LE SCHEMA UML LA COMMANDE EST EN RAPPORT AVEC UNE OU DES PLACES 
 	 * C EST PAS DANS CDE QU ON TAPE PERSONNE OU QUE SAIS JE 
-	 * 
-	 *****************************************************************************************/
-	Place placeCdee;
+	 * **************************************************************************************/
 	
+	 /* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	 * 
+	 * 
+	 * Getter setter
+	 * 
+	 * 
+	 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 	public Personne getP() 
 	{
 		
 		return p;
 	}
-	public void setP(Personne p) {
+	public void setP(Personne p) 
+	{
 		this.p = p;
 	}
-	public Commande(List<Place> places, int id, 
-			payement modeDePayement, livraison modeDeLivraison, float total,
-			String precisionCde, Place placeCdee) {
-		
-		this.places = places;
-		this.id = id;
-		this.modeDePayement = modeDePayement;
-		this.modeDeLivraison = modeDeLivraison;
-		this.total = total;
-		this.precisionCde = precisionCde;
-		this.placeCdee = placeCdee;
-	}
-	/*              CTR SANS ARG                                  */
-	public Commande() {}
-	
-	
-	
-	
-	/****************************************************************************************************
-	 * 
-	 * 
-	 * 
-	 * ***************************************************************************************************/
-	
-	public Commande(int id,payement modeDePayement,
-			String precis, 
-			livraison modeDeLivraison, 
-			float total,Personne  c
-			) 
-	{
-		this.id=id;
-		this.modeDePayement = modeDePayement;
-		this.modeDeLivraison = modeDeLivraison;
-		this.total=total;
-		this.p=c;
-		
-	}
-	
 	
 	public int getId() 
 	{
@@ -228,10 +201,80 @@ public class Commande
 		this.total=total;
 	}
 	
+	
+	/***********************************************************************************************************************
+	 * 
+	 * 
+	 *  les ctr 
+	 * 
+	 * 
+	 * **********************************************************************************************************************
+	 * @param places
+	 * @param id
+	 * @param modeDePayement
+	 * @param modeDeLivraison
+	 * @param total
+	 * @param precisionCde
+	 * @param placeCdee
+	 */
+	public Commande(List<Place> places, int id, 
+			payement modeDePayement, livraison modeDeLivraison, float total,
+			String precisionCde, Place placeCdee) 
+	{
+		
+		this.places = places;
+		this.id = id;
+		this.modeDePayement = modeDePayement;
+		this.modeDeLivraison = modeDeLivraison;
+		this.total = total;
+		this.precisionCde = precisionCde;
+		this.placeCdee = placeCdee;
+	}
+	/*              CTR SANS ARG                                  */
+	public Commande() {}
+	
+	
+	public Commande(int id,payement modeDePayement,
+			String precis, 
+			livraison modeDeLivraison, 
+			float total,Personne  c
+			) 
+	{
+		this.id=id;
+		this.modeDePayement = modeDePayement;
+		this.modeDeLivraison = modeDeLivraison;
+		this.total=total;
+		this.p=c;
+		
+	}
+	public Commande(int id,payement modeDePayement,
+			String precis, 
+			livraison modeDeLivraison, 
+			float total
+			) 
+	{
+		this.id=id;
+		this.modeDePayement = modeDePayement;
+		this.modeDeLivraison = modeDeLivraison;
+		this.total=total;
+		
+		
+	}
+	
+	/****************************************************************************************************
+	 * 
+	 * augmentation en fct des frais supplementaire
+	 * 
+	 * ***************************************************************************************************/
+	
+	
+	
+	
 	public void augmenterCout(float coutSupplementaire) 
 	{
 		this.total =total+ coutSupplementaire;
 	}
+	
 	/*POUR AFFICHER LES OBJETCS CETTE METHODES DOIT ETRE DANS TTE LES CLASSES */
 	@Override
 	public String toString() 
@@ -285,35 +328,47 @@ public class Commande
 	
 
 	
-	
+	/**************************************************************************************************************
+	 * 
+	 * 
+	 * 		debbug pour voir ce que ca choppe reellement 
+	 * 
+	 * 
+	 * 
+	 * ***************************************************************************************************************/
 	
 	
 
 	public void getListCdeByClient()
 	{
+	
 		
 		List<Commande> list =this.findAll();
+				
 	
-		JOptionPane.showMessageDialog(null, "taille list getcde ds commande"+this.findAll().size());
+		//JOptionPane.showMessageDialog(null, "taille list getcde ds commande"+this.findAll().size());
+		
+		
 		for(Commande cde : list)
 		{
-			if(cde.getP().getId() == cde.getId())
+			//id personne oki 
+			if(cde.getP().getId()== this.id)
 			{
 				this.cdeL.add(cde);
 			}
-			//debug pr voir les recherche d id 
-			//JOptionPane.showMessageDialog(null, "cde.getP().getId()  id pers"+cde.getP().getId()+ "thi id" +cde.getId());
 			
+			JOptionPane.showMessageDialog(null, "id cde  "+cde.getId());
 				
 		}
-		JOptionPane.showMessageDialog(null, "taille list de la cde apres verif "+cdeL.size());
+		//JOptionPane.showMessageDialog(null, "taille list de la cde apres verif "+cdeL.size());
 		
 	}
 	public List<Commande> getCdeL() 
 	{
 		return cdeL;
 	}
-	public void setCdeL(List<Commande> cdeL) {
+	public void setCdeL(List<Commande> cdeL) 
+	{
 		this.cdeL = cdeL;
 	}
 	

@@ -142,7 +142,7 @@ public class ReservationSalle extends JFrame
 
 			JButton btnR = new JButton("REVENIR AU MENU ");
 			btnR.setBackground(Color.DARK_GRAY);
-			btnR.setForeground(Color.WHITE);
+			btnR.setForeground(Color.YELLOW);
 			btnR.addActionListener(new ActionListener() 
 			{
 				public void actionPerformed(ActionEvent e) 
@@ -201,6 +201,7 @@ public class ReservationSalle extends JFrame
 			textPx.setColumns(10);
 			/* btn qui globalise la totaliyé de la reservation de salle*/
 			JButton add = new JButton("AJOUTER");
+			add.setForeground(Color.YELLOW);
 			add.setBackground(Color.DARK_GRAY);
 			add.setBounds(265, 620, 273, 27);
 			panel.add(add);
@@ -496,24 +497,33 @@ public class ReservationSalle extends JFrame
 		 * 
 		 * ***************************************************************/
 		 diam = new JLabel("DIAMANT");
+		 diam.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
+		 diam.setForeground(Color.RED);
 		diam.setBounds(21, 491, 63, 14);
 		panel.add(diam);
 		
 		 argent = new JLabel("ARGENT");
+		 argent.setForeground(Color.RED);
+		 argent.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
 		argent.setBounds(116, 491, 46, 14);
 		panel.add(argent);
 		
 		 or_ = new JLabel("OR");
+		 or_.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
+		 or_.setForeground(Color.RED);
 		or_.setBounds(321, 493, 46, 14);
 		panel.add(or_);
 		
 		bronze = new JLabel("BRONZE");
+		bronze.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 11));
+		bronze.setForeground(Color.RED);
 		bronze.setBounds(204, 491, 46, 14);
 		panel.add(bronze);
 		
 		debout = new JLabel("DEBOUT");
-		debout.setFont(new Font("Yu Gothic", Font.PLAIN, 11));
-		debout.setBounds(229, 555, 121, 14);
+		debout.setForeground(Color.RED);
+		debout.setFont(new Font("Yu Gothic", Font.BOLD | Font.ITALIC, 11));
+		debout.setBounds(229, 546, 121, 23);
 		panel.add(debout);
 		
 		
@@ -565,6 +575,21 @@ public class ReservationSalle extends JFrame
 		spect_enre.setBounds(308, 287, 222, 14);
 		panel.add(spect_enre);
 		
+		
+		
+		/********************************************************************************************************************************************
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 	bouton de debbug pr test un a un les ajouts 
+		 * 
+		 * 
+		 * 
+		 * **************************************************************************************************************************************************/
+		
+		
+		
 		JButton btnNewButton = new JButton("addRepresentation");
 		btnNewButton.addActionListener(new ActionListener() 
 		{
@@ -574,10 +599,13 @@ public class ReservationSalle extends JFrame
 				
 			}
 		});
+		
 		btnNewButton.setBounds(356, 365, 89, 23);
 		panel.add(btnNewButton);
 		/* DEBUG */
-		JButton btnNewButton_1 = new JButton("addConfig");
+		
+		
+		JButton btnNewButton_1 = new JButton("addConfiguration");
 		btnNewButton_1.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e) 
@@ -589,7 +617,7 @@ public class ReservationSalle extends JFrame
 		btnNewButton_1.setBounds(441, 365, 89, 23);
 		panel.add(btnNewButton_1);
 		
-		addResc = new JButton("addReserv");
+		addResc = new JButton("addReservation");
 		addResc.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e) 
@@ -606,7 +634,13 @@ public class ReservationSalle extends JFrame
 		});
 		addResc.setBounds(265, 365, 89, 23);
 		panel.add(addResc);
-		
+		/********************************************************************************************************
+		 * 
+		 * 
+		 * 
+		 * 		pour mettre a jour les spectacles si l org en ajoute un 
+		 * 
+		 * ********************************************************************************************************/
 		JButton refresh = new JButton("rafraichir Spectcle ");
 		refresh.addActionListener(new ActionListener() 
 		{
@@ -616,18 +650,22 @@ public class ReservationSalle extends JFrame
 					// ca refresh bien la combobox apres ajout 
 			}
 		});
-		refresh.setBounds(279, 333, 148, 23);
+		refresh.setBounds(382, 333, 148, 23);
 		panel.add(refresh);
 		
 		
-		
-		
+		/*********************************************************************************************
+		 * 
+		 *   debbug planning pr voir si on choppe bien les id 
+		 * 
+		 * ***************************************************************************************/
+		/*
 		cbPl = new JComboBox();
 		cbPl.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		cbPl.setBounds(275, 401, 257, 22);
 		panel.add(cbPl);
 		
-		
+		*/
 		
 		
 		clear();
@@ -645,7 +683,7 @@ public class ReservationSalle extends JFrame
 		
 		
 		createCombobox() ;
-		createComboboxPl() ;
+		//createComboboxPl() ;
 		addRepresentation();
 		
 		
@@ -820,7 +858,7 @@ public class ReservationSalle extends JFrame
 		for (Artiste artiste : artisteSlect) 
 		{
 			
-			artiste.setSpect(spectacle);
+		
 
 			artiste.create();
 		}
@@ -1037,7 +1075,9 @@ public class ReservationSalle extends JFrame
 	private void addConfiguration() 
 	{
 		String description = description_.getText();
-		Configuration configuration = new Configuration(description, place, spectacle);
+		
+		// trouver un systeme av le spectacle 
+		Configuration configuration = new Configuration(description, place);
 			boolean oki = configuration.create();
 			if (oki) 
 			{

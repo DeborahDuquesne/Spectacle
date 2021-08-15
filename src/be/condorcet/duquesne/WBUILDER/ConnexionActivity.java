@@ -27,8 +27,14 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.UIManager;
-public class ConnexionActivity extends JFrame {
+public class ConnexionActivity extends JFrame 
+{
 
+	/*********************************************************************************
+	 * 
+	 * nle clic sur le btn permet l acces a la page de connexion
+	 * 
+	 ************************************************************************************/
 	private JPanel contentPane;
 
 	
@@ -74,13 +80,25 @@ public class ConnexionActivity extends JFrame {
 		panel_1.setBounds(22, 10, 662, 371);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
+		/***********************************************************************************************************
+		 * 
+		 * 
+		 * pour se connecter il faudra choisir son statut 
+		 * si la personne se trompe mais quelle rentre qd meme des infos presentes ds la db ca ne marchera pas 
+		 * car on verif sur le speud, le mdp et le statut 
+		 * 
+		 * 
+		 * 
+		 * **********************************************************************************************************/
 		
 		JButton btnClient = new JButton("CLIENT");
 		btnClient.setForeground(UIManager.getColor("CheckBox.focus"));
 		btnClient.setFont(new Font("Yu Gothic UI", Font.PLAIN, 15));
 		btnClient.setBackground(Color.DARK_GRAY);
-		btnClient.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnClient.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
 				LoginByStatus page = new LoginByStatus(Client.statut);
 				page.setVisible(true);
 				activity.dispose();
@@ -97,7 +115,8 @@ public class ConnexionActivity extends JFrame {
 		panel_1.add(btnOrga);
 		btnOrga.addActionListener(new ActionListener()
 		{
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) 
+			{
 				LoginByStatus page = new LoginByStatus(Organisateur.statut);
 				page.setVisible(true);
 				
@@ -140,7 +159,8 @@ public class ConnexionActivity extends JFrame {
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Enregistrement en tant que :");
+		
+		JLabel lblNewLabel = new JLabel("Connexion en tant que :");
 		lblNewLabel.setBackground(UIManager.getColor("Button.light"));
 		lblNewLabel.setForeground(UIManager.getColor("Button.highlight"));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -156,7 +176,8 @@ public class ConnexionActivity extends JFrame {
 		panel_1.add(btnsaitPas);
 		btnsaitPas.addActionListener(new ActionListener() 
 		{
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) 
+			{
 				InscriptionInfo page = new InscriptionInfo();
 				page.setVisible(true);
 				activity.dispose();
@@ -165,6 +186,7 @@ public class ConnexionActivity extends JFrame {
 
 		
 		JButton btnManager = new JButton("MANAGER");
+		btnManager.setBackground(Color.DARK_GRAY);
 		btnManager.setForeground(UIManager.getColor("CheckBox.focus"));
 		btnManager.setFont(new Font("Yu Gothic UI", Font.PLAIN, 15));
 		btnManager.setBounds(445, 168, 136, 57);

@@ -17,32 +17,38 @@ public class Spectacle
 			.DAO_FACTORY);
 	private final DAO<Spectacle> spectacleDAO = dao.getSpectacleDAO();
 	
-	
+
+	/******************************************************************************************
+	 * 
+	 * attributs
+	 * 
+	 * **************************************************************************************/
 	private int id;
 	private String libel;
 	private int nombrePlaceParClient;
 	private String description;
 	private String genre;
 	private String urlImg;
-	
+	// attr referent 
 	private Representation rep = new Representation();// dfr eln autre 
 	private Configuration config = new Configuration();
+	
+	
 	// prendre les representations corr au spectacle
 	List<Representation> reList = new LinkedList<>();
 	List<Configuration>cfgList = new LinkedList<>();
 	List<Spectacle> re = new LinkedList<>();
 	
-	public Configuration getConfig() 
-	{
-		return config;
-	}
+
+	/******************************************************************************************
+	 * 
+	 * les ctr 
+	 * 
+	 * **************************************************************************************/
 	
 
+	public Spectacle() {}
 	
-	
-	public Spectacle() 
-	{	
-	};
 	public Spectacle(int id) 
 	{
 		this.id=id;
@@ -123,6 +129,18 @@ public class Spectacle
 		this.libel = libel;
 		
 	}
+	/******************************************************************************************
+	 * 
+	 * les setter getter
+	 * 
+	 * **************************************************************************************/
+	
+	
+	public Configuration getConfig() 
+	{
+		return config;
+	}
+	
 
 	
 	public Representation getRep() 
@@ -131,7 +149,8 @@ public class Spectacle
 		return this.rep;
 	}
 
-	public void setRep(Representation rep) {
+	public void setRep(Representation rep) 
+	{
 		this.rep = rep;
 	}
 
@@ -174,19 +193,23 @@ public class Spectacle
 		this.id = id;
 	}
 
-	public String getLibel() {
+	public String getLibel()
+	{
 		return this.libel;
 	}
 
-	public void setLibel(String libel) {
+	public void setLibel(String libel) 
+	{
 		this.libel = libel;
 	}
 
-	public int getNombrePlaceParClient() {
+	public int getNombrePlaceParClient() 
+	{
 		return this.nombrePlaceParClient;
 	}
 
-	public void setNombrePlaceParClient(int nombrePlaceParClient) {
+	public void setNombrePlaceParClient(int nombrePlaceParClient) 
+	{
 		this.nombrePlaceParClient = nombrePlaceParClient;
 	}
 
@@ -200,15 +223,18 @@ public class Spectacle
 		return genre;
 	}
 
-	public void setGenre(String genre) {
+	public void setGenre(String genre) 
+	{
 		this.genre = genre;
 	}
 
-	public String getUrlImg() {
+	public String getUrlImg()
+	{
 		return urlImg;
 	}
 
-	public void setUrlImg(String urlImg) {
+	public void setUrlImg(String urlImg) 
+	{
 		this.urlImg = urlImg;
 	}
 
@@ -216,7 +242,30 @@ public class Spectacle
 	{
 		this.description = description;
 	}
-
+	
+	public List<Representation> getRepresentationList()
+	{
+		return reList;
+	}
+	
+	public List<Configuration> getConfigList()
+	{
+		return cfgList;
+	}
+	
+	public void setConfig(Configuration config)
+	{
+		this.config = config;
+	}
+	public List<Configuration> getCfgList() 
+	{
+		return cfgList;
+	}
+	public void setCfgList(List<Configuration> cfgList) 
+	{
+		this.cfgList = cfgList;
+	}
+	// affich=gage de l objet 
 	@Override
 	public String toString() 
 	{
@@ -225,14 +274,29 @@ public class Spectacle
 		
 	}
 	
+	/********************************************************************************************************************
+	 * 
+	 * 
+	 * 
+	 *   creation d un  spectacle 
+	 * 
+	 * 
+	 * 
+	 * @return
+	************************************************************************************************************************ */
 
 	public boolean create() 
 	{
 		return this.spectacleDAO.create(this);
 
 	}
-// ca liste tous les spectacles  a titre d essai pr la page sans connexion 
-	
+
+	/***********************************************************************************************************************
+	 * 
+	 *  liste spectzcle ans jonture a titre de test debbug
+	 * 
+	 * 
+	 * *********************************************************************************************************************/
 	public List<Spectacle> findAll_ ()
 	{
 		return (List<Spectacle>) spectacleDAO.getAll(this);
@@ -243,7 +307,13 @@ public class Spectacle
 	
 	
 
-	/* cette liste contient les spectacles vec ttes les jointures */
+	/*************************************************************************************************************************
+	 * 
+	 * 
+	 *   liste des spectacle avec ttes les jointures 
+	 * 
+	 * 
+	 * *************************************************************************************************************************/
 	public List<Spectacle> findAll()
 	{
 		return (List<Spectacle>) spectacleDAO.findAll(this);
@@ -251,34 +321,14 @@ public class Spectacle
 	}
 	
 	
-	public List<Representation> getRepresentationList()
-	{
-		return reList;
-	}
 	
-	public List<Configuration> getConfigList(){
-		return cfgList;
-	}
-	public void display()
-	{
-		 List<Representation> list = rep.findAll();
-		 for(Representation res : list) 
-		 {
-			 System.out.println(res);
-			// JOptionPane.showMessageDialog(null," "+res);
-		 }
-	}
 	
-	public void setConfig(Configuration config) {
-		this.config = config;
-	}
-	public List<Configuration> getCfgList() {
-		return cfgList;
-	}
-	public void setCfgList(List<Configuration> cfgList) {
-		this.cfgList = cfgList;
-	}
-	
+	/***********************************************************************************************
+	 * 
+	 * 
+	 * liste des representations en fct du spectacle 
+	 * 
+	 * *********************************************************************************************/
 	public void getListRepresentationBySpectacle()
 	{
 		rep = new Representation();
@@ -415,6 +465,23 @@ public class Spectacle
 		
 	}
 	
+	
+	/*************************************************************************
+	 * 
+	 * 
+	 *  a titre des test debbug
+	 * 
+	 * *******************************************************************/
+	
+	public void display()
+	{
+		 List<Representation> list = rep.findAll();
+		 for(Representation res : list) 
+		 {
+			 System.out.println(res);
+			// JOptionPane.showMessageDialog(null," "+res);
+		 }
+	}
 	
 }
 		

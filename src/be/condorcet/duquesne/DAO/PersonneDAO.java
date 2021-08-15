@@ -41,15 +41,57 @@ public class PersonneDAO implements DAO<Personne>
 
 	/***********************************************************************************************
 	 * 
-	 * j ai besoin de l id de la personne pr lister ds commande je possede rien du client car aux joyeux liens
+	 * fct a titre de test 
 	 * 
 	 * 
 	 * 
 	 * ***********************************************************************************************/
 	@Override
-	public List<Commande> findAll(Personne p) 
+	public List<Personne > findAll(Personne p) 
 	{
-		return null;
+		List<Personne> list = new ArrayList<Personne>();
+		String sql = "SELECT  * FROM Commande_ inner join personne_ "
+				+ "on personne_.\"id\" = commande_.\"fk_pers\" WHERE \"fk_pers\"='"
+				+ p.getId() + "'";
+		
+		try 
+		{
+			
+			//JOptionPane.showMessageDialog(null, "id de la personne ds dao cde   "+c.getP().getId()); ca renvoie bien 
+			
+			ResultSet rs = this.con_.createStatement().executeQuery(sql);
+		
+			while (rs.next()) 
+			{
+				int id =rs.getInt(1);
+				payement paie= payement.valueOf(rs.getString(2));
+				String preci= rs.getString(3);
+				livraison mL= livraison.valueOf(rs.getString(4));
+				Float t= rs.getFloat(5);
+				int fkp=rs.getInt(6);
+				
+				//public Personne(int id,nom)
+				int idP = rs.getInt(7);
+				String nom=rs.getString(14);
+				
+				
+			p= new Personne( id,nom);
+		
+				
+				
+					
+				
+				
+						
+						
+			}
+
+		} catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
 	
 	public List<Client> findAllClient(Personne p) 
@@ -202,6 +244,17 @@ public class PersonneDAO implements DAO<Personne>
 	
 	
 	// j ai des \"\" car j ai configuré ma base de données d une façon spécifique 
+	/***********************************************************************************************************************
+	 * 
+	 * la fct se nomme login mais on est dans un crud cad un select dans personne avec condition sur le speudo,le mdp et le statut 
+	 * on est au courant que le DAO N EST PAS UNE CLASSE POUBELLE
+	 * on peut nommer la fct findBySpeudo si ça donne des frustrations ;)
+	 * 
+	 * 
+	 * 
+	 * @param personne
+	 * @return
+	 **********************************************************************************************************************/
 	
 	public boolean login(Personne personne) 
 	{
@@ -324,12 +377,28 @@ where commande_."fk_pers"=13 and "statut" ='CLIENT';*/
 	 * 
 	 * 
 	 *************************************************************************************************************************************/
-	public Personne find_(Personne p)
+	public Personne findToOrder(int id )
 	{
-	 
-		
-			
-			return null;
+		Personne p= new Personne();
+		try 
+		{
+			ResultSet result = this.con_.createStatement()
+					.executeQuery("SELECT * FROM PERSONNE_ WHERE \"id\" = '" 
+					+id
+					
+					+ "'"
+				);
+			if (result.next()) 
+			{
+				return p;
+			}
+
+		}
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return p;
 	}
 	
 	/*a titre de test de debbug */
@@ -588,29 +657,32 @@ where commande_."fk_pers"=13 and "statut" ='CLIENT';*/
 	    }
 	 
 	@Override
-	public boolean create(Personne obj) {
+	public boolean create(Personne obj) 
+	{
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 
 	@Override
-	public List getAll(Personne object) {
-		// TODO Auto-generated method stub
+	public List getAll(Personne object) 
+	{
 		return null;
 	}
 
 
 
 	@Override
-	public boolean create(Personne obj, int id) {
+	public boolean create(Personne obj, int id) 
+	{
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 
 	@Override
-	public int findByLast(Personne s) {
+	public int findByLast(Personne s) 
+	{
 		// TODO Auto-generated method stub
 		return 0;
 	}

@@ -7,32 +7,25 @@ public class Organisateur extends Personne
 private final AbstractFactoryDAO dao = AbstractFactoryDAO.getFactory(AbstractFactoryDAO.DAO_FACTORY);
 	
 	protected final PersonneDAO pDAO = dao.getPersonneDAO();
-	
+	/*****************************************************************************************************
+	 *  les attributs 
+	 *
+	 ******************************************************************************************************/
 	public final static String statut = "ORGANISATEUR";
 	private String nominationEntreprise;
 	private String numEntreprise;
-	public String getNominationEntreprise() {
-		return nominationEntreprise;
-	}
-	public void setNominationEntreprise(String nominationEntreprise) {
-		this.nominationEntreprise = nominationEntreprise;
-	}
-	public Spectacle getSpect() {
-		return spect;
-	}
-	public void setSpect(Spectacle spect) {
-		this.spect = spect;
-	}
-	public String getNumEntreprise() {
-		return numEntreprise;
-	}
-	public void setNumEntreprise(String numEntreprise) {
-		this.numEntreprise = numEntreprise;
-	}
-	private Spectacle spect;
-	public Organisateur() {
+	
+
+	/***********************************************************************************************************************
+	 * 
+	 * 
+	 *  les ctr 
+	 * 
+	 * 
+	 * **********************************************************************************************************************/
+	public Organisateur() {}
 		
-	}
+	
 	public Organisateur(int id, String s, String mdp, String statut) {
 		super(id, s, mdp, statut);
 		// TODO Auto-generated constructor stub
@@ -61,12 +54,59 @@ private final AbstractFactoryDAO dao = AbstractFactoryDAO.getFactory(AbstractFac
 		this.nominationEntreprise=nomm;
 		
 	}
-
+	
+	/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	 * 
+	 * 
+	 * Getter setter
+	 * 
+	 * 
+	 * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+	
+	public String getNominationEntreprise() 
+	{
+		return nominationEntreprise;
+	}
+	public void setNominationEntreprise(String nominationEntreprise) 
+	{
+		this.nominationEntreprise = nominationEntreprise;
+	}
+	public Spectacle getSpect() 
+	{
+		return spect;
+	}
+	public void setSpect(Spectacle spect) {
+		this.spect = spect;
+	}
+	public String getNumEntreprise() {
+		return numEntreprise;
+	}
+	public void setNumEntreprise(String numEntreprise) {
+		this.numEntreprise = numEntreprise;
+	}
+	private Spectacle spect;
+	
+	
+	/**********************************************************************************************************************
+	 * 
+	 *  inscription de l org 
+	 * 
+	 * 
+	 *****************************************************************************************************************/
 	@Override
 	public boolean register() 
 	{
 		return pDAO.create(((Organisateur) this));
 	}
+
+
+	@Override
+	public String toString() 
+	{
+		return "No: " +id + "  " + this.nom + " " + this.prenom ;
+	}
+	
+	
 	
 	
 }
